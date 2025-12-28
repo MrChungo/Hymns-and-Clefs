@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://dul2fujevqvbb"]
+[gd_scene load_steps=2 format=3 uid="uid://dul2fujevqvbb"]
+
+[ext_resource type="Script" uid="uid://dh0oo73ys3rt6" path="res://Scripts/deck_and_card_scripts/deck.gd" id="1_tkv3p"]
 
 [node name="Deck" type="Node"]
+script = ExtResource("1_tkv3p")
