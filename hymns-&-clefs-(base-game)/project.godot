@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="Hymns & Clefs (base game)"
+run/main_scene="uid://8wr6ncq3kofp"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/borderless=true
+window/vsync/vsync_mode=0
 
 [dotnet]
 
