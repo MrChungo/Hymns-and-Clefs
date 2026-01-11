@@ -1,18 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://8wr6ncq3kofp"]
 
-[sub_resource type="Gradient" id="Gradient_kudhx"]
-colors = PackedColorArray(0.4745098, 0.42745098, 0.6862745, 1, 0, 0.78202474, 0.60188884, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_pnb5n"]
-gradient = SubResource("Gradient_kudhx")
+[ext_resource type="Script" uid="uid://cy608f0k3hwoj" path="res://Scripts/deck_and_card_scripts/card.gd" id="1_xqq75"]
+[ext_resource type="Resource" uid="uid://bv5tnesenx34d" path="res://Resources/Card/Common_Rarity/clumsy_shield.tres" id="2_uvj44"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uvj44"]
 size = Vector2(64, 64)
 
 [node name="Card" type="Node2D"]
+script = ExtResource("1_xqq75")
+stats = ExtResource("2_uvj44")
 
 [node name="CardImage" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_pnb5n")
 
 [node name="Area2D" type="Area2D" parent="."]
 

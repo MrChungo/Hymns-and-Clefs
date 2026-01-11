@@ -23,3 +23,7 @@ window/vsync/vsync_mode=0
 [dotnet]
 
 project/assembly_name="Hymns & Clefs (base game)"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

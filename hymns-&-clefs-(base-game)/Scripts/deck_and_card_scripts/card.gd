@@ -1,5 +1,6 @@
-extends Sprite2D
+extends Node2D
 
+@export var stats : card_resource
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
