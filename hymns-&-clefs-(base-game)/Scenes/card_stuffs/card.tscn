@@ -1,18 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://8wr6ncq3kofp"]
+[gd_scene load_steps=6 format=3 uid="uid://8wr6ncq3kofp"]
 
 [ext_resource type="Script" uid="uid://cy608f0k3hwoj" path="res://Scripts/deck_and_card_scripts/card.gd" id="1_xqq75"]
-[ext_resource type="Resource" uid="uid://bv5tnesenx34d" path="res://Resources/Card/Common_Rarity/clumsy_shield.tres" id="2_uvj44"]
+[ext_resource type="Script" uid="uid://sgfc57h1wefs" path="res://Resources/Card/card_resource.gd" id="2_uvj44"]
+[ext_resource type="Texture2D" uid="uid://1mirlmysyyot" path="res://Assets/Sprites/Cards/Debug_Card.png" id="3_i1u7g"]
+
+[sub_resource type="Resource" id="Resource_i1u7g"]
+script = ExtResource("2_uvj44")
+metadata/_custom_type_script = "uid://sgfc57h1wefs"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uvj44"]
 size = Vector2(64, 64)
 
 [node name="Card" type="Node2D"]
 script = ExtResource("1_xqq75")
-stats = ExtResource("2_uvj44")
+stats = SubResource("Resource_i1u7g")
 
 [node name="CardImage" type="Sprite2D" parent="."]
+texture = ExtResource("3_i1u7g")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_uvj44")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

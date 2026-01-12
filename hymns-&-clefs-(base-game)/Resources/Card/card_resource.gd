@@ -2,7 +2,7 @@ extends Resource
 class_name card_resource
 
 @export var texture: Texture2D
-@export_range(1,3) var rarity: int
+@export_range(0,3) var rarity: int
 # price should be 3x the rarity level
 @export var price: int
 

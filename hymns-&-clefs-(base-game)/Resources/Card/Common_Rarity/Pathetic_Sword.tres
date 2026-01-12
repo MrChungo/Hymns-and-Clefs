@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="card_resource" load_steps=3 format=3 uid="uid://63u2h2psqqc4"]
+
+[ext_resource type="Script" uid="uid://sgfc57h1wefs" path="res://Resources/Card/card_resource.gd" id="1_amotl"]
+[ext_resource type="Texture2D" uid="uid://ctdx4unl8o1n4" path="res://icon.svg" id="2_k1gd2"]
+
+[resource]
+script = ExtResource("1_amotl")
+texture = ExtResource("2_k1gd2")
+price = 3
+attack_points = 1
+metadata/_custom_type_script = "uid://sgfc57h1wefs"

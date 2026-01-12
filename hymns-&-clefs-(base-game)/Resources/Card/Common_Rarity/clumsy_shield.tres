@@ -7,6 +7,6 @@
 script = ExtResource("1_7cv8u")
 texture = ExtResource("2_7cv8u")
 rarity = 1
-price = 2
+price = 3
 shield_points = 1
 metadata/_custom_type_script = "uid://sgfc57h1wefs"
