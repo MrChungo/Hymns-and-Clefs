@@ -3,13 +3,13 @@ Using tutorial to base card logic
 
 https://www.youtube.com/watch?v=2jMcuKdRh2w
 '''
-
 extends Node2D
 
 const COLLISION_MASK_CARD = 1
 
 var screen_size
 var card_being_dragged
+var is_hovering_on_card
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,6 +31,25 @@ func _input(event):
 				card_being_dragged = card
 		else:
 			card_being_dragged = null
+
+func connect_card_signals(card):
+	card.connect("card_hovered", on_hovered_over_card)
+	card.connect("card_hovered_off", on_hovered_off_card)
+
+func on_hovered_over_card(card):
+	highlight_card(card,true)
+
+func on_hovered_off_card(card):
+	highlight_card(card,false)
+
+func highlight_card(card, hovered):
+	if hovered:
+		card.scale = Vector2(1.05,1.05)
+		card.z_index = 2
+	else:
+		card.scale = Vector2(1,1)
+		card.z_index = 1
+		
 
 
 func raycast_check_for_card():
