@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dklw0ow2g53n1"]
+[gd_scene load_steps=4 format=3 uid="uid://dklw0ow2g53n1"]
 
 [ext_resource type="Script" uid="uid://dh4505vbdhrvu" path="res://Scripts/deck_and_card_scripts/hand.gd" id="1_d2nha"]
+[ext_resource type="PackedScene" uid="uid://8wr6ncq3kofp" path="res://Scenes/card_stuffs/card.tscn" id="2_i3b64"]
 [ext_resource type="Script" uid="uid://d1ds7e5e3kdl2" path="res://Scripts/deck_and_card_scripts/card_manager.gd" id="2_mmhc5"]
 
 [node name="Hand" type="Node2D"]
@@ -8,3 +9,6 @@ script = ExtResource("1_d2nha")
 
 [node name="card_manager" type="Node2D" parent="."]
 script = ExtResource("2_mmhc5")
+
+[node name="Card" parent="card_manager" instance=ExtResource("2_i3b64")]
+position = Vector2(357, 131)
