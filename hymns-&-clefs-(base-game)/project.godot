@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Hymns & Clefs (base game)"
-run/main_scene="uid://8wr6ncq3kofp"
+run/main_scene="uid://c81dqycn5bjja"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -23,3 +23,7 @@ window/vsync/vsync_mode=0
 [dotnet]
 
 project/assembly_name="Hymns & Clefs (base game)"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

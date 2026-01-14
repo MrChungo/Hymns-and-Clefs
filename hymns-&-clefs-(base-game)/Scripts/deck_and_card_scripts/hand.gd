@@ -1,47 +1,63 @@
-'''
-Using tutorial to base card logic
-
-https://www.youtube.com/watch?v=2jMcuKdRh2w
-'''
-
 extends Node2D
 
-const COLLISION_MASK_CARD = 1
+const HAND_COUNT := 8
+const CARD_SCENE_PATH := "res://Scenes/card_stuffs/card.tscn"
+const CARD_WIDTH := 100 # THIS IS A MAGICAL NUMBER PLZ SEE IF CAN NOT HARD CODE
+const HAND_Y_POSITION := 500
+const CARD_ANIMATION_SPEED := 0.1 # idk if the name works super well but for now it does the job
 
-var screen_size
-var card_being_dragged
+var player_hand = []
+var center_screen_x
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	screen_size = get_viewport_rect().size
+	center_screen_x = get_viewport().size.x / 2
+	
+	var card_scene = preload(CARD_SCENE_PATH)
+	for i in range(HAND_COUNT):
+		var new_card = card_scene.instantiate()
+		$card_manager.add_child(new_card)
+		new_card.name = "Card"
+		add_card_to_hand(new_card)
+
+
+func add_card_to_hand(card):
+	if card not in player_hand:
+		player_hand.insert(0, card)
+		update_hand_positions()
+	else:
+		animate_card_to_position(card, card.position_in_hand)
+
+
+func update_hand_positions():
+	for i in range(player_hand.size()):
+		#get new card position based on index
+		var new_position = Vector2(calculate_card_position(i), HAND_Y_POSITION)
+		var card = player_hand[i]
+		card.position_in_hand = new_position
+		animate_card_to_position(card, new_position)
+
+func calculate_card_position(index):
+	var total_width = (player_hand.size() -1) * CARD_WIDTH
+	var x_offset = center_screen_x + (index * CARD_WIDTH) - (total_width / 2)
+	return x_offset
+
+func animate_card_to_position(card, new_position):
+	var tween = get_tree().create_tween()
+	tween.tween_property(card, "position", new_position, CARD_ANIMATION_SPEED)
+
+func remove_card_from_hand(card):
+	if card in player_hand:
+		player_hand.erase(card)
+		update_hand_positions()
+
+
+
+
+
+
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	if card_being_dragged:
-		var mouse_pos = get_global_mouse_position()
-		card_being_dragged.position = Vector2(clamp(mouse_pos.x,0, screen_size.x),clamp(mouse_pos.y,0, screen_size.y))
-
-func _input(event):
-	#checks list of all events (key inputs)
-	#checks the type of event (use this for later reference)
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
-			var card = raycast_check_for_card()
-			if card:
-				card_being_dragged = card
-		else:
-			card_being_dragged = null
-
-
-func raycast_check_for_card():
-	#checks if card is below mouse position
-	var space_state = get_world_2d().direct_space_state
-	var parameters = PhysicsPointQueryParameters2D.new()
-	parameters.position = get_global_mouse_position()
-	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_CARD
-	var result = space_state.intersect_point(parameters)
-	if result.size() > 0:
-		return result[0].collider.get_parent()
-	else:
-		return null
+func _process(delta: float) -> void:
+	pass
