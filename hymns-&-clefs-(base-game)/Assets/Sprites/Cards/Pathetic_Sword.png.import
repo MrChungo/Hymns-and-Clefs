@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://beqqjwf20v1l2"
-path="res://.godot/imported/Debug_Card.png-d29201666a8822271f0fc0253bf93716.ctex"
+uid="uid://clvejydl2knua"
+path="res://.godot/imported/Pathetic_Sword.png-4db5de52782bf28c3ffe1d5db8ea82db.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Cards/Debug_Card.png"
-dest_files=["res://.godot/imported/Debug_Card.png-d29201666a8822271f0fc0253bf93716.ctex"]
+source_file="res://Assets/Sprites/Cards/Pathetic_Sword.png"
+dest_files=["res://.godot/imported/Pathetic_Sword.png-4db5de52782bf28c3ffe1d5db8ea82db.ctex"]
 
 [params]
 

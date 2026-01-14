@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://c81dqycn5bjja"]
+[gd_scene load_steps=4 format=3 uid="uid://c81dqycn5bjja"]
 
 [ext_resource type="PackedScene" uid="uid://dul2fujevqvbb" path="res://Scenes/card_stuffs/deck.tscn" id="1_h8jgs"]
 [ext_resource type="PackedScene" uid="uid://dklw0ow2g53n1" path="res://Scenes/card_stuffs/hand.tscn" id="1_iqqcv"]
+[ext_resource type="PackedScene" uid="uid://bc446000gge8c" path="res://Scenes/card_stuffs/usedCardSlot.tscn" id="2_jgshu"]
 
 [node name="Battle" type="Node2D"]
 
 [node name="Deck" parent="." instance=ExtResource("1_h8jgs")]
+
+[node name="UsedCardSlot" parent="." instance=ExtResource("2_jgshu")]
+position = Vector2(586, 302)
 
 [node name="Hand" parent="." instance=ExtResource("1_iqqcv")]

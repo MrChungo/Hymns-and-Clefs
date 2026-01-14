@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7korvbixdu5j"
-path="res://.godot/imported/Common_Shield.png-f4276bddaccb527a37f5bb2be3fe9ac5.ctex"
+uid="uid://doyb78tv3yot5"
+path="res://.godot/imported/Clumsy_Shield.png-8886a258d0a7360a008224e194fa390b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Cards/Common_Shield.png"
-dest_files=["res://.godot/imported/Common_Shield.png-f4276bddaccb527a37f5bb2be3fe9ac5.ctex"]
+source_file="res://Assets/Sprites/Cards/Clumsy_Shield.png"
+dest_files=["res://.godot/imported/Clumsy_Shield.png-8886a258d0a7360a008224e194fa390b.ctex"]
 
 [params]
 
