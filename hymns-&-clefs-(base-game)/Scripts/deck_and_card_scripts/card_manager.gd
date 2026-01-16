@@ -7,8 +7,8 @@ https://www.youtube.com/watch?v=QmTXsm1Tohg
 '''
 extends Node2D
 
-const COLLISION_MASK_CARD = 1
-const COLLISION_MASK_CARD_SLOT = 2
+const COLLISION_MASK_CARD := 1
+const COLLISION_MASK_CARD_SLOT := 2
 
 var screen_size
 var card_being_dragged
