@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bc446000gge8c"]
 
-[ext_resource type="Texture2D" uid="uid://cu0xx65ba628n" path="res://Assets/Sprites/Cards/Card_Slot.png" id="1_4rg0o"]
 [ext_resource type="Script" uid="uid://2vowajiobf4q" path="res://Scripts/deck_and_card_scripts/used_card_slot.gd" id="1_8ss42"]
+[ext_resource type="Texture2D" uid="uid://b3p7vuqtrn4fs" path="res://Assets/Sprites/Cards/Card_Back.png" id="2_8ss42"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ss42"]
 size = Vector2(40, 60)
@@ -10,7 +10,7 @@ size = Vector2(40, 60)
 script = ExtResource("1_8ss42")
 
 [node name="UsedCardSlotImage" type="Sprite2D" parent="."]
-texture = ExtResource("1_4rg0o")
+texture = ExtResource("2_8ss42")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
