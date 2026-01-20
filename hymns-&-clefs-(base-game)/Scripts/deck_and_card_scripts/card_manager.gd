@@ -3,7 +3,10 @@ Using tutorial to base card logic
 
 can use this later to be able to choose cards (aka if you leave card
 in middle of screen you choose card)
-https://www.youtube.com/watch?v=QmTXsm1Tohg 
+
+
+LAST WORKED AT 6:18
+https://www.youtube.com/watch?v=riafP7MtvmQ
 '''
 extends Node2D
 
@@ -19,6 +22,7 @@ var player_hand_reference
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	player_hand_reference = $".."
+	$"../../InputManager".connect("left_mouse_button_released", on_left_click_released)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -26,6 +30,7 @@ func _process(_delta: float) -> void:
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x,0, screen_size.x),clamp(mouse_pos.y,0, screen_size.y))
 
+'''
 func _input(event):
 	#checks list of all events (key inputs)
 	#checks the type of event (use this for later reference)
@@ -37,7 +42,7 @@ func _input(event):
 		else:
 			if card_being_dragged:
 				finish_drag()
-
+'''
 
 func start_drag(card):
 	card_being_dragged = card
@@ -62,6 +67,10 @@ func finish_drag():
 func connect_card_signals(card):
 	card.connect("card_hovered", on_hovered_over_card)
 	card.connect("card_hovered_off", on_hovered_off_card)
+
+
+func on_left_click_released():
+	print("card manager left mouse released signal ")
 
 
 func on_hovered_over_card(card):
