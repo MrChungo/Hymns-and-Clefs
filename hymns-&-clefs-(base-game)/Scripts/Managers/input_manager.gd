@@ -4,20 +4,16 @@ signal left_mouse_button_clicked
 signal left_mouse_button_released
 
 const COLLISION_MASK_CARD := 1
-const COLLISION_MASK_DECK := 2
+const COLLISION_MASK_DECK := 4
 
 var card_manager_reference
 var deck_reference
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	card_manager_reference = $card_manager
+	card_manager_reference = $"../card_manager"
 	deck_reference = $"../Deck"
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 	
 	
 func _input(event):
@@ -49,5 +45,3 @@ func raycast_at_cursor():
 		elif result_collision_mask == COLLISION_MASK_DECK:
 			#deck clicked
 			deck_reference.draw_card()
-	else:
-		return null

@@ -21,8 +21,8 @@ var player_hand_reference
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	player_hand_reference = $".."
-	$"../../InputManager".connect("left_mouse_button_released", on_left_click_released)
+	player_hand_reference = $"../Hand"
+	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -30,19 +30,6 @@ func _process(_delta: float) -> void:
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x,0, screen_size.x),clamp(mouse_pos.y,0, screen_size.y))
 
-'''
-func _input(event):
-	#checks list of all events (key inputs)
-	#checks the type of event (use this for later reference)
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
-			var card = raycast_check_for_card()
-			if card:
-				start_drag(card)
-		else:
-			if card_being_dragged:
-				finish_drag()
-'''
 
 func start_drag(card):
 	card_being_dragged = card
@@ -70,7 +57,8 @@ func connect_card_signals(card):
 
 
 func on_left_click_released():
-	print("card manager left mouse released signal ")
+	if card_being_dragged:
+		finish_drag()
 
 
 func on_hovered_over_card(card):
