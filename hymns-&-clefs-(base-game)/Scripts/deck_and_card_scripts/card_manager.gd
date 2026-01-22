@@ -3,12 +3,15 @@ Using tutorial to base card logic
 
 can use this later to be able to choose cards (aka if you leave card
 in middle of screen you choose card)
-https://www.youtube.com/watch?v=QmTXsm1Tohg 
+
+
+LAST WORKED AT 6:18
+https://www.youtube.com/watch?v=riafP7MtvmQ
 '''
 extends Node2D
 
-const COLLISION_MASK_CARD = 1
-const COLLISION_MASK_CARD_SLOT = 2
+const COLLISION_MASK_CARD := 1
+const COLLISION_MASK_CARD_SLOT := 2
 
 var screen_size
 var card_being_dragged
@@ -18,25 +21,14 @@ var player_hand_reference
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	player_hand_reference = $".."
+	player_hand_reference = $"../Hand"
+	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x,0, screen_size.x),clamp(mouse_pos.y,0, screen_size.y))
-
-func _input(event):
-	#checks list of all events (key inputs)
-	#checks the type of event (use this for later reference)
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
-			var card = raycast_check_for_card()
-			if card:
-				start_drag(card)
-		else:
-			if card_being_dragged:
-				finish_drag()
 
 
 func start_drag(card):
@@ -53,7 +45,7 @@ func finish_drag():
 		card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
 		card_slot_found.card_in_slot = true
 	else:
-		player_hand_reference.add_card_to_hand(card_being_dragged)
+		player_hand_reference.add_card_to_hand(card_being_dragged, card_being_dragged.position_in_hand)
 	card_being_dragged = null
 	
 	
@@ -62,6 +54,11 @@ func finish_drag():
 func connect_card_signals(card):
 	card.connect("card_hovered", on_hovered_over_card)
 	card.connect("card_hovered_off", on_hovered_off_card)
+
+
+func on_left_click_released():
+	if card_being_dragged:
+		finish_drag()
 
 
 func on_hovered_over_card(card):

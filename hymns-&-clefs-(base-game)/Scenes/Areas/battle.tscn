@@ -1,14 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://c81dqycn5bjja"]
+[gd_scene load_steps=7 format=3 uid="uid://c81dqycn5bjja"]
 
+[ext_resource type="PackedScene" uid="uid://ct2tgcgnfh01i" path="res://Scenes/Managers/input_manager.tscn" id="1_6jolc"]
 [ext_resource type="PackedScene" uid="uid://dul2fujevqvbb" path="res://Scenes/card_stuffs/deck.tscn" id="1_h8jgs"]
 [ext_resource type="PackedScene" uid="uid://dklw0ow2g53n1" path="res://Scenes/card_stuffs/hand.tscn" id="1_iqqcv"]
 [ext_resource type="PackedScene" uid="uid://bc446000gge8c" path="res://Scenes/card_stuffs/usedCardSlot.tscn" id="2_jgshu"]
+[ext_resource type="Script" uid="uid://jeo7pbkic6gu" path="res://Scripts/Managers/input_manager.gd" id="2_u3xo8"]
+[ext_resource type="PackedScene" uid="uid://dj0n21bmv1fyn" path="res://Scenes/Managers/card_manager.tscn" id="3_u3xo8"]
 
 [node name="Battle" type="Node2D"]
 
+[node name="InputManager" parent="." instance=ExtResource("1_6jolc")]
+script = ExtResource("2_u3xo8")
+
+[node name="card_manager" parent="." instance=ExtResource("3_u3xo8")]
+
+[node name="Hand" parent="." instance=ExtResource("1_iqqcv")]
+
 [node name="Deck" parent="." instance=ExtResource("1_h8jgs")]
+position = Vector2(96, 389)
 
 [node name="UsedCardSlot" parent="." instance=ExtResource("2_jgshu")]
 position = Vector2(586, 302)
-
-[node name="Hand" parent="." instance=ExtResource("1_iqqcv")]
