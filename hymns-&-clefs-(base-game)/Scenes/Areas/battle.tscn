@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c81dqycn5bjja"]
+[gd_scene load_steps=7 format=3 uid="uid://cri5a32uv57us"]
 
 [ext_resource type="PackedScene" uid="uid://ct2tgcgnfh01i" path="res://Scenes/Managers/input_manager.tscn" id="1_6jolc"]
 [ext_resource type="PackedScene" uid="uid://dul2fujevqvbb" path="res://Scenes/card_stuffs/deck.tscn" id="1_h8jgs"]
