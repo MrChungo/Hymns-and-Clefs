@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b035neu7485fv"
-path="res://.godot/imported/wizard1.png-7ca74efc4102da3c44cc34d1cac0c0cf.ctex"
+uid="uid://cm8hqhpj28pvj"
+path="res://.godot/imported/uncommon_steel_sword.png-9645d0837541aa0e4149394687af865b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/player sprites/wizard1.png"
-dest_files=["res://.godot/imported/wizard1.png-7ca74efc4102da3c44cc34d1cac0c0cf.ctex"]
+source_file="res://Assets/Sprites/Cards/uncommon_steel_sword.png"
+dest_files=["res://.godot/imported/uncommon_steel_sword.png-9645d0837541aa0e4149394687af865b.ctex"]
 
 [params]
 

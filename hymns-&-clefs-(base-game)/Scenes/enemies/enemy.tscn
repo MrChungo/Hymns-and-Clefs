@@ -1,5 +1,6 @@
-[gd_scene load_steps=25 format=3 uid="uid://448b5kjxjtf5"]
+[gd_scene load_steps=26 format=3 uid="uid://448b5kjxjtf5"]
 
+[ext_resource type="Script" uid="uid://phjudrxbb67p" path="res://Scenes/enemies/enemy.gd" id="1_slefu"]
 [ext_resource type="Texture2D" uid="uid://dfxe0e1hdty4e" path="res://Assets/Sprites/enemy sprite/enemy_tamborine.png" id="1_wbq3y"]
 [ext_resource type="Texture2D" uid="uid://cmhlm4pcjy1ld" path="res://Assets/Sprites/enemy sprite/enemy_recorder.png" id="2_we58l"]
 [ext_resource type="Texture2D" uid="uid://c40r7bsxjwk31" path="res://Assets/Sprites/enemy sprite/enemy_triangle.png" id="3_slefu"]
@@ -150,6 +151,7 @@ animations = [{
 }]
 
 [node name="Enemy" type="Node2D"]
+script = ExtResource("1_slefu")
 
 [node name="enemy_texture" type="AnimatedSprite2D" parent="."]
 position = Vector2(57.000004, 48)
@@ -163,7 +165,7 @@ scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_c14y3")
 autoplay = "default"
 
-[node name="enemy_textre3" type="AnimatedSprite2D" parent="."]
+[node name="enemy_texture3" type="AnimatedSprite2D" parent="."]
 position = Vector2(247.99998, 97.99999)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_74c38")
