@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Hymns & Clefs (base game)"
-run/main_scene="uid://dklw0ow2g53n1"
+run/main_scene="uid://cri5a32uv57us"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
