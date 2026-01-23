@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bys0uidt8s34i"]
+
+[ext_resource type="Script" uid="uid://ptccxnqtivcl" path="res://Scripts/player scripts/player.gd" id="1_8p05u"]
+[ext_resource type="Texture2D" uid="uid://dgw4jqwg301qu" path="res://Assets/Sprites/player sprites/wizard.png" id="2_eo61r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxepk"]
+atlas = ExtResource("2_eo61r")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e41v5"]
+atlas = ExtResource("2_eo61r")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ca0mu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mxepk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e41v5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="Node2D"]
+position = Vector2(80, 79)
+script = ExtResource("1_8p05u")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_ca0mu")
+autoplay = "default"
+frame_progress = 0.91578776
+speed_scale = 0.5
