@@ -1,10 +1,11 @@
 extends Node
 
+const CARD_RESOURCES_PATH := "res://Resources/Card/"
 const CARD_SCENE_PATH := "res://Scenes/card_stuffs/card.tscn"
 const CARD_SCENE :=  preload(CARD_SCENE_PATH)
 const CARD_DRAW_SPEED := 0.2 #default is 0.2
 
-var deck = ["shield", "shield", "shield"]
+@export var deck = ["shield", "shield", "shield"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="card_resource" load_steps=3 format=3 uid="uid://qyigto484k5q"]
+
+[ext_resource type="Script" uid="uid://sgfc57h1wefs" path="res://Scripts/Resource_scripts/card_resource.gd" id="1_2mu1o"]
+[ext_resource type="Texture2D" uid="uid://cm8hqhpj28pvj" path="res://Assets/Sprites/Cards/uncommon_steel_sword.png" id="2_2hp3v"]
+
+[resource]
+script = ExtResource("1_2mu1o")
+texture = ExtResource("2_2hp3v")
+rarity = 2
+price = 6
+attack_points = 3
+metadata/_custom_type_script = "uid://sgfc57h1wefs"

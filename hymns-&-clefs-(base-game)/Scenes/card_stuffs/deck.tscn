@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dul2fujevqvbb"]
 
-[ext_resource type="Script" uid="uid://dh0oo73ys3rt6" path="res://Scripts/deck_and_card_scripts/deck.gd" id="1_tkv3p"]
-[ext_resource type="Texture2D" uid="uid://b3p7vuqtrn4fs" path="res://Assets/Sprites/Cards/Card_Back.png" id="2_e61at"]
+[ext_resource type="Script" uid="uid://bhggswduchy6f" path="res://Scripts/deck_and_card_scripts/deck.gd" id="1_tkv3p"]
+[ext_resource type="Texture2D" uid="uid://cc4m672gk41c1" path="res://Assets/Sprites/Cards/card_back_but_better.png" id="2_e61at"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dht8h"]
 size = Vector2(40, 60)

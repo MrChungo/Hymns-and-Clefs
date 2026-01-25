@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="card_resource" load_steps=3 format=3 uid="uid://63u2h2psqqc4"]
+
+[ext_resource type="Script" uid="uid://sgfc57h1wefs" path="res://Scripts/Resource_scripts/card_resource.gd" id="1_5jdne"]
+[ext_resource type="Texture2D" uid="uid://cpkerv8ywbegk" path="res://Assets/Sprites/Cards/common_wooden_sword.png" id="2_n3u3s"]
+
+[resource]
+script = ExtResource("1_5jdne")
+texture = ExtResource("2_n3u3s")
+rarity = 1
+price = 3
+attack_points = 1
+metadata/_custom_type_script = "uid://sgfc57h1wefs"

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="starting_deck_resource" load_steps=3 format=3 uid="uid://g3t52qx1w6mh"]
+
+[ext_resource type="Script" uid="uid://628vrwyq0xlo" path="res://Scripts/Resource_scripts/starting_deck_resource.gd" id="1_wh2f2"]
+[ext_resource type="Script" uid="uid://sgfc57h1wefs" path="res://Scripts/Resource_scripts/card_resource.gd" id="2_np125"]
+
+[resource]
+script = ExtResource("1_wh2f2")
+metadata/_custom_type_script = "uid://628vrwyq0xlo"
