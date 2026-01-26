@@ -24,6 +24,10 @@ window/vsync/vsync_mode=0
 
 project/assembly_name="Hymns & Clefs (base game)"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ridiculous_coding/plugin.cfg")
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

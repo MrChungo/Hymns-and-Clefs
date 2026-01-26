@@ -11,7 +11,6 @@ const CARD_DRAW_SPEED := 0.2 #default is 0.2
 func _ready() -> void:
 	$RichTextLabel.text = str(deck.size())
 
-
 func draw_card():
 	var card_drawn = deck[0]
 	deck.erase(card_drawn)
