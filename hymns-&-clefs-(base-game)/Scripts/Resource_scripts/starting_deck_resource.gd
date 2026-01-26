@@ -9,6 +9,3 @@ const CARD_SCENE :=  preload(CARD_SCENE_PATH)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
-func assemble_starting_deck(deck_resource):
-	var deck = []

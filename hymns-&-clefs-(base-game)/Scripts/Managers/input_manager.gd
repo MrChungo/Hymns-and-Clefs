@@ -14,7 +14,7 @@ func _ready() -> void:
 	card_manager_reference = $"../card_manager"
 	deck_reference = $"../Deck"
 
-	
+
 	
 func _input(event):
 	#checks list of all events (key inputs)

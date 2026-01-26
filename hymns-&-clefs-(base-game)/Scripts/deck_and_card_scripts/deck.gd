@@ -5,11 +5,25 @@ const CARD_SCENE_PATH := "res://Scenes/card_stuffs/card.tscn"
 const CARD_SCENE :=  preload(CARD_SCENE_PATH)
 const CARD_DRAW_SPEED := 0.2 #default is 0.2
 
-@export var deck = ["shield", "shield", "shield"]
-
+@export var deck_resource: starting_deck_resource
+@export var deck = []
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	deck_resource = load("res://Scripts/Resource_scripts/TEST DECK OH MY GOD.tres")
+	load_deck_from_resource(deck_resource)
 	$RichTextLabel.text = str(deck.size())
+
+func load_deck_from_resource(resource: starting_deck_resource):
+	for n in resource.deck_resource:
+		var new_card = CARD_SCENE.instantiate()
+		$"../card_manager".add_child(new_card)
+		new_card.stats = n
+		deck.insert(0, new_card)
+		new_card.name = n.card_name
+	print(deck)
+		
+		
 
 func draw_card():
 	var card_drawn = deck[0]

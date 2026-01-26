@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_mqguh")
+card_name = "golden sword"
 texture = ExtResource("2_eub5f")
 rarity = 3
 price = 9
