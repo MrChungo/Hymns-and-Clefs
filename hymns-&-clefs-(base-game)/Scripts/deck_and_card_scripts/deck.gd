@@ -15,21 +15,25 @@ func _ready() -> void:
 	$RichTextLabel.text = str(deck.size())
 
 func load_deck_from_resource(resource: starting_deck_resource):
-	for n in resource.deck_resource:
-		var new_card = CARD_SCENE.instantiate()
-		$"../card_manager".add_child(new_card)
-		new_card.stats = n
-		deck.insert(0, new_card)
-		new_card.name = n.card_name
+	print(resource.deck_resource)
+	for card in resource.deck_resource:
+		deck.insert(0, card)
 	print(deck)
-		
-		
 
 func draw_card():
-	var card_drawn = deck[0]
-	deck.erase(card_drawn)
+	
 	
 	#if player draws the last card in the deck, disable the deck
+	if deck.size() > 0:
+		var card_drawn = deck[0]
+		deck.erase(card_drawn)
+		var new_card = CARD_SCENE.instantiate()
+		$"../card_manager".add_child(new_card)
+		new_card.stats = card_drawn
+		new_card.name = card_drawn.card_name
+		new_card._update_card_stats(card_drawn)
+		$"../Hand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
+		
 	if deck.size() == 0:
 		$Area2D/CollisionShape2D.disabled = true
 		$Sprite2D.visible = false
@@ -37,7 +41,5 @@ func draw_card():
 		
 	$RichTextLabel.text = str(deck.size())
 	
-	var new_card = CARD_SCENE.instantiate()
-	$"../card_manager".add_child(new_card)
-	new_card.name = "Card"
-	$"../Hand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
+	
+	

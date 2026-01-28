@@ -36,15 +36,11 @@ func calculate_card_position(index):
 	return x_offset
 
 func animate_card_to_position(card, new_position, speed = DEFAULT_CARD_MOVE_SPEED):
+	print(speed)
 	var tween = get_tree().create_tween()
-	tween.tween_property(card, "position", new_position, speed)
+	tween.tween_property(card, "position", new_position, 0.1)
 
 func remove_card_from_hand(card):
 	if card in player_hand:
 		player_hand.erase(card)
 		update_hand_positions(DEFAULT_CARD_MOVE_SPEED)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

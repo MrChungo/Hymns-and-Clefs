@@ -21,12 +21,8 @@ func _ready() -> void:
 	get_parent().connect_card_signals(self)
 
 func _update_card_stats(resource):
-	var stats = resource
+	stats = resource
 	$CardImage.texture = stats.texture
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 
 func _on_area_2d_mouse_entered() -> void:
