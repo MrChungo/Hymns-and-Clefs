@@ -39,8 +39,10 @@ func finish_drag():
 	card_being_dragged.scale = Vector2(1.05,1.05)
 	var card_slot_found = raycast_check_for_card_slot()
 	if card_slot_found and not card_slot_found.card_in_slot:
-		player_hand_reference.remove_card_from_hand(card_being_dragged)
 		#card dropped in empty card slot
+		card_being_dragged.z_index = -1
+		card_being_dragged.card_slot_card_is_in = card_slot_found
+		player_hand_reference.remove_card_from_hand(card_being_dragged)
 		card_being_dragged.position = card_slot_found.position
 		card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
 		card_slot_found.card_in_slot = true
@@ -67,7 +69,9 @@ func on_hovered_over_card(card):
 		highlight_card(card,true)
 
 func on_hovered_off_card(card):
-	if !card_being_dragged:
+	#check if card is NOT in a card slot and is NOT being dragged
+	if !card.card_slot_card_is_in && !card_being_dragged:
+		#if not dragging
 		highlight_card(card, false)
 		#check if hovered off card straight on to another card
 		var new_card_hovered = raycast_check_for_card()

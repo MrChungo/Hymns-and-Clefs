@@ -7,6 +7,7 @@ signal card_hovered_off
 
 var position_in_hand
 var deck_nodePath
+var card_slot_card_is_in
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
