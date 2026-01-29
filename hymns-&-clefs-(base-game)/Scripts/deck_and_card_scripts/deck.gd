@@ -4,15 +4,19 @@ const CARD_RESOURCES_PATH := "res://Resources/Card/"
 const CARD_SCENE_PATH := "res://Scenes/card_stuffs/card.tscn"
 const CARD_SCENE :=  preload(CARD_SCENE_PATH)
 const CARD_DRAW_SPEED := 0.2 #default is 0.2
+const STARTING_HAND_SIZE := 3
 
 @export var deck_resource: starting_deck_resource
 @export var deck = []
+
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	deck_resource = load("res://Resources/Deck/Deck Presets/Default_Deck_Preset.tres")
 	load_deck_from_resource(deck_resource)
 	$RichTextLabel.text = str(deck.size())
+	for i in range(STARTING_HAND_SIZE):
+		draw_card()
 
 func load_deck_from_resource(resource: starting_deck_resource):
 	for card in resource.deck_resource:
@@ -31,6 +35,7 @@ func draw_card():
 		new_card.name = card_drawn.card_name
 		new_card._update_card_stats(card_drawn)
 		$"../Hand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
+		new_card.get_node("AnimationPlayer").play("card_flip")
 		
 	#if player draws the last card in the deck, disable the deck
 	if deck.size() == 0:
