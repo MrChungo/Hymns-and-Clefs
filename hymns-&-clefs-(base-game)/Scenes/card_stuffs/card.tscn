@@ -1,11 +1,12 @@
 [gd_scene load_steps=6 format=3 uid="uid://8wr6ncq3kofp"]
 
 [ext_resource type="Script" uid="uid://cy608f0k3hwoj" path="res://Scripts/deck_and_card_scripts/card.gd" id="1_xqq75"]
-[ext_resource type="Script" uid="uid://sgfc57h1wefs" path="res://Resources/Card/card_resource.gd" id="2_uvj44"]
+[ext_resource type="Script" uid="uid://sgfc57h1wefs" path="res://Scripts/Resource_scripts/card_resource.gd" id="2_uvj44"]
 [ext_resource type="Texture2D" uid="uid://beqqjwf20v1l2" path="res://Assets/Sprites/Cards/Debug_Card.png" id="3_i1u7g"]
 
 [sub_resource type="Resource" id="Resource_i1u7g"]
 script = ExtResource("2_uvj44")
+texture = ExtResource("3_i1u7g")
 metadata/_custom_type_script = "uid://sgfc57h1wefs"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uvj44"]

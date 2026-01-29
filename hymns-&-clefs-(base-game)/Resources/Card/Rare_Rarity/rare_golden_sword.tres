@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="card_resource" load_steps=3 format=3 uid="uid://v4rbf6bvjcbi"]
+
+[ext_resource type="Script" uid="uid://sgfc57h1wefs" path="res://Scripts/Resource_scripts/card_resource.gd" id="1_mqguh"]
+[ext_resource type="Texture2D" uid="uid://tnboi6i6wlin" path="res://Assets/Sprites/Cards/rare_golden_sword.png" id="2_eub5f"]
+
+[resource]
+script = ExtResource("1_mqguh")
+card_name = "golden sword"
+texture = ExtResource("2_eub5f")
+rarity = 3
+price = 9
+attack_points = 7
+metadata/_custom_type_script = "uid://sgfc57h1wefs"

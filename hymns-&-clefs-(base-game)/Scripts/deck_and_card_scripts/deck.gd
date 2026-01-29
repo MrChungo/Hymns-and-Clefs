@@ -1,20 +1,37 @@
 extends Node
 
+const CARD_RESOURCES_PATH := "res://Resources/Card/"
 const CARD_SCENE_PATH := "res://Scenes/card_stuffs/card.tscn"
 const CARD_SCENE :=  preload(CARD_SCENE_PATH)
 const CARD_DRAW_SPEED := 0.2 #default is 0.2
 
-var deck = ["shield", "shield", "shield"]
-
+@export var deck_resource: starting_deck_resource
+@export var deck = []
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	deck_resource = load("res://Resources/Deck/Deck Presets/Default_Deck_Preset.tres")
+	load_deck_from_resource(deck_resource)
 	$RichTextLabel.text = str(deck.size())
 
+func load_deck_from_resource(resource: starting_deck_resource):
+	for card in resource.deck_resource:
+		deck.insert(0, card)
+	deck.shuffle()
 
 func draw_card():
-	var card_drawn = deck[0]
-	deck.erase(card_drawn)
-	
+
+	#if there are cards in the deck, create an instance of the card & place it on hand
+	if deck.size() > 0:
+		var card_drawn = deck[0]
+		deck.erase(card_drawn)
+		var new_card = CARD_SCENE.instantiate()
+		$"../card_manager".add_child(new_card)
+		new_card.stats = card_drawn
+		new_card.name = card_drawn.card_name
+		new_card._update_card_stats(card_drawn)
+		$"../Hand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
+		
 	#if player draws the last card in the deck, disable the deck
 	if deck.size() == 0:
 		$Area2D/CollisionShape2D.disabled = true
@@ -23,7 +40,5 @@ func draw_card():
 		
 	$RichTextLabel.text = str(deck.size())
 	
-	var new_card = CARD_SCENE.instantiate()
-	$"../card_manager".add_child(new_card)
-	new_card.name = "Card"
-	$"../Hand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
+	
+	
