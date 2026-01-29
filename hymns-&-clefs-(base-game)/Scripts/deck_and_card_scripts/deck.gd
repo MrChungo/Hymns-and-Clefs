@@ -10,20 +10,18 @@ const CARD_DRAW_SPEED := 0.2 #default is 0.2
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	deck_resource = load("res://Scripts/Resource_scripts/TEST DECK OH MY GOD.tres")
+	deck_resource = load("res://Resources/Deck/Deck Presets/Default_Deck_Preset.tres")
 	load_deck_from_resource(deck_resource)
 	$RichTextLabel.text = str(deck.size())
 
 func load_deck_from_resource(resource: starting_deck_resource):
-	print(resource.deck_resource)
 	for card in resource.deck_resource:
 		deck.insert(0, card)
-	print(deck)
+	deck.shuffle()
 
 func draw_card():
-	
-	
-	#if player draws the last card in the deck, disable the deck
+
+	#if there are cards in the deck, create an instance of the card & place it on hand
 	if deck.size() > 0:
 		var card_drawn = deck[0]
 		deck.erase(card_drawn)
@@ -34,6 +32,7 @@ func draw_card():
 		new_card._update_card_stats(card_drawn)
 		$"../Hand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
 		
+	#if player draws the last card in the deck, disable the deck
 	if deck.size() == 0:
 		$Area2D/CollisionShape2D.disabled = true
 		$Sprite2D.visible = false
