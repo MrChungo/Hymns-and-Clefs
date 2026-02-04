@@ -1,7 +1,8 @@
 extends Resource
 class_name enemy_resource
 
-@export var texture: Texture2D
+#@export var AnimatedSprite: AnimatedSprite2D
 
-@export var enemy_attack: int
-@export var enemy_hp: int
+@export var is_boss_enemy : bool
+@export var base_enemy_attack: int
+@export var base_enemy_hp: int

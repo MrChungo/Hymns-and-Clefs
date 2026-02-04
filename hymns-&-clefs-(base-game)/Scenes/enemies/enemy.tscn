@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://448b5kjxjtf5"]
+[gd_scene load_steps=27 format=3 uid="uid://448b5kjxjtf5"]
 
 [ext_resource type="Script" uid="uid://phjudrxbb67p" path="res://Scenes/enemies/enemy.gd" id="1_slefu"]
 [ext_resource type="Texture2D" uid="uid://dfxe0e1hdty4e" path="res://Assets/Sprites/enemy sprite/enemy_tamborine.png" id="1_wbq3y"]
+[ext_resource type="Resource" uid="uid://c4wyd05w5s88l" path="res://Resources/Enemy/_debug_enemy.tres" id="2_5d1s0"]
 [ext_resource type="Texture2D" uid="uid://cmhlm4pcjy1ld" path="res://Assets/Sprites/enemy sprite/enemy_recorder.png" id="2_we58l"]
 [ext_resource type="Texture2D" uid="uid://c40r7bsxjwk31" path="res://Assets/Sprites/enemy sprite/enemy_triangle.png" id="3_slefu"]
 [ext_resource type="Texture2D" uid="uid://ciogwbftjun8m" path="res://Assets/Sprites/enemy sprite/weeee_and_leeee.png" id="4_5d1s0"]
@@ -152,8 +153,10 @@ animations = [{
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_slefu")
+stats = ExtResource("2_5d1s0")
 
 [node name="enemy_texture" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(57.000004, 48)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_5d1s0")
@@ -166,12 +169,14 @@ sprite_frames = SubResource("SpriteFrames_c14y3")
 autoplay = "default"
 
 [node name="enemy_texture3" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(247.99998, 97.99999)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_74c38")
 autoplay = "default"
 
 [node name="enemy_texture4" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(448.99997, 100.99999)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_vxp7c")
