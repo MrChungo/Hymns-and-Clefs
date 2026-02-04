@@ -24,9 +24,9 @@ func _ready() -> void:
 	for n in range(enemy_quantity):
 		var new_enemy = ENEMY_SCENE.instantiate()
 		$"../EnemyManager".add_child(new_enemy)
-		#new_enemy.stats = card_drawn
 		#new_enemy.name = card_drawn.card_name
-		#new_enemy._update_card_stats(card_drawn)
+		var texture = load("res://Resources/Enemy/enemy_recorder.tres")
+		new_enemy.update_enemy_stats(texture)
 	
 func player_turn():
 	pass
