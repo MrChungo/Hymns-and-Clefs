@@ -21,12 +21,14 @@ func _ready() -> void:
 	enemy_quantity = randi_range(min_possible_enemies,max_possible_enemies)
 	
 	#spawns enemies
-	for n in range(enemy_quantity):
-		var new_enemy = ENEMY_SCENE.instantiate()
-		$"../EnemyManager".add_child(new_enemy)
-		#new_enemy.name = card_drawn.card_name
-		var texture = load("res://Resources/Enemy/enemy_recorder.tres")
-		new_enemy.update_enemy_stats(texture)
+	#for n in range(1):
+	var new_enemy = ENEMY_SCENE.instantiate()
+	$"../EnemyManager".add_child(new_enemy)
+	new_enemy.name = "enemy"
+	var stats = load("res://Resources/Enemy/AAAAAAAAAAAAAAAA.tres")
+	print(stats.texture)
+	new_enemy.update_enemy_stats(stats)
+	
 	
 func player_turn():
 	pass

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="enemy_resource" load_steps=3 format=3 uid="uid://ddtmbequ60tkh"]
+
+[ext_resource type="Script" uid="uid://d30o7gn70rkta" path="res://Scripts/Resource_scripts/enemy_resource.gd" id="1_ugs2w"]
+[ext_resource type="Texture2D" uid="uid://c40r7bsxjwk31" path="res://Assets/Sprites/enemy sprite/enemy_triangle.png" id="2_kuyvs"]
+
+[resource]
+script = ExtResource("1_ugs2w")
+texture = ExtResource("2_kuyvs")
+texture_frames = 1
+metadata/_custom_type_script = "uid://d30o7gn70rkta"
