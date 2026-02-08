@@ -11,6 +11,7 @@ func _ready() -> void:
 	self.scale = Vector2(2,2)
 	self.position.x = 200
 	self.position.y = 100
+	print(stats.enemy_action_type)
 
 func update_enemy_stats(loaded_stats):
 	stats = loaded_stats
