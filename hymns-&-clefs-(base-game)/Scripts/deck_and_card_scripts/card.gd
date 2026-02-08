@@ -18,7 +18,8 @@ func _ready() -> void:
 	#all cards must be a child of CardManager or this will error
 	get_parent().connect_card_signals(self)
 
-func _update_card_stats(stats):
+func _update_card_stats(loaded_stats):
+	stats = loaded_stats
 	$CardImage.texture = stats.texture
 
 

@@ -12,9 +12,9 @@ func _ready() -> void:
 	self.position.x = 200
 	self.position.y = 100
 
-func update_enemy_stats(stats):
+func update_enemy_stats(loaded_stats):
+	stats = loaded_stats
 	enemy_hp = stats.base_enemy_hp * enemy_difficulty
 	enemy_attack = stats.base_enemy_attack * enemy_difficulty
 	$EnemyTexture.hframes = stats.texture_frames
 	$EnemyTexture.texture = stats.texture
-	print(stats.texture)
