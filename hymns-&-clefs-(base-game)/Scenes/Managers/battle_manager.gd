@@ -22,40 +22,54 @@ var waiting_for_action: bool
 #player spawning and stuffs
 var player: Node2D
 
+var card_being_used: Node2D
+
 #enemy spawning
 var enemy_quantity :int
 var max_possible_enemies :int
 var min_possible_enemies :int
-
 var enemies: Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
-	
 	#sets up variables for game
 	load_from_save(test_save)
 	is_player_turn = true
-	
-	#player stuff!!!!!!!!!
-	spawn_player()
 	
 	#ENEMY STUFF!!!!!!!!!!!!!!
 	max_possible_enemies = difficulty + 2
 	min_possible_enemies = difficulty
 	enemy_quantity = randi_range(min_possible_enemies,max_possible_enemies)
 	
-	#spawns enemies
+	#spawns enemies & player
 	spawn_enemies(enemy_quantity)
-	
+	spawn_player()
+
+
+
+func load_from_save(loaded_save):
+	save = loaded_save
+	difficulty = save.world_difficulty
+	battle_round = save.last_battle_round 
+
+#player functions
 func spawn_player():
 	player = PLAYER_SCENE.instantiate()
 	$"..".add_child.call_deferred(player)
 	player.name = "player"
 	player.load_player_stats(save)
 
+
+func player_turn():
+	#checks if card is in slot
+	if $"../UsedCardSlot".card_in_slot:
+		card_being_used = $"../UsedCardSlot".card_in_slot
+	pass
+
+
+#enemy functions
 func spawn_enemies(_enemy_quantity):
-		#spawns enemies
+	#spawns enemies
 	print("spawned ", _enemy_quantity, " enemies")
 	for n in range(_enemy_quantity):
 		var new_enemy = ENEMY_SCENE.instantiate()
@@ -64,21 +78,7 @@ func spawn_enemies(_enemy_quantity):
 		var stats = load("res://Resources/Enemy/AAAAAAAAAAAAAAAA.tres") #temp stats!!!!!!!!!!!!!!!
 		new_enemy.update_enemy_stats(stats)
 		enemies.append(new_enemy)
-		
-	print(enemies)
 
-
-func load_from_save(loaded_save):
-	save = loaded_save
-	difficulty = save.world_difficulty
-	battle_round = save.last_battle_round 
-	
-func player_turn():
-	#is_player_turn = false
-	pass
-	
-	
-#enemy functions
 func enemy_turn():
 	#loops through enemies
 	for enemy in enemies:
@@ -104,9 +104,8 @@ func enemy_action(_enemy, action):
 			attack(player,_enemy.attack)
 		elif action == "defend":
 			add_shield(_enemy, _enemy.shield_attack)
-	
-	
 
+#general functions (used for both enemies and players)
 func attack(target, damage):
 	target.hp -= damage
 	
