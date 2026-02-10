@@ -10,6 +10,7 @@ class_name save_resource
 #player stuffs
 @export var current_player_hp: int
 @export var max_player_hp: int
+@export var current_player_shield: int
 @export var deck: Array[card_resource]
 
 #battle stuff
