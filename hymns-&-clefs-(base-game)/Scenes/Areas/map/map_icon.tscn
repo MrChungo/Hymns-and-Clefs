@@ -1,8 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://dqj5ku8jkvvup"]
+[gd_scene load_steps=4 format=3 uid="uid://dqj5ku8jkvvup"]
 
+[ext_resource type="Script" uid="uid://c87jletbuqs82" path="res://Scripts/map/map_icon.gd" id="1_fgk4s"]
 [ext_resource type="Texture2D" uid="uid://ctdx4unl8o1n4" path="res://icon.svg" id="1_lnm4v"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lnm4v"]
+size = Vector2(124, 120)
+
 [node name="MAP_ICON" type="Node2D"]
+script = ExtResource("1_fgk4s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_lnm4v")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_lnm4v")

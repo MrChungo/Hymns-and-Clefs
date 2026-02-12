@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbiowlor3xmxe"]
+[gd_scene load_steps=3 format=3 uid="uid://cbiowlor3xmxe"]
 
 [ext_resource type="Script" uid="uid://5obs1wjlqmho" path="res://Scripts/map/map.gd" id="1_kdptv"]
+[ext_resource type="Script" uid="uid://bmhuvtqhx3ol6" path="res://Scripts/Managers/icon_manager.gd" id="2_kdptv"]
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_kdptv")
+
+[node name="icon manager" type="Node2D" parent="."]
+script = ExtResource("2_kdptv")

@@ -28,7 +28,8 @@ func gen_map(node_length):
 
 func gen_node():
 	var node = MAP_ICON_PATH.instantiate()
-	$".".add_child.call_deferred(node)
+	$"icon manager".add_child.call_deferred(node)
 	node.name = "mapIcon"
 	map_icons.append(node)
 	#player.load_player_stats(save)
+	
