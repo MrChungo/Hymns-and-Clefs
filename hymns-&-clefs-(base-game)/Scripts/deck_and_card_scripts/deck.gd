@@ -30,6 +30,7 @@ func draw_card():
 		var card_drawn = deck[0]
 		deck.erase(card_drawn)
 		var new_card = CARD_SCENE.instantiate()
+		
 		$"../card_manager".add_child(new_card)
 		new_card.stats = card_drawn
 		new_card.name = card_drawn.card_name

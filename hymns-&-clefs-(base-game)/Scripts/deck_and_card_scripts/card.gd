@@ -11,18 +11,15 @@ var card_slot_card_is_in
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	stats = load("res://Resources/Card/Common_Rarity/common_wooden_shield.tres")
 	deck_nodePath = get_node(^"/root/Battle/Deck")
 
 	self.position.x = deck_nodePath.position.x
 	self.position.y = deck_nodePath.position.y
-	$CardImage.texture = stats.texture
-	
 	#all cards must be a child of CardManager or this will error
 	get_parent().connect_card_signals(self)
 
-func _update_card_stats(resource):
-	stats = resource
+func _update_card_stats(loaded_stats):
+	stats = loaded_stats
 	$CardImage.texture = stats.texture
 
 
