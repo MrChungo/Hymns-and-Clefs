@@ -1,0 +1,34 @@
+extends Node2D
+const MAP_ICON_PATH = preload("uid://dqj5ku8jkvvup")#"res://Scenes/Areas/map/map_icon.tscn"
+var node_group:int 
+var node_length:int
+var map_icons:Array[Node2D]
+var screen_width
+var screen_height
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	node_group = 1
+	node_length = 6
+	screen_width = get_viewport().size.x
+	screen_height = get_viewport().size.y
+	gen_map(node_length)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func gen_map(node_length):
+	for n in range(node_length):
+		gen_node()
+	for icon in range(len(map_icons)):
+		map_icons[icon].position.x = icon*(screen_width/node_length)+90 #HARDCODED NUMBER
+		map_icons[icon].position.y = screen_height/2
+	
+
+func gen_node():
+	var node = MAP_ICON_PATH.instantiate()
+	$".".add_child.call_deferred(node)
+	node.name = "mapIcon"
+	map_icons.append(node)
+	#player.load_player_stats(save)
