@@ -64,8 +64,17 @@ func player_turn():
 	#checks if card is in slot
 	if $"../UsedCardSlot".card_in_slot:
 		card_being_used = $"../UsedCardSlot".card_in_slot
+		
+		var target = select_target()
+		use_card(target, card_being_used)
+
+func select_target():
 	pass
 
+func use_card(target, card):
+	if card.attack_points >= 0:
+		attack()
+	pass
 
 #enemy functions
 func spawn_enemies(_enemy_quantity):
