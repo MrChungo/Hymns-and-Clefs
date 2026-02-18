@@ -73,7 +73,7 @@ func select_target():
 
 func use_card(target, card):
 	if card.attack_points >= 0:
-		attack()
+		attack(target, card.attack_points)
 	pass
 
 #enemy functions
