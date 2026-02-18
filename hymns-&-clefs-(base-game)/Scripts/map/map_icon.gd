@@ -1,5 +1,8 @@
 extends Node2D
 
+signal icon_hovered
+signal icon_hovered_off
+var enterable:bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,6 +15,9 @@ func _process(delta: float) -> void:
 	
 func _on_area_2d_mouse_entered() -> void:
 	emit_signal("icon_hovered",self)
+
+
+
 
 func _on_area_2d_mouse_exited() -> void:
 	emit_signal("icon_hovered_off",self)
