@@ -18,6 +18,8 @@ var card_being_dragged
 var is_hovering_on_card
 var player_hand_reference
 
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
