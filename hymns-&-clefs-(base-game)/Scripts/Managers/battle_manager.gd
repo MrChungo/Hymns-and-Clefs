@@ -18,6 +18,7 @@ var difficulty : int
 var battle_round :int
 var is_player_turn : bool
 var waiting_for_action: bool
+var battle: bool
 
 #player spawning and stuffs
 var player: Node2D
@@ -32,6 +33,7 @@ var enemies: Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	battle = true
 	#sets up variables for game
 	load_from_save(test_save)
 	is_player_turn = true
@@ -44,6 +46,9 @@ func _ready() -> void:
 	#spawns enemies & player
 	spawn_enemies(enemy_quantity)
 	spawn_player()
+	
+	
+	battle_loop()
 
 
 
@@ -62,19 +67,23 @@ func spawn_player():
 
 func player_turn():
 	#checks if card is in slot
-	if $"../UsedCardSlot".card_in_slot:
-		card_being_used = $"../UsedCardSlot".card_in_slot
-		
-		var target = select_target()
-		use_card(target, card_being_used)
+	await %card_manager.card_used_on_enemy
+	
+	var target = select_target()
+	use_card(target, target.card_in_slot)
+	
+	is_player_turn = false
+	
 
 func select_target():
-	pass
+	for n in enemies:
+		if n.card_in_slot:
+			return n
 
 func use_card(target, card):
-	if card.attack_points >= 0:
-		attack(target, card.attack_points)
-	pass
+	print(target , " " , card)
+	if card.stats.attack_points >= 0:
+		attack(target, card.stats.attack_points)
 
 #enemy functions
 func spawn_enemies(_enemy_quantity):
@@ -90,9 +99,10 @@ func spawn_enemies(_enemy_quantity):
 
 func enemy_turn():
 	#loops through enemies
-	for enemy in enemies:
-		var chosen_action = enemy_choose_action(enemy)
-		enemy_action(enemy,chosen_action)
+	
+	for _enemy in enemies:
+		var chosen_action = enemy_choose_action(_enemy)
+		enemy_action(_enemy,chosen_action)
 		
 	is_player_turn = true
 
@@ -121,12 +131,13 @@ func attack(target, damage):
 func add_shield(target, shield_added):
 	target.shield += shield_added
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if is_player_turn:
-		player_turn()
-	else:
-		enemy_turn()
-		print(player.hp)
+
+func battle_loop():
+	while battle:
+		if is_player_turn:
+			await player_turn()
+		else:
+			await enemy_turn()
+			print("player hp", player.hp)
 			
 		

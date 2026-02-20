@@ -1,4 +1,6 @@
 extends Node2D
+class_name enemy
+
 
 @export var stats : enemy_resource
 
@@ -9,7 +11,7 @@ var shield_attack: int
 var enemy_difficulty := 1 #could be in/changed in world
 var enemy_action_type: int #0 = balanced, 1 = attacker, 2 = defender
 
-var card_in_slot
+var card_in_slot: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,11 +30,3 @@ func update_enemy_stats(loaded_stats):
 	$EnemyTexture.hframes = stats.texture_frames
 	$EnemyTexture.texture = stats.texture
 	
-
-
-func _on_area_2d_mouse_entered() -> void:
-	pass # Replace with function body.
-
-
-func _on_area_2d_mouse_exited() -> void:
-	pass # Replace with function body.

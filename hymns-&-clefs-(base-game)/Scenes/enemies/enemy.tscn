@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://448b5kjxjtf5"]
 
-[ext_resource type="Script" uid="uid://phjudrxbb67p" path="res://Scenes/enemies/enemy.gd" id="1_slefu"]
+[ext_resource type="Script" uid="uid://phjudrxbb67p" path="res://Scripts/Enemy Scripts/enemy.gd" id="1_slefu"]
 [ext_resource type="Texture2D" uid="uid://dfxe0e1hdty4e" path="res://Assets/Sprites/enemy sprite/enemy_tamborine.png" id="2_notgg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpjt6"]

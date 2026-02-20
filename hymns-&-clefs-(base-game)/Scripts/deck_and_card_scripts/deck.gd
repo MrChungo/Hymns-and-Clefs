@@ -8,6 +8,7 @@ const STARTING_HAND_SIZE := 3
 
 @export var deck_resource: starting_deck_resource
 @export var deck = []
+var discard_pile = []
 
 	
 # Called when the node enters the scene tree for the first time.
@@ -45,6 +46,15 @@ func draw_card():
 		$RichTextLabel.visible = false
 		
 	$RichTextLabel.text = str(deck.size())
+	
+func send_card_to_discard(card):
+	discard_pile.append(card)
+	
+func renew_deck():
+	for n in discard_pile:
+		deck.append(n)
+	discard_pile.clear()
+	deck.shuffle()
 	
 	
 	
