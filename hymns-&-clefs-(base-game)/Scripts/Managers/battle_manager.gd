@@ -8,6 +8,9 @@ await <---------------
 const PLAYER_SCENE = preload("uid://bys0uidt8s34i")#"res://Scenes/player/player.tscn"
 #need to reference to actual player node plzplzplzpzlpzl
 const ENEMY_SCENE :=  preload("uid://448b5kjxjtf5") #res://Scenes/enemies/enemy.tscn
+const MAX_ENEMIES_PER_ROW:= 4
+const VERTICAL_ENEMY_SPACING:= 150
+const HORIZONTAL_ENEMY_SPACING := 200
 
 signal card_used(enemy)
 
@@ -32,9 +35,15 @@ var enemy_quantity :int
 var max_possible_enemies :int
 var min_possible_enemies :int
 var enemies: Array
+var screen_width: int
+var screen_height: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+
+	screen_width = get_viewport().size.x
+	screen_height = get_viewport().size.y
+
 	battle = true
 	#sets up variables for game
 	load_from_save(test_save)
@@ -43,13 +52,13 @@ func _ready() -> void:
 	#ENEMY STUFF!!!!!!!!!!!!!!
 	max_possible_enemies = difficulty + 2
 	min_possible_enemies = difficulty
-	enemy_quantity = randi_range(min_possible_enemies,max_possible_enemies)
-	
+	#enemy_quantity = randi_range(min_possible_enemies,max_possible_enemies)
+	enemy_quantity = 5
 	#spawns enemies & player
 	spawn_enemies(enemy_quantity)
 	spawn_player()
 	
-	
+
 	battle_loop()
 
 
@@ -97,10 +106,32 @@ func spawn_enemies(_enemy_quantity):
 	for n in range(_enemy_quantity):
 		var new_enemy = ENEMY_SCENE.instantiate()
 		$"../EnemyManager".add_child(new_enemy)
+		#$"..".add_child(new_enemy)
 		new_enemy.name = "enemy"
 		var stats = load("res://Resources/Enemy/AAAAAAAAAAAAAAAA.tres") #temp stats!!!!!!!!!!!!!!!
 		new_enemy.update_enemy_stats(stats)
 		enemies.append(new_enemy)
+	
+	print(enemies)
+	update_enemy_positions()
+	
+
+func update_enemy_positions():
+	var row = 0
+	var column = 0
+	for n in range(len(enemies)):
+		if n % 4 == 0:
+			column = 0
+			row += 1
+			print(row)
+		enemies[n].position.y = (screen_height/2) + (row * VERTICAL_ENEMY_SPACING)
+		enemies[n].position.x = (screen_width/2) + (column * HORIZONTAL_ENEMY_SPACING)
+		print(enemies[n].position.y)
+		
+		column += 1
+
+
+
 
 func enemy_turn():
 	#loops through enemies
