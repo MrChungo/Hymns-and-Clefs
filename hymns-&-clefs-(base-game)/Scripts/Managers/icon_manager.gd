@@ -4,18 +4,14 @@ const COLLISION_MASK_ICON := 1
 
 var screen_size
 var is_hovering_on_icon:bool
+var entered = false
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	$"../IconManager".connect("left_mouse_button_released", on_left_click_released)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+#	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
 
 func connect_icon_signals(icon):
 	print("AAAAAAAAAAAAAAAAAAAA")
@@ -23,16 +19,18 @@ func connect_icon_signals(icon):
 	icon.connect("icon_hovered_off", on_hovered_off_icon)
 
 
-func on_left_click_released():
-	pass #go to battle scene
-		
-func on_hovered_over_icon(icon):
 
+func on_hovered_over_icon(icon):
+	entered = true
+	print(entered)
 	if !is_hovering_on_icon && icon.enterable:
 		is_hovering_on_icon = true
 		highlight_icon(icon,true)
+	
 
 func on_hovered_off_icon(icon):
+	entered = false
+	print(entered)
 	if icon.enterable:
 		highlight_icon(icon, false)
 		#check if hovered off icon straight on to another icon
@@ -80,3 +78,8 @@ func get_icon_with_highest_z_index(icons):
 			highest_z_index = current_icon.z_index
 			print(highest_z_icon)
 	return highest_z_icon
+
+
+func _on_input_manager_left_mouse_button_released() -> void:
+	if entered == true:
+		get_tree().change_scene("res://balle.tscn")

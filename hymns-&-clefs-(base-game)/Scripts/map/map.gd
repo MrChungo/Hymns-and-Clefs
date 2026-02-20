@@ -1,5 +1,5 @@
 extends Node2D
-
+class_name map_class
 const MAP_ICON_PATH = preload("uid://dqj5ku8jkvvup")#"res://Scenes/Areas/map/map_icon.tscn"
 
 var node_group:int 
