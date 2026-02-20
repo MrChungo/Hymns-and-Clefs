@@ -9,6 +9,8 @@ const PLAYER_SCENE = preload("uid://bys0uidt8s34i")#"res://Scenes/player/player.
 #need to reference to actual player node plzplzplzpzlpzl
 const ENEMY_SCENE :=  preload("uid://448b5kjxjtf5") #res://Scenes/enemies/enemy.tscn
 
+signal card_used(enemy)
+
 var global_rarities = load("uid://dxut7bry6abc") #RANDOM_REFERENCE.get_weighted_rarity()
 var test_save = load("uid://chmnudsaqsjho") #"res://Resources/Save States/Test_Battle_save.tres"
 
@@ -84,6 +86,9 @@ func use_card(target, card):
 	print(target , " " , card)
 	if card.stats.attack_points >= 0:
 		attack(target, card.stats.attack_points)
+		
+	emit_signal("card_used", target)
+	
 
 #enemy functions
 func spawn_enemies(_enemy_quantity):

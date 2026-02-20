@@ -1,5 +1,5 @@
 extends Node2D
-class_name enemy
+class_name enemy_class
 
 
 @export var stats : enemy_resource

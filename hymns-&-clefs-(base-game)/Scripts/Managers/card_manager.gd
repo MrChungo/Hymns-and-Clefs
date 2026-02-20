@@ -50,7 +50,7 @@ func finish_drag():
 		card_being_dragged.position = card_slot_found.position
 		card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
 		card_slot_found.card_in_slot = card_being_dragged
-		if card_slot_found is enemy:
+		if card_slot_found is enemy_class:
 			print("AAAAAAAAAA")
 			card_used_on_enemy.emit(card_slot_found)
 	else:

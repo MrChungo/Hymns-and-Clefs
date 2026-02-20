@@ -48,7 +48,9 @@ func draw_card():
 	$RichTextLabel.text = str(deck.size())
 	
 func send_card_to_discard(card):
-	discard_pile.append(card)
+	discard_pile.append(card.stats)
+	card.queue_free()
+	
 	
 func renew_deck():
 	for n in discard_pile:
@@ -56,5 +58,7 @@ func renew_deck():
 	discard_pile.clear()
 	deck.shuffle()
 	
-	
-	
+
+func _on_battle_manager_card_used(enemy: Variant) -> void:
+	send_card_to_discard(enemy.card_in_slot)
+	enemy.card_in_slot = null
