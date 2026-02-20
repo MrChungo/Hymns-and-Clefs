@@ -39,12 +39,9 @@ func draw_card():
 		$"../Hand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
 		new_card.get_node("AnimationPlayer").play("card_flip")
 		
-	#if player draws the last card in the deck, disable the deck
+	#if player draws the last card in the deck, reshuffle
 	if deck.size() == 0:
 		renew_deck()
-		#$Area2D/CollisionShape2D.disabled = true
-		#$Sprite2D.visible = false
-		#$RichTextLabel.visible = false
 		
 	$RichTextLabel.text = str(deck.size())
 	
