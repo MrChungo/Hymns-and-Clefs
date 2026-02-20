@@ -41,9 +41,10 @@ func draw_card():
 		
 	#if player draws the last card in the deck, disable the deck
 	if deck.size() == 0:
-		$Area2D/CollisionShape2D.disabled = true
-		$Sprite2D.visible = false
-		$RichTextLabel.visible = false
+		renew_deck()
+		#$Area2D/CollisionShape2D.disabled = true
+		#$Sprite2D.visible = false
+		#$RichTextLabel.visible = false
 		
 	$RichTextLabel.text = str(deck.size())
 	
