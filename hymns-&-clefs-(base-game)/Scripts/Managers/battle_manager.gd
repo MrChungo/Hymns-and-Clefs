@@ -71,6 +71,10 @@ func spawn_player():
 	player.name = "player"
 	player.load_player_stats(save)
 	print(player.hp)
+	@warning_ignore("integer_division")
+	player.global_position.y = (screen_height/2)
+	@warning_ignore("integer_division")
+	player.global_position.x = (screen_width/4)
 
 
 func player_turn():
@@ -161,7 +165,11 @@ func enemy_death(target):
 
 #general functions (used for both enemies and players)
 func attack(target, damage):
-	target.hp -= damage
+	if target.shield > 0:
+		target.shield -= damage
+	else:
+		target.shield = 0
+		target.hp -= damage
 	
 	if target.hp <= 0:
 		if target is enemy_class:
