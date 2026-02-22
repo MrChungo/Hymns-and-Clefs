@@ -1,16 +1,10 @@
 extends Node2D
 
-'''
-IMPORTANT
-
-await <---------------
-'''
 const PLAYER_SCENE = preload("uid://bys0uidt8s34i")#"res://Scenes/player/player.tscn"
-#need to reference to actual player node plzplzplzpzlpzl
 const ENEMY_SCENE :=  preload("uid://448b5kjxjtf5") #res://Scenes/enemies/enemy.tscn
 const MAX_ENEMIES_PER_ROW:= 4
-const VERTICAL_ENEMY_SPACING:= 150
-const HORIZONTAL_ENEMY_SPACING := 200
+const VERTICAL_ENEMY_SPACING:= 100
+const HORIZONTAL_ENEMY_SPACING := 100
 
 signal card_used(enemy)
 
@@ -40,7 +34,9 @@ var screen_height: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-
+	save = load("res://Resources/Save States/Test_Battle_save.tres")
+	
+	
 	screen_width = get_viewport().size.x
 	screen_height = get_viewport().size.y
 
@@ -53,7 +49,7 @@ func _ready() -> void:
 	max_possible_enemies = difficulty + 2
 	min_possible_enemies = difficulty
 	#enemy_quantity = randi_range(min_possible_enemies,max_possible_enemies)
-	enemy_quantity = 5
+	enemy_quantity = 3
 	#spawns enemies & player
 	spawn_enemies(enemy_quantity)
 	spawn_player()
@@ -74,6 +70,7 @@ func spawn_player():
 	$"..".add_child.call_deferred(player)
 	player.name = "player"
 	player.load_player_stats(save)
+	print(player.hp)
 
 
 func player_turn():
@@ -85,23 +82,25 @@ func player_turn():
 	
 	is_player_turn = false
 	
+func player_death(target):
+	target.death()
 
+#card logic
 func select_target():
 	for n in enemies:
 		if n.card_in_slot:
 			return n
 
 func use_card(target, card):
-	print(target , " " , card)
 	if card.stats.attack_points >= 0:
 		attack(target, card.stats.attack_points)
+	
 		
 	emit_signal("card_used", target)
 	
 
 #enemy functions
 func spawn_enemies(_enemy_quantity):
-	#spawns enemies
 	print("spawned ", _enemy_quantity, " enemies")
 	for n in range(_enemy_quantity):
 		var new_enemy = ENEMY_SCENE.instantiate()
@@ -112,23 +111,19 @@ func spawn_enemies(_enemy_quantity):
 		new_enemy.update_enemy_stats(stats)
 		enemies.append(new_enemy)
 	
-	print(enemies)
 	update_enemy_positions()
 	
 
 func update_enemy_positions():
-	var row = 0
-	var column = 0
 	for n in range(len(enemies)):
-		if n % 4 == 0:
-			column = 0
-			row += 1
-			print(row)
-		enemies[n].position.y = (screen_height/2) + (row * VERTICAL_ENEMY_SPACING)
-		enemies[n].position.x = (screen_width/2) + (column * HORIZONTAL_ENEMY_SPACING)
-		print(enemies[n].position.y)
-		
-		column += 1
+		@warning_ignore("integer_division")
+		var row = int(n / 4)
+		var column = n % 4
+		@warning_ignore("integer_division")
+		enemies[n].global_position.y = (screen_height/2) - (row * VERTICAL_ENEMY_SPACING)
+		@warning_ignore("integer_division")
+		enemies[n].global_position.x = (screen_width/2) + (column * HORIZONTAL_ENEMY_SPACING) + 200 # WORK OUT THIS LATER
+
 
 
 
@@ -159,10 +154,20 @@ func enemy_action(_enemy, action):
 			attack(player,_enemy.attack)
 		elif action == "defend":
 			add_shield(_enemy, _enemy.shield_attack)
+			
+func enemy_death(target):
+	enemies.erase(target)
+	await target.death()
 
 #general functions (used for both enemies and players)
 func attack(target, damage):
 	target.hp -= damage
+	
+	if target.hp <= 0:
+		if target is enemy_class:
+			enemy_death(target)
+		elif target is player_class:
+			player_death(target)
 	
 func add_shield(target, shield_added):
 	target.shield += shield_added

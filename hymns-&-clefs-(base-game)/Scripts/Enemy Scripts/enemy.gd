@@ -15,9 +15,7 @@ var card_in_slot: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	self.scale = Vector2(2,2)
-	self.position.x = 200
-	self.position.y = 100
+	self.scale = Vector2(3,3)
 
 func update_enemy_stats(loaded_stats):
 	stats = loaded_stats
@@ -28,4 +26,7 @@ func update_enemy_stats(loaded_stats):
 	enemy_action_type = stats.enemy_action_type
 	$EnemyTexture.hframes = stats.texture_frames
 	$EnemyTexture.texture = stats.texture
+	
+func death():
+	self.queue_free()
 	
