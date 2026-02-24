@@ -78,11 +78,16 @@ func spawn_player():
 
 
 func player_turn():
+	draw_cards_to_hand()
+	
 	#checks if card is in slot
 	await %card_manager.card_used_on_enemy
 	
 	var target = select_target()
-	use_card(target, target.card_in_slot)
+	await use_card(target, target.card_in_slot)
+	
+	empty_hand()
+	
 	
 	is_player_turn = false
 	
@@ -101,6 +106,21 @@ func use_card(target, card):
 	
 		
 	emit_signal("card_used", target)
+
+func draw_cards_to_hand():
+	var deck_ref = %Deck
+	for n in range(3): #AAAAAAAAAAAAAAA
+		print("a")
+		deck_ref.draw_card()
+
+func empty_hand():
+	var hand_ref = %Hand
+	var deck_ref = %Deck
+	
+	for n in hand_ref.player_hand:
+		deck_ref.send_card_to_discard(n)
+	hand_ref.player_hand.clear()
+
 	
 
 #enemy functions
