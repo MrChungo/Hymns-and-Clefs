@@ -10,6 +10,8 @@ https://www.youtube.com/watch?v=riafP7MtvmQ
 '''
 extends Node2D
 
+signal card_used_on_enemy(enemy_target)
+
 const COLLISION_MASK_CARD := 1
 const COLLISION_MASK_CARD_SLOT := 2
 
@@ -17,6 +19,8 @@ var screen_size
 var card_being_dragged
 var is_hovering_on_card
 var player_hand_reference
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -46,6 +50,8 @@ func finish_drag():
 		card_being_dragged.position = card_slot_found.position
 		card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
 		card_slot_found.card_in_slot = card_being_dragged
+		if card_slot_found is enemy_class:
+			card_used_on_enemy.emit(card_slot_found)
 	else:
 		player_hand_reference.add_card_to_hand(card_being_dragged, card_being_dragged.position_in_hand)
 	card_being_dragged = null

@@ -8,6 +8,7 @@ const STARTING_HAND_SIZE := 3
 
 @export var deck_resource: starting_deck_resource
 @export var deck = []
+var discard_pile = []
 
 	
 # Called when the node enters the scene tree for the first time.
@@ -38,13 +39,24 @@ func draw_card():
 		$"../Hand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
 		new_card.get_node("AnimationPlayer").play("card_flip")
 		
-	#if player draws the last card in the deck, disable the deck
+	#if player draws the last card in the deck, reshuffle
 	if deck.size() == 0:
-		$Area2D/CollisionShape2D.disabled = true
-		$Sprite2D.visible = false
-		$RichTextLabel.visible = false
+		renew_deck()
 		
 	$RichTextLabel.text = str(deck.size())
 	
+func send_card_to_discard(card):
+	discard_pile.append(card.stats)
+	card.queue_free()
 	
 	
+func renew_deck():
+	for n in discard_pile:
+		deck.append(n)
+	discard_pile.clear()
+	deck.shuffle()
+	
+
+func _on_battle_manager_card_used(enemy: Variant) -> void:
+	send_card_to_discard(enemy.card_in_slot)
+	enemy.card_in_slot = null
