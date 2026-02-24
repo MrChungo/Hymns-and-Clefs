@@ -1,4 +1,5 @@
 extends Node2D
+class_name card_class
 
 @export var stats : card_resource
 

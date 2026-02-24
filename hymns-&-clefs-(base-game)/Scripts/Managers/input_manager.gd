@@ -11,9 +11,11 @@ var deck_reference
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	card_manager_reference = $"../card_manager"
-	deck_reference = $"../Deck"
-
+	var root_node = get_node(^"/root")
+	if root_node.has_node("uid://dul2fujevqvbb"): #"res://Scenes/card_stuffs/deck.tscn"
+		deck_reference = %Deck
+	if root_node.has_node("uid://dj0n21bmv1fyn"): #"res://Scenes/Managers/card_manager.tscn"
+		card_manager_reference = %card_manager
 
 	
 func _input(event):
@@ -40,7 +42,7 @@ func raycast_at_cursor():
 		if result_collision_mask == COLLISION_MASK_CARD:
 			#card clicked
 			var card_found = result[0].collider.get_parent()
-			if card_found:
+			if card_found and (card_found is card_class):
 				card_manager_reference.start_drag(card_found)
 		elif result_collision_mask == COLLISION_MASK_DECK:
 			#deck clicked

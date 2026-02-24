@@ -31,6 +31,7 @@ unique_name_in_owner = true
 [node name="Hand" parent="." instance=ExtResource("1_iqqcv")]
 
 [node name="Deck" parent="." instance=ExtResource("1_h8jgs")]
+unique_name_in_owner = true
 position = Vector2(96, 389)
 
 [node name="UsedCardSlot" parent="." instance=ExtResource("2_jgshu")]
