@@ -10,6 +10,7 @@ const VERTICAL_ENEMY_SPACING:= 125
 const HORIZONTAL_ENEMY_SPACING := 100
 
 signal card_used(enemy)
+signal battle_complete
 
 var global_rarities = load("uid://dxut7bry6abc") #RANDOM_REFERENCE.get_weighted_rarity()
 var test_save = load("uid://chmnudsaqsjho") #"res://Resources/Save States/Test_Battle_save.tres"
@@ -217,10 +218,14 @@ func add_shield(target, shield_added):
 
 func battle_loop():
 	while battle:
-		if is_player_turn:
-			await player_turn()
+		if enemies.size() > 0:
+			if is_player_turn:
+				await player_turn()
+			else:
+				await enemy_turn()
+				print("player hp", player.hp)
 		else:
-			await enemy_turn()
-			print("player hp", player.hp)
+			emit_signal("battle_complete")
+			battle = false
 			
 		
