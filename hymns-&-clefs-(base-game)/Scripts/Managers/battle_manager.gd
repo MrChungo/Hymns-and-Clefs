@@ -1,5 +1,8 @@
 extends Node2D
 
+# THIS FILE MUST BE AT THE BOTTOM OF THE TREE FOR EVERYTHING TO WORK
+
+
 const PLAYER_SCENE = preload("uid://bys0uidt8s34i")#"res://Scenes/player/player.tscn"
 const ENEMY_SCENE :=  preload("uid://448b5kjxjtf5") #res://Scenes/enemies/enemy.tscn
 const MAX_ENEMIES_PER_ROW:= 4
@@ -21,7 +24,7 @@ var battle: bool
 
 #player spawning and stuffs
 var player: Node2D
-
+var hand_size: int
 var card_being_used: Node2D
 
 #enemy spawning
@@ -49,7 +52,7 @@ func _ready() -> void:
 	max_possible_enemies = difficulty + 2
 	min_possible_enemies = difficulty
 	#enemy_quantity = randi_range(min_possible_enemies,max_possible_enemies)
-	enemy_quantity = 3
+	enemy_quantity = 5
 	#spawns enemies & player
 	spawn_enemies(enemy_quantity)
 	spawn_player()
@@ -63,6 +66,7 @@ func load_from_save(loaded_save):
 	save = loaded_save
 	difficulty = save.world_difficulty
 	battle_round = save.last_battle_round 
+	hand_size = save.current_hand_size
 
 #player functions
 func spawn_player():
@@ -88,7 +92,7 @@ func player_turn():
 	
 	empty_hand()
 	
-	
+	player.update_label()
 	is_player_turn = false
 	
 func player_death(target):
@@ -101,16 +105,17 @@ func select_target():
 			return n
 
 func use_card(target, card):
-	if card.stats.attack_points >= 0:
-		attack(target, card.stats.attack_points)
 	
+	if card.stats.attack_points > 0:
+		attack(target, card.stats.attack_points)
+	if card.stats.shield_points > 0:
+		add_shield(player, card.stats.shield_points)
 		
 	emit_signal("card_used", target)
 
 func draw_cards_to_hand():
 	var deck_ref = %Deck
-	for n in range(3): #AAAAAAAAAAAAAAA
-		print("a")
+	for n in range(hand_size):
 		deck_ref.draw_card()
 
 func empty_hand():
@@ -158,7 +163,8 @@ func enemy_turn():
 	for _enemy in enemies:
 		var chosen_action = enemy_choose_action(_enemy)
 		enemy_action(_enemy,chosen_action)
-		
+	
+	player.update_label()
 	is_player_turn = true
 
 func enemy_choose_action(_enemy):

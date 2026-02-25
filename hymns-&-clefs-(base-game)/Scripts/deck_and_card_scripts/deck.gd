@@ -13,7 +13,7 @@ var discard_pile = []
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	deck_resource = load("res://Resources/Deck/Deck Presets/Default_Deck_Preset.tres")
+	deck_resource = load("res://Resources/Deck/Deck Presets/debug_deck.tres")
 	load_deck_from_resource(deck_resource)
 	$RichTextLabel.text = str(deck.size())
 
@@ -24,9 +24,11 @@ func load_deck_from_resource(resource: starting_deck_resource):
 	deck.shuffle()
 
 func draw_card():
-
+	
+	print("b")
 	#if there are cards in the deck, create an instance of the card & place it on hand
 	if deck.size() > 0:
+		print("awa?")
 		var card_drawn = deck[0]
 		deck.erase(card_drawn)
 		var new_card = CARD_SCENE.instantiate()

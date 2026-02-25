@@ -13,6 +13,8 @@ class_name save_resource
 @export var current_player_shield: int
 @export var deck: Array[card_resource]
 
+@export var current_hand_size: int
+
 #battle stuff
 @export var last_battle_round: int
 @export var enemies: Array
