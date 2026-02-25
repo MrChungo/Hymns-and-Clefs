@@ -24,11 +24,9 @@ func load_deck_from_resource(resource: starting_deck_resource):
 	deck.shuffle()
 
 func draw_card():
-	
-	print("b")
+
 	#if there are cards in the deck, create an instance of the card & place it on hand
 	if deck.size() > 0:
-		print("awa?")
 		var card_drawn = deck[0]
 		deck.erase(card_drawn)
 		var new_card = CARD_SCENE.instantiate()

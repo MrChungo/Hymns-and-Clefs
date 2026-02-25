@@ -46,4 +46,5 @@ func raycast_at_cursor():
 				card_manager_reference.start_drag(card_found)
 		elif result_collision_mask == COLLISION_MASK_DECK:
 			#deck clicked
-			deck_reference.draw_card()
+			#deck_reference.draw_card() #player does not draw manually
+			pass
