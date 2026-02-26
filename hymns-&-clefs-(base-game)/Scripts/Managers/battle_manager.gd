@@ -141,7 +141,6 @@ func spawn_enemies(_enemy_quantity):
 		var stats = load("res://Resources/Enemy/AAAAAAAAAAAAAAAA.tres") #temp stats!!!!!!!!!!!!!!!
 		new_enemy.update_enemy_stats(stats)
 		new_enemy.enemy_next_action = enemy_choose_action(new_enemy)
-		print(new_enemy.enemy_next_action)
 		enemies.append(new_enemy)
 		
 	

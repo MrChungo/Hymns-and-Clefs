@@ -3,6 +3,9 @@ extends Node2D
 var rng = RandomNumberGenerator.new()
 
 
+func _ready() -> void:
+	get_random_enemy(1, false)
+
 func get_weighted_rarity(item_rarity):
 	rng.randomize()
 	var weighted_sum = 0
@@ -17,6 +20,31 @@ func get_weighted_rarity(item_rarity):
 		else:
 			rarity_chosen -= item_rarity[n]
 			
+
+func get_random_enemy(world:int , is_boss:bool):
+	var path = "res://Resources/Enemy/"
+	if !is_boss:
+		if world == 1:
+			path = "res://Resources/Enemy/WorldOneEnemies/"
+			dir_contents(path)
+		elif world == 2:
+			path = "res://Resources/Enemy/WorldTwoEnemies/"
+			dir_contents(path)
+		elif world == 3:
+			path = "res://Resources/Enemy/WorldThreeEnemies/"
+			dir_contents(path)
+
+func dir_contents(path):
+	var dir = DirAccess.open(path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				print("Found directory: " + file_name)
+			else:
+				print("Found file: " + file_name)
+			file_name = dir.get_next()
+	else:
+		print("An error occurred when trying to access the path.")
 	
-func get_random_enemy(world):
-	pass
