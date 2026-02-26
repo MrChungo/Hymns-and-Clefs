@@ -25,8 +25,10 @@ func get_random_enemy(world:int , is_boss:bool):
 	var path = "res://Resources/Enemy/"
 	if !is_boss:
 		if world == 1:
-			path = "res://Resources/Enemy/WorldOneEnemies/"
-			dir_contents(path)
+			path = "res://Resources/Enemy/WorldOneEnemies/" 
+			
+			
+			return
 		elif world == 2:
 			path = "res://Resources/Enemy/WorldTwoEnemies/"
 			dir_contents(path)
@@ -35,6 +37,7 @@ func get_random_enemy(world:int , is_boss:bool):
 			dir_contents(path)
 
 func dir_contents(path):
+	var files = []
 	var dir = DirAccess.open(path)
 	if dir:
 		dir.list_dir_begin()
@@ -44,7 +47,9 @@ func dir_contents(path):
 				print("Found directory: " + file_name)
 			else:
 				print("Found file: " + file_name)
+				files.append(file_name)
 			file_name = dir.get_next()
 	else:
 		print("An error occurred when trying to access the path.")
+	return files
 	
