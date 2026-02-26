@@ -6,8 +6,8 @@ var node_group:int
 var node_length:int
 var map_icons:Array[Node2D]
 var current_icon:int
-var screen_width
-var screen_height
+var screen_width:int
+var screen_height:int
 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,9 +26,6 @@ func _ready() -> void:
 	#GOES LASR
 	gen_map(node_length)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func gen_map(node_length):
 	for n in range(node_length):
