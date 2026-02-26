@@ -1,13 +1,3 @@
-'''
-Using tutorial to base card logic
-
-can use this later to be able to choose cards (aka if you leave card
-in middle of screen you choose card)
-
-
-LAST WORKED AT 6:18
-https://www.youtube.com/watch?v=riafP7MtvmQ
-'''
 extends Node2D
 
 signal card_used_on_enemy(enemy_target)

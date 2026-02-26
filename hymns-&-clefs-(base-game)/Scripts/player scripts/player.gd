@@ -7,8 +7,7 @@ var max_hp: int
 var shield: int
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
+
 
 func load_player_stats(_save):
 	save = _save
@@ -19,7 +18,10 @@ func load_player_stats(_save):
 	update_label()
 
 func update_label():
-	$RichTextLabel.text = "Hp %d" % [self.hp]
+	var text = "[center]Hp: %d, Sh: %d[/center]" % [self.hp, self.shield]
+	$Control/Health.text = text
+	
+	
 
 func death():
 	self.queue_free()
