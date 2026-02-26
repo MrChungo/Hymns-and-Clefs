@@ -1,7 +1,5 @@
 extends Node2D
 
-
-
 var rng = RandomNumberGenerator.new()
 
 
@@ -18,3 +16,7 @@ func get_weighted_rarity(item_rarity):
 			return n
 		else:
 			rarity_chosen -= item_rarity[n]
+			
+	
+func get_random_enemy(world):
+	pass
