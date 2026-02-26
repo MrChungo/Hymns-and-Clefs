@@ -4,7 +4,7 @@ var rng = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
-	get_random_enemy(1, false)
+	get_random_enemy(2, false)
 
 func get_weighted_rarity(item_rarity):
 	rng.randomize()
