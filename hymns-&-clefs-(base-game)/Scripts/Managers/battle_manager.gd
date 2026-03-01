@@ -38,7 +38,6 @@ var screen_height: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	save = load("res://Resources/Save States/Test_Battle_save.tres")
 	
 	screen_width = get_viewport().size.x
 	screen_height = get_viewport().size.y
@@ -224,7 +223,19 @@ func battle_loop():
 				await enemy_turn()
 				print("player hp", player.hp)
 		else:
-			emit_signal("battle_complete")
-			battle = false
+			battle_ends()
+			
 			
 		
+
+func battle_ends():
+	emit_signal("battle_complete")
+	save_to_savefile()
+	battle = false
+	
+
+func save_to_savefile():
+	var loaded_save = save
+	difficulty = save.world_difficulty
+	battle_round = save.last_battle_round 
+	hand_size = save.current_hand_size

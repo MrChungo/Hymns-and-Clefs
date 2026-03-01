@@ -5,7 +5,8 @@ class_name save_resource
 @export var world_difficulty: int
 
 #map stuff
-
+@export var map_icons: Array
+@export var current_icon:int
 
 #player stuffs
 @export var current_player_hp: int

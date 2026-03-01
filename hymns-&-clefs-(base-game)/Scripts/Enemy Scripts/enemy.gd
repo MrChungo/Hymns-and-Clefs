@@ -16,11 +16,11 @@ var card_in_slot: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var scale = 3
-	self.scale = Vector2(scale,scale)
+	var new_scale = 3
+	self.scale = Vector2(new_scale,new_scale)
 	
 	$Control.pivot_offset = $Control.size / 2
-	$Control.scale = Vector2(float(1.0/scale),float(1.0/scale))
+	$Control.scale = Vector2(float(1.0/new_scale),float(1.0/new_scale))
 
 func update_enemy_stats(loaded_stats):
 	stats = loaded_stats
