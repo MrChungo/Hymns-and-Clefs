@@ -2,11 +2,13 @@ extends Node2D
 class_name map_class
 const MAP_ICON_PATH = preload("uid://dqj5ku8jkvvup")#"res://Scenes/Areas/map/map_icon.tscn"
 
+var loaded_save = load("uid://chmnudsaqsjho")#"res://Resources/Save States/Test_Battle_save.tres"
+
 var save: save_resource
 
 var node_group:int 
 var node_length:int
-var map_icons:Array[Node2D]
+var map_icons:Array #[Node2D]
 var current_icon:int
 var screen_width:int
 var screen_height:int
@@ -21,12 +23,13 @@ func _ready() -> void:
 	
 	#LOAD ICON FROM SAvE FILE, LOAD CURRENT BATTLE FROM FILE
 	current_icon = 2
+	load_from_save(loaded_save)
 	
-	
-	
-	
-	#GOES LASR
-	gen_map(node_length)
+	if check_if_existing_map():
+		update_map_icon_pos()
+		display_loaded_icons()
+	else:
+		gen_map(node_length)
 
 func load_from_save(loaded_save):
 	save = loaded_save
@@ -34,7 +37,7 @@ func load_from_save(loaded_save):
 	current_icon = save.current_icon
 	
 func check_if_existing_map():
-	if save.map_icons.size() > 0:
+	if map_icons.size() > 0:
 		return true
 	else:
 		return false
@@ -61,13 +64,11 @@ func update_map_icon_pos():
 			map_icons[icon].enterable = true
 		else:
 			map_icons[icon].enterable = false
-	pass
 
 func gen_map_icon_node():
 	var node = MAP_ICON_PATH.instantiate()
 	node.name = "mapIcon"
 	map_icons.append(node)
-	#player.load_player_stats(save)
 	
 func display_loaded_icons():
 	for n in map_icons:

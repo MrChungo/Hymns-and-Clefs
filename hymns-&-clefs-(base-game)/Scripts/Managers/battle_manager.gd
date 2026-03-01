@@ -69,7 +69,11 @@ func load_from_save(loaded_save):
 	battle_round = save.last_battle_round 
 	hand_size = save.current_hand_size
 
-
+func save_to_savefile():
+	save.world_difficulty = difficulty
+	save.last_battle_round = battle_round
+	save.current_hand_size = hand_size
+	SaveManager._save(save)
 
 #player functions
 func spawn_player():
@@ -233,9 +237,3 @@ func battle_ends():
 	save_to_savefile()
 	battle = false
 	
-
-func save_to_savefile():
-	var loaded_save = save
-	difficulty = save.world_difficulty
-	battle_round = save.last_battle_round 
-	hand_size = save.current_hand_size
