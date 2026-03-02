@@ -71,7 +71,7 @@ func battle_setup():
 
 
 func load_from_save():
-	#SaveManager._new_save() #used for debug (it resetst the save file)
+	#SaveManager._new_save() #used for debug (it resetst the save file) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	await SaveManager._load()
 	await player.load_player_stats()
@@ -240,6 +240,7 @@ func battle_loop():
 		
 
 func battle_ends():
+	SaveManager.save_file_data.current_icon += 1
 	await save_to_savefile()
 	emit_signal("battle_complete")
 	battle = false

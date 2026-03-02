@@ -40,7 +40,7 @@ func on_hovered_off_icon(icon):
 			
 func highlight_icon(icon, hovered):
 	if hovered && icon.enterable:
-		icon.scale = Vector2(1.05,1.05)
+		icon.scale = Vector2(1.1,1.1)
 		icon.z_index = 2
 	else:
 		icon.scale = Vector2(1,1)
@@ -80,4 +80,5 @@ func get_icon_with_highest_z_index(icons):
 func _on_input_manager_left_mouse_button_released() -> void:
 	var icon = raycast_check_for_icon()
 	if entered == true and icon.enterable:
+		await $"..".save_to_savefile()
 		get_tree().change_scene_to_file("uid://cri5a32uv57us")#"res://Scenes/Areas/battle.tscn"

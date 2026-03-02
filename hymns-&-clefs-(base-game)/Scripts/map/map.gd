@@ -6,10 +6,12 @@ var save: save_resource
 
 var node_group:int 
 var node_length:int
-var map_icons:Array #[Node2D]
+var map_icons:Array[String]
 var current_icon:int
 var screen_width:int
 var screen_height:int
+
+var node_icons: Array = []
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,28 +22,27 @@ func _ready() -> void:
 	screen_height = get_viewport().size.y
 	
 	#LOAD ICON FROM SAvE FILE, LOAD CURRENT BATTLE FROM FILE
-	current_icon = 2
 	load_from_save()
-	
-	if check_if_existing_map():
-		update_map_icon_pos()
-		display_loaded_icons()
-	else:
-		gen_map(node_length)
 
 
 func load_from_save():
+	node_icons.clear()
 	SaveManager._load()
-	map_icons = SaveManager.save_file_data.map_icons
+	#SaveManager.save_file_data.map_icons.clear()
+	map_icons = SaveManager.save_file_data.map_icons.duplicate()
 	current_icon = SaveManager.save_file_data.current_icon
-	if !check_if_existing_map():
-		gen_map(node_length)
+	print(current_icon," ", len(map_icons))
+	if !check_if_existing_map() or (current_icon == len(map_icons)):
+		map_icons.clear()
+		current_icon = 0
+		SaveManager.save_file_data.current_icon = 0
+		gen_map()
+	else:
+		load_map()
+		
 	
 func save_to_savefile():
-	SaveManager.save_file_data.map_icons.clear()
-	for icon in map_icons:
-		SaveManager.save_file_data.map_icons.append(icon)
-	SaveManager.save_file_data.current_icon = current_icon
+	SaveManager.save_file_data.map_icons = map_icons.duplicate()
 	SaveManager._save()
 	
 func check_if_existing_map():
@@ -53,32 +54,46 @@ func check_if_existing_map():
 
 
 
-func gen_map(_node_length):
-	for n in range(_node_length):
-		gen_map_icon_node()
+func gen_map():
+	
+	for n in range(node_length):
+		var _type = ""
+		if n == node_length:
+			_type = "boss_battle"
+		else:
+			_type = "normal_battle"
+			
+		gen_map_icon_node(_type)
 	update_map_icon_pos()
-	display_loaded_icons()
 	
-	
+func load_map():
+	for n in map_icons:
+		new_icon(n)
+	update_map_icon_pos()
 
 func update_map_icon_pos():
-	for icon in range(len(map_icons)):
+	for icon in range(len(node_icons)):
 		@warning_ignore("integer_division")
-		map_icons[icon].position.x = icon*(screen_width/len(map_icons))+90 #HARDCODED NUMBER
+		node_icons[icon].position.x = icon*(screen_width/len(node_icons))+90 #HARDCODED NUMBER
 		@warning_ignore("integer_division")
-		map_icons[icon].position.y = screen_height/2
-		print(icon , current_icon)
+		node_icons[icon].position.y = screen_height/2
 		if icon == current_icon:
-			map_icons[icon].enterable = true
+			node_icons[icon].enterable = true
 		else:
-			map_icons[icon].enterable = false
+			node_icons[icon].enterable = false
 
-func gen_map_icon_node():
+func gen_map_icon_node(_type):
+	new_icon(_type)
+	map_icons.append(_type)
+	
+
+
+func new_icon(_type):
 	var node = MAP_ICON_PATH.instantiate()
 	node.name = "mapIcon"
-	map_icons.append(node)
+	node.icon_type = _type
+	$"IconManager".add_child.call_deferred(node)
+	node_icons.append(node)
 	
-func display_loaded_icons():
-	for n in map_icons:
-		$"IconManager".add_child.call_deferred(n)
+		
 	

@@ -5,7 +5,7 @@ class_name save_resource
 @export var world_difficulty: int # must start at 1!!!
 
 #map stuff
-@export var map_icons: Array
+@export var map_icons: Array[String]
 @export var current_icon:int
 
 #player stuffs

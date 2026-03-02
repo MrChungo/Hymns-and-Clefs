@@ -3,6 +3,7 @@ extends Node2D
 signal icon_hovered
 signal icon_hovered_off
 var enterable:bool
+var icon_type: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
