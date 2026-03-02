@@ -14,7 +14,6 @@ func _ready() -> void:
 #	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
 
 func connect_icon_signals(icon):
-	print("AAAAAAAAAAAAAAAAAAAA")
 	icon.connect("icon_hovered", on_hovered_over_icon)
 	icon.connect("icon_hovered_off", on_hovered_off_icon)
 
@@ -22,7 +21,6 @@ func connect_icon_signals(icon):
 
 func on_hovered_over_icon(icon):
 	entered = true
-	print(entered)
 	if !is_hovering_on_icon && icon.enterable:
 		is_hovering_on_icon = true
 		highlight_icon(icon,true)
@@ -30,7 +28,6 @@ func on_hovered_over_icon(icon):
 
 func on_hovered_off_icon(icon):
 	entered = false
-	print(entered)
 	if icon.enterable:
 		highlight_icon(icon, false)
 		#check if hovered off icon straight on to another icon
@@ -43,7 +40,7 @@ func on_hovered_off_icon(icon):
 			
 func highlight_icon(icon, hovered):
 	if hovered && icon.enterable:
-		icon.scale = Vector2(1.05,1.05)
+		icon.scale = Vector2(1.1,1.1)
 		icon.z_index = 2
 	else:
 		icon.scale = Vector2(1,1)
@@ -63,7 +60,8 @@ func raycast_check_for_icon():
 		return get_icon_with_highest_z_index(result)
 	else:
 		return null
-		
+	
+	
 func get_icon_with_highest_z_index(icons):
 	#asume first icon passed has the highest z index
 	var highest_z_icon = icons[0].collider.get_parent()
@@ -76,11 +74,11 @@ func get_icon_with_highest_z_index(icons):
 		if current_icon.z_index > highest_z_index:
 			highest_z_icon = current_icon
 			highest_z_index = current_icon.z_index
-			print(highest_z_icon)
 	return highest_z_icon
 
 
 func _on_input_manager_left_mouse_button_released() -> void:
-	if entered == true:
-		print("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
+	var icon = raycast_check_for_icon()
+	if entered == true and icon.enterable:
+		await $"..".save_to_savefile()
 		get_tree().change_scene_to_file("uid://cri5a32uv57us")#"res://Scenes/Areas/battle.tscn"

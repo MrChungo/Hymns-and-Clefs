@@ -41,43 +41,54 @@ func _ready() -> void:
 	
 	screen_width = get_viewport().size.x
 	screen_height = get_viewport().size.y
+	
+	battle_setup()
 
-	battle = true
-	#sets up variables for game
-	load_from_save(test_save)
+
+func battle_setup():
 	is_player_turn = true
+	
+	#spawns player
+	spawn_player()
+	player.update_label()
+	
+	#loads data
+	await load_from_save()
+	
+	
 	
 	#ENEMY STUFF!!!!!!!!!!!!!!
 	max_possible_enemies = difficulty + 2
 	min_possible_enemies = difficulty
-	#enemy_quantity = randi_range(min_possible_enemies,max_possible_enemies)
-	enemy_quantity = 5
+	enemy_quantity = randi_range(min_possible_enemies,max_possible_enemies)
 	#spawns enemies & player
 	spawn_enemies(enemy_quantity)
 	update_enemy_labels()
 	
-	spawn_player()
-	player.update_label()
-	
+	battle = true
+	battle_round = 0
 	battle_loop()
 
 
+func load_from_save():
+	#SaveManager._new_save() #used for debug (it resetst the save file) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-func load_from_save(loaded_save):
-	save = loaded_save
-	difficulty = save.world_difficulty
-	battle_round = save.last_battle_round 
-	hand_size = save.current_hand_size
+	await SaveManager._load()
+	await player.load_player_stats()
+	await %Deck.load_from_save()
+	difficulty = SaveManager.save_file_data.world_difficulty
+	hand_size = SaveManager.save_file_data.hand_size
 
-
+func save_to_savefile():
+	await player.save_player_stats()
+	await %Deck.save_to_savefile()
+	await SaveManager._save()
 
 #player functions
 func spawn_player():
 	player = PLAYER_SCENE.instantiate()
 	$"..".add_child.call_deferred(player)
 	player.name = "player"
-	player.load_player_stats(save)
-	print(player.hp)
 	@warning_ignore("integer_division")
 	player.global_position.y = (screen_height/2)
 	@warning_ignore("integer_division")
@@ -229,13 +240,8 @@ func battle_loop():
 		
 
 func battle_ends():
+	SaveManager.save_file_data.current_icon += 1
+	await save_to_savefile()
 	emit_signal("battle_complete")
-	save_to_savefile()
 	battle = false
 	
-
-func save_to_savefile():
-	var loaded_save = save
-	difficulty = save.world_difficulty
-	battle_round = save.last_battle_round 
-	hand_size = save.current_hand_size
