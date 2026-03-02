@@ -7,7 +7,7 @@ const test_save_file = "uid://chmnudsaqsjho" #"res://Resources/Save States/Test_
 
 const SAVE_FILE_TEMPLATE_LOCATION = "uid://dbeyhpubeidew" #"res://Resources/Save States/Save_Templates/Default_Save_Template.tres"
 
-var save_file_data: save_resource = save_resource.new()
+var save_file_data: save_resource
 var save_file_template: save_resource = load(SAVE_FILE_TEMPLATE_LOCATION)
 
 
@@ -20,7 +20,9 @@ func _save():
 	ResourceSaver.save(save_file_data, save_location)
 
 func _load():
+	#_new_save()
 	if FileAccess.file_exists(save_location):
 		save_file_data = ResourceLoader.load(save_location).duplicate(true)
 	else:
 		_new_save()
+		save_file_data = ResourceLoader.load(save_location).duplicate(true)

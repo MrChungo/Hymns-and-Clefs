@@ -27,7 +27,7 @@ func _ready() -> void:
 
 func load_from_save():
 	node_icons.clear()
-	SaveManager._load()
+	await SaveManager._load()
 	#SaveManager.save_file_data.map_icons.clear()
 	map_icons = SaveManager.save_file_data.map_icons.duplicate()
 	current_icon = SaveManager.save_file_data.current_icon
