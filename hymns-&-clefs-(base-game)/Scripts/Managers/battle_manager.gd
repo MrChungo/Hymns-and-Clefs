@@ -44,7 +44,7 @@ func _ready() -> void:
 
 	battle = true
 	#sets up variables for game
-	load_from_save(test_save)
+	
 	is_player_turn = true
 	
 	#ENEMY STUFF!!!!!!!!!!!!!!
@@ -59,29 +59,36 @@ func _ready() -> void:
 	spawn_player()
 	player.update_label()
 	
+	load_from_save()
+	
 	battle_loop()
+	
 
 
 
-func load_from_save(loaded_save):
-	save = loaded_save
-	difficulty = save.world_difficulty
-	battle_round = save.last_battle_round 
-	hand_size = save.current_hand_size
+func load_from_save():
+	SaveManager._new_save()
+	
+	await SaveManager._load()
+	await player.load_player_stats()
+	await %Deck.load_from_save()
+	difficulty = SaveManager.save_file_data.world_difficulty
+	battle_round = SaveManager.save_file_data.last_battle_round 
+	hand_size = SaveManager.save_file_data.current_hand_size
 
 func save_to_savefile():
-	save.world_difficulty = difficulty
-	save.last_battle_round = battle_round
-	save.current_hand_size = hand_size
-	SaveManager._save(save)
+	await player.save_player_stats()
+	await %deck.save_to_savefile()
+	SaveManager.save_file_data.world_difficulty = difficulty
+	SaveManager.save_file_data.last_battle_round = battle_round
+	SaveManager.save_file_data.current_hand_size = hand_size
+	await SaveManager._save()
 
 #player functions
 func spawn_player():
 	player = PLAYER_SCENE.instantiate()
 	$"..".add_child.call_deferred(player)
 	player.name = "player"
-	player.load_player_stats(save)
-	print(player.hp)
 	@warning_ignore("integer_division")
 	player.global_position.y = (screen_height/2)
 	@warning_ignore("integer_division")
@@ -233,7 +240,7 @@ func battle_loop():
 		
 
 func battle_ends():
-	emit_signal("battle_complete")
 	save_to_savefile()
+	emit_signal("battle_complete")
 	battle = false
 	

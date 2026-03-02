@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="save_resource" load_steps=3 format=3 uid="uid://chhp04dacxq6i"]
-
-[ext_resource type="Script" uid="uid://sgfc57h1wefs" path="res://Scripts/Resource_scripts/card_resource.gd" id="1_w45y2"]
-[ext_resource type="Script" uid="uid://vu1ok1sil6qg" path="res://Scripts/Resource_scripts/save_resource.gd" id="2_bvyht"]
-
-[resource]
-script = ExtResource("2_bvyht")
-metadata/_custom_type_script = "uid://vu1ok1sil6qg"

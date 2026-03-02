@@ -6,7 +6,8 @@
 [resource]
 script = ExtResource("1_q87i3")
 world_difficulty = 1
-current_player_hp = 20
+current_player_hp = 11
 max_player_hp = 20
+current_player_shield = 7
 current_hand_size = 3
 metadata/_custom_type_script = "uid://vu1ok1sil6qg"

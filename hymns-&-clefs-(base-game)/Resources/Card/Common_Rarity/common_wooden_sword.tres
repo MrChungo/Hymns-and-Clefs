@@ -5,7 +5,6 @@
 
 [resource]
 script = ExtResource("1_5jdne")
-card_name = "wooden sword"
 texture = ExtResource("2_n3u3s")
 rarity = 1
 price = 3

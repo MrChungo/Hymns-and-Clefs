@@ -8,10 +8,6 @@ var enterable:bool
 func _ready() -> void:
 	get_parent().connect_icon_signals(self)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 	
 func _on_area_2d_mouse_entered() -> void:
 	emit_signal("icon_hovered",self)

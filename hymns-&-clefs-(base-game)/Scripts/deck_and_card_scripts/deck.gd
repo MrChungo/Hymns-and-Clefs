@@ -9,12 +9,13 @@ const STARTING_HAND_SIZE := 3
 @export var deck_resource: starting_deck_resource
 @export var deck = []
 var discard_pile = []
+ 
 
-	
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	deck_resource = load("res://Resources/Deck/Deck Presets/debug_deck.tres")
-	load_deck_from_resource(deck_resource)
+
+func load_from_save():
+	deck_resource = SaveManager.save_file_data.deck
+	print(deck_resource.deck_resource)
+	await load_deck_from_resource(deck_resource)
 	$RichTextLabel.text = str(deck.size())
 
 
@@ -23,8 +24,15 @@ func load_deck_from_resource(resource: starting_deck_resource):
 		deck.insert(0, card)
 	deck.shuffle()
 
-func draw_card():
+func save_to_savefile():
+	SaveManager.save_file_data.deck.clear()
+	renew_deck()
+	for card in deck:
+		SaveManager.save_file_data.deck.append(card)
+		
 
+
+func draw_card():
 	#if there are cards in the deck, create an instance of the card & place it on hand
 	if deck.size() > 0:
 		var card_drawn = deck[0]

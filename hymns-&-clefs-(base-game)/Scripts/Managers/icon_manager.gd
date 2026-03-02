@@ -81,6 +81,7 @@ func get_icon_with_highest_z_index(icons):
 
 
 func _on_input_manager_left_mouse_button_released() -> void:
-	if entered == true:
+	var icon = raycast_check_for_icon()
+	if entered == true and icon.enterable:
 		print("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
 		get_tree().change_scene_to_file("uid://cri5a32uv57us")#"res://Scenes/Areas/battle.tscn"
