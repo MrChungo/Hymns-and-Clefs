@@ -14,7 +14,6 @@ var discard_pile = []
 
 func load_from_save():
 	deck_resource = SaveManager.save_file_data.deck
-	print(deck_resource.deck_resource)
 	await load_deck_from_resource(deck_resource)
 	$RichTextLabel.text = str(deck.size())
 
@@ -25,10 +24,10 @@ func load_deck_from_resource(resource: starting_deck_resource):
 	deck.shuffle()
 
 func save_to_savefile():
-	SaveManager.save_file_data.deck.clear()
+	SaveManager.save_file_data.deck.deck_resource.clear()
 	renew_deck()
 	for card in deck:
-		SaveManager.save_file_data.deck.append(card)
+		SaveManager.save_file_data.deck.deck_resource.append(card)
 		
 
 
@@ -36,7 +35,7 @@ func draw_card():
 	#if there are cards in the deck, create an instance of the card & place it on hand
 	if deck.size() > 0:
 		var card_drawn = deck[0]
-		deck.erase(card_drawn)
+		
 		var new_card = CARD_SCENE.instantiate()
 		
 		$"../card_manager".add_child(new_card)
@@ -45,6 +44,7 @@ func draw_card():
 		new_card._update_card_stats(card_drawn)
 		$"../Hand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
 		new_card.get_node("AnimationPlayer").play("card_flip")
+		deck.erase(card_drawn)
 		
 	#if player draws the last card in the deck, reshuffle
 	if deck.size() == 0:

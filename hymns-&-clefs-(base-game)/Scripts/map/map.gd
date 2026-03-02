@@ -2,8 +2,6 @@ extends Node2D
 class_name map_class
 const MAP_ICON_PATH = preload("uid://dqj5ku8jkvvup")#"res://Scenes/Areas/map/map_icon.tscn"
 
-var loaded_save = load("uid://chmnudsaqsjho")#"res://Resources/Save States/Test_Battle_save.tres"
-
 var save: save_resource
 
 var node_group:int 
@@ -23,7 +21,7 @@ func _ready() -> void:
 	
 	#LOAD ICON FROM SAvE FILE, LOAD CURRENT BATTLE FROM FILE
 	current_icon = 2
-	load_from_save(loaded_save)
+	load_from_save()
 	
 	if check_if_existing_map():
 		update_map_icon_pos()
@@ -31,10 +29,20 @@ func _ready() -> void:
 	else:
 		gen_map(node_length)
 
-func load_from_save(loaded_save):
-	save = loaded_save
-	map_icons = save.map_icons
-	current_icon = save.current_icon
+
+func load_from_save():
+	SaveManager._load()
+	map_icons = SaveManager.save_file_data.map_icons
+	current_icon = SaveManager.save_file_data.current_icon
+	if !check_if_existing_map():
+		gen_map(node_length)
+	
+func save_to_savefile():
+	SaveManager.save_file_data.map_icons.clear()
+	for icon in map_icons:
+		SaveManager.save_file_data.map_icons.append(icon)
+	SaveManager.save_file_data.current_icon = current_icon
+	SaveManager._save()
 	
 func check_if_existing_map():
 	if map_icons.size() > 0:

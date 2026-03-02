@@ -41,47 +41,47 @@ func _ready() -> void:
 	
 	screen_width = get_viewport().size.x
 	screen_height = get_viewport().size.y
-
-	battle = true
-	#sets up variables for game
 	
+	battle_setup()
+
+
+func battle_setup():
 	is_player_turn = true
+	
+	#spawns player
+	spawn_player()
+	player.update_label()
+	
+	#loads data
+	await load_from_save()
+	
+	
 	
 	#ENEMY STUFF!!!!!!!!!!!!!!
 	max_possible_enemies = difficulty + 2
 	min_possible_enemies = difficulty
-	#enemy_quantity = randi_range(min_possible_enemies,max_possible_enemies)
-	enemy_quantity = 5
+	enemy_quantity = randi_range(min_possible_enemies,max_possible_enemies)
 	#spawns enemies & player
 	spawn_enemies(enemy_quantity)
 	update_enemy_labels()
 	
-	spawn_player()
-	player.update_label()
-	
-	load_from_save()
-	
+	battle = true
+	battle_round = 0
 	battle_loop()
-	
-
 
 
 func load_from_save():
-	SaveManager._new_save()
-	
+	#SaveManager._new_save() #used for debug (it resetst the save file)
+
 	await SaveManager._load()
 	await player.load_player_stats()
 	await %Deck.load_from_save()
 	difficulty = SaveManager.save_file_data.world_difficulty
-	battle_round = SaveManager.save_file_data.last_battle_round 
-	hand_size = SaveManager.save_file_data.current_hand_size
+	hand_size = SaveManager.save_file_data.hand_size
 
 func save_to_savefile():
 	await player.save_player_stats()
-	await %deck.save_to_savefile()
-	SaveManager.save_file_data.world_difficulty = difficulty
-	SaveManager.save_file_data.last_battle_round = battle_round
-	SaveManager.save_file_data.current_hand_size = hand_size
+	await %Deck.save_to_savefile()
 	await SaveManager._save()
 
 #player functions
@@ -240,7 +240,7 @@ func battle_loop():
 		
 
 func battle_ends():
-	save_to_savefile()
+	await save_to_savefile()
 	emit_signal("battle_complete")
 	battle = false
 	

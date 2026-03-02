@@ -2,7 +2,7 @@ extends Resource
 class_name save_resource
 
 #general stuff
-@export var world_difficulty: int
+@export var world_difficulty: int # must start at 1!!!
 
 #map stuff
 @export var map_icons: Array
@@ -13,8 +13,6 @@ class_name save_resource
 @export var max_player_hp: int
 @export var deck: starting_deck_resource
 
-@export var current_hand_size: int
+@export var hand_size: int
 
-#battle stuff
-@export var last_battle_round: int
-@export var enemies: Array
+#battle stuff (add smth if needed)
