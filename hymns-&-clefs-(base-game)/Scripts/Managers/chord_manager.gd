@@ -1,5 +1,8 @@
 extends Node
-
+'''
+https://www.musictheory.net/lessons/40
+https://en.wikipedia.org/wiki/Chord_(music)
+'''
 const NOTES_WITH_SHARPS = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"]
 
 const NOTES_WITH_FLATS = ["A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"]
