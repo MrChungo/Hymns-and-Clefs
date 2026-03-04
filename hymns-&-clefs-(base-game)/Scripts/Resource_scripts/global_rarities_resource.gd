@@ -28,3 +28,12 @@ class_name global_rarities_resource
 											"defend": 15,
 											"nothing" : 5
 											}
+					
+
+@export var chord_type_rarity := {
+									"major": [10,8,5],
+									"minor": [10,8,5],
+									"diminished": [0,2,5],
+									"augmented": [0,2,5]
+									
+									}
