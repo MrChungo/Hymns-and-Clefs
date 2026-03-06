@@ -27,20 +27,20 @@ func get_weighted_rarity(item_rarity):
 			rarity_chosen -= item_rarity[n]
 
 
-func get_weighted_rarity_by_world(item_rarity,difficulty):
+func get_weighted_rarity_by_world(item_rarity):
+	
 	rng.randomize()
 	var weighted_sum = 0
-	if difficulty > 3:
-		difficulty = 
+
 	for n in item_rarity:
-		weighted_sum += item_rarity[n]
+		weighted_sum += item_rarity[n][SaveManager.save_file_data.world_difficulty - 1] 
 	var rarity_chosen = rng.randi_range(0,weighted_sum)
 	
 	for n in item_rarity:
-		if rarity_chosen <= item_rarity[n]:
+		if rarity_chosen <= item_rarity[n][SaveManager.save_file_data.world_difficulty - 1] :
 			return n
 		else:
-			rarity_chosen -= item_rarity[n]
+			rarity_chosen -= item_rarity[n][SaveManager.save_file_data.world_difficulty - 1] 
 			
 
 func get_random_enemy(world:int , is_boss:bool):
