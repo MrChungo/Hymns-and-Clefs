@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cri5a32uv57us"]
+[gd_scene load_steps=10 format=3 uid="uid://cri5a32uv57us"]
 
 [ext_resource type="PackedScene" uid="uid://ct2tgcgnfh01i" path="res://Scenes/Managers/input_manager.tscn" id="1_6jolc"]
 [ext_resource type="PackedScene" uid="uid://dul2fujevqvbb" path="res://Scenes/card_stuffs/deck.tscn" id="1_h8jgs"]
@@ -9,12 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://c1nbu1vj1lyb2" path="res://Scenes/Misc/SignalManager.tscn" id="3_80xfc"]
 [ext_resource type="PackedScene" uid="uid://dj0n21bmv1fyn" path="res://Scenes/Managers/card_manager.tscn" id="3_u3xo8"]
 [ext_resource type="PackedScene" uid="uid://c47usf0t2d3pb" path="res://Scenes/Managers/enemy_manager.tscn" id="4_80xfc"]
-[ext_resource type="PackedScene" uid="uid://bvdiog5mff0jt" path="res://Scenes/Misc/random.tscn" id="9_fmnrc"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_of1b8")
-
-[node name="Random" parent="." instance=ExtResource("9_fmnrc")]
 
 [node name="SignalManager" parent="." instance=ExtResource("3_80xfc")]
 

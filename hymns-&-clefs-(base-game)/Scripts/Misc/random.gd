@@ -6,10 +6,32 @@ var rng = RandomNumberGenerator.new()
 func _ready() -> void:
 	get_random_enemy(2, false)
 
+func get_random_int(min_int:int,max_int:int):
+	rng.randomize()
+	return rng.randi_range(min_int,max_int)
+	
+	
+
 func get_weighted_rarity(item_rarity):
 	rng.randomize()
 	var weighted_sum = 0
 	
+	for n in item_rarity:
+		weighted_sum += item_rarity[n]
+	var rarity_chosen = rng.randi_range(0,weighted_sum)
+	
+	for n in item_rarity:
+		if rarity_chosen <= item_rarity[n]:
+			return n
+		else:
+			rarity_chosen -= item_rarity[n]
+
+
+func get_weighted_rarity_by_world(item_rarity,difficulty):
+	rng.randomize()
+	var weighted_sum = 0
+	if difficulty > 3:
+		difficulty = 
 	for n in item_rarity:
 		weighted_sum += item_rarity[n]
 	var rarity_chosen = rng.randi_range(0,weighted_sum)
@@ -35,6 +57,7 @@ func get_random_enemy(world:int , is_boss:bool):
 		elif world == 3:
 			path = "res://Resources/Enemy/WorldThreeEnemies/"
 			dir_contents(path)
+			
 
 func dir_contents(path):
 	var files = []
