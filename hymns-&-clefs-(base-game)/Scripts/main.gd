@@ -7,10 +7,10 @@ func _ready() -> void:
 
 
 #load the data for the next two functions from save files :3
-func load_map():
-	 #inst.map
-	#delete battle
+#func load_map():
+	 ##inst.map
+	##delete battle
 	
-func load_battle():
-	#inst. battle
-	#delete map
+#func load_battle():
+	##inst. battle
+	##delete map
