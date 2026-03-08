@@ -9,14 +9,14 @@ const NOTES_WITH_FLATS = ["A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"]
 
 var global_rarities = load("uid://dxut7bry6abc") #RANDOM_REFERENCE.get_weighted_rarity()
 
-func _ready() -> void:
-	SaveManager._load()
-	SaveManager.save_file_data.world_difficulty = 2
-	var trials = 10
-	for n in range(trials):
-		var chord = gen_chord()
-		print(chord)
-		print(get_chord_name(chord))
+#func _ready() -> void:
+	#SaveManager._load()
+	#SaveManager.save_file_data.world_difficulty = 2
+	#var trials = 10
+	#for n in range(trials):
+		#var chord = gen_chord()
+		#print(chord)
+		#print(get_chord_name(chord))
 
 
 func gen_chord() -> Array:
