@@ -187,11 +187,11 @@ func enemy_choose_action(_enemy):
 	var enemy_action_type = _enemy.enemy_action_type
 	var action = "doNothing"
 	if enemy_action_type == 0: #balanced
-		action = $"../Random".get_weighted_rarity(global_rarities.enemy_balanced_attack_rarity)
+		action = Random.get_weighted_rarity(global_rarities.enemy_balanced_attack_rarity)
 	elif enemy_action_type == 1: #attacker
-		action = $"../Random".get_weighted_rarity(global_rarities.enemy_attacker_attack_rarity)
+		action = Random.get_weighted_rarity(global_rarities.enemy_attacker_attack_rarity)
 	elif enemy_action_type == 2: #defender
-		action = $"../Random".get_weighted_rarity(global_rarities.enemy_defender_attack_rarity)
+		action = Random.get_weighted_rarity(global_rarities.enemy_defender_attack_rarity)
 	return action
 
 func enemy_action(_enemy, action):
