@@ -148,8 +148,10 @@ func spawn_enemies(_enemy_quantity):
 		var new_enemy = ENEMY_SCENE.instantiate()
 		$"../EnemyManager".add_child(new_enemy)
 		new_enemy.name = "enemy"
-		var stats = load("res://Resources/Enemy/AAAAAAAAAAAAAAAA.tres") #temp stats!!!!!!!!!!!!!!!
-		new_enemy.update_enemy_stats(stats)
+		print(Random.get_random_enemy_resource(false))
+		var stats = load(Random.get_random_enemy_resource(false))
+		
+		await new_enemy.update_enemy_stats(stats)
 		new_enemy.enemy_next_action = enemy_choose_action(new_enemy)
 		enemies.append(new_enemy)
 		

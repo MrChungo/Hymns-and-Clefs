@@ -4,7 +4,8 @@ var rng = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
-	get_random_enemy(2, false)
+	SaveManager._load()
+	print(get_random_enemy_resource(false))
 
 func get_random_int(min_int:int,max_int:int):
 	rng.randomize()
@@ -50,21 +51,30 @@ func get_weighted_rarity_by_world(item_rarity):
 			rarity_chosen -= item_rarity[n][world_diff_index_ref] 
 			
 
-func get_random_enemy(world:int , is_boss:bool):
+func get_random_enemy_resource(is_boss:bool):
+	var world_difficulty: int
+	
+	if SaveManager.save_file_data.world_difficulty > 3:
+		world_difficulty = 3
+	else:
+		world_difficulty = SaveManager.save_file_data.world_difficulty
+	
 	var path = "res://Resources/Enemy/"
+	var enemies_in_folder = []
+	
 	if !is_boss:
-		if world == 1:
+		if world_difficulty == 1:
 			path = "res://Resources/Enemy/WorldOneEnemies/" 
-			
-			
-			return
-		elif world == 2:
+			enemies_in_folder = dir_contents(path)
+		elif world_difficulty == 2:
 			path = "res://Resources/Enemy/WorldTwoEnemies/"
-			dir_contents(path)
-		elif world == 3:
+			enemies_in_folder = dir_contents(path)
+		
+		elif world_difficulty == 3:
 			path = "res://Resources/Enemy/WorldThreeEnemies/"
-			dir_contents(path)
-			
+			enemies_in_folder = dir_contents(path)
+		print(type_string(typeof(enemies_in_folder[get_random_int(0,len(enemies_in_folder)-1)])))
+		return path + enemies_in_folder[get_random_int(0,len(enemies_in_folder)-1)]
 
 func dir_contents(path):
 	var files = []
@@ -81,5 +91,5 @@ func dir_contents(path):
 			file_name = dir.get_next()
 	else:
 		print("An error occurred when trying to access the path.")
-	return files
+	return files.duplicate()
 	

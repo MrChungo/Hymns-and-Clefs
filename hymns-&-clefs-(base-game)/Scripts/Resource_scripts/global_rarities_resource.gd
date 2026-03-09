@@ -24,8 +24,8 @@ class_name global_rarities_resource
 											"nothing" : 5
 											}
 
-@export var enemy_defender_attack_rarity := {"attack" : 2,
-											"defend": 15,
+@export var enemy_defender_attack_rarity := {"attack" : 5,
+											"defend": 10,
 											"nothing" : 5
 											}
 					
