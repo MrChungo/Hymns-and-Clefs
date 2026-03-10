@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="enemy_resource" load_steps=3 format=3 uid="uid://bv5owk2se1cq5"]
+
+[ext_resource type="Script" uid="uid://d30o7gn70rkta" path="res://Scripts/Resource_scripts/enemy_resource.gd" id="1_rn3sh"]
+[ext_resource type="Texture2D" uid="uid://ba8efn5w8y7oe" path="res://Assets/Sprites/enemy sprite/enemy_flute.png" id="2_vhxm8"]
+
+[resource]
+script = ExtResource("1_rn3sh")
+texture = ExtResource("2_vhxm8")
+texture_frames = 4
+metadata/_custom_type_script = "uid://d30o7gn70rkta"

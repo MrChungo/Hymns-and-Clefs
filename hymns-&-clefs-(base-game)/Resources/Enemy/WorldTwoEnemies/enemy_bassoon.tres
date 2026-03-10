@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="enemy_resource" load_steps=3 format=3 uid="uid://dufa6w0uojr2l"]
+
+[ext_resource type="Script" uid="uid://d30o7gn70rkta" path="res://Scripts/Resource_scripts/enemy_resource.gd" id="1_y06x8"]
+[ext_resource type="Texture2D" uid="uid://spf32bg3onhp" path="res://Assets/Sprites/enemy sprite/enemy_bassoon.png" id="2_48530"]
+
+[resource]
+script = ExtResource("1_y06x8")
+texture = ExtResource("2_48530")
+texture_frames = 4
+enemy_action_type = 2
+metadata/_custom_type_script = "uid://d30o7gn70rkta"
