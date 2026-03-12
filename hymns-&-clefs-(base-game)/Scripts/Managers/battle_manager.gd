@@ -56,7 +56,10 @@ func battle_setup():
 	await load_from_save()
 	
 	
-	
+	if (len(SaveManager.save_file_data.map_icons) - 1) == SaveManager.save_file_data.current_icon:
+		pass
+		
+		
 	#ENEMY STUFF!!!!!!!!!!!!!!
 	max_possible_enemies = difficulty + 2
 	min_possible_enemies = difficulty

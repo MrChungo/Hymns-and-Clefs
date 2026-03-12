@@ -7,5 +7,8 @@
 script = ExtResource("1_1iggl")
 texture = ExtResource("2_gd6sc")
 texture_frames = 4
+base_enemy_attack = 2
+base_enemy_shield_attack = 2
+base_enemy_hp = 2
 enemy_action_type = 1
 metadata/_custom_type_script = "uid://d30o7gn70rkta"
