@@ -19,10 +19,10 @@ position = Vector2(68, 527)
 [node name="InputManager" parent="." instance=ExtResource("5_rb1ip")]
 
 [node name="new_card" type="Button" parent="."]
-offset_left = 335.0
-offset_top = 276.0
-offset_right = 419.0
-offset_bottom = 307.0
+offset_left = 404.0
+offset_top = 286.0
+offset_right = 488.0
+offset_bottom = 317.0
 text = "New Card
 "
 

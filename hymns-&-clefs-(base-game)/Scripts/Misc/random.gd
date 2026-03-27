@@ -79,7 +79,11 @@ func get_random_enemy_resource(is_boss:bool):
 		path = "res://Resources/Enemy/Bosses/"
 		enemies_in_folder = dir_contents(path)
 		
-		return path + enemies_in_folder[SaveManager.save_file_data.world_difficulty - 1]
+		var enemy_index = SaveManager.save_file_data.world_difficulty - 1
+		if enemy_index > 2:
+			enemy_index = 2
+		
+		return path + enemies_in_folder[enemy_index]
 		
 
 func dir_contents(path):
