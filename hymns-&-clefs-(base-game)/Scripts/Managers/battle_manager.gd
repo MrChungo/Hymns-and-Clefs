@@ -57,12 +57,18 @@ func battle_setup():
 	
 	
 	
+		
+		
 	#ENEMY STUFF!!!!!!!!!!!!!!
 	max_possible_enemies = difficulty + 2
 	min_possible_enemies = difficulty
 	enemy_quantity = randi_range(min_possible_enemies,max_possible_enemies)
 	#spawns enemies & player
 	spawn_enemies(enemy_quantity)
+	
+	if (len(SaveManager.save_file_data.map_icons) - 1) == SaveManager.save_file_data.current_icon:
+		spawn_boss_enemy()
+	
 	update_enemy_labels()
 	
 	battle = true
@@ -72,9 +78,10 @@ func battle_setup():
 
 func load_from_save():
 	#SaveManager._new_save() #used for debug (it resetst the save file) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+	
 	await SaveManager._load()
 	await player.load_player_stats()
+	#player.hp = 6666666666666
 	await %Deck.load_from_save()
 	difficulty = SaveManager.save_file_data.world_difficulty
 	hand_size = SaveManager.save_file_data.hand_size
@@ -148,8 +155,9 @@ func spawn_enemies(_enemy_quantity):
 		var new_enemy = ENEMY_SCENE.instantiate()
 		$"../EnemyManager".add_child(new_enemy)
 		new_enemy.name = "enemy"
-		var stats = load("res://Resources/Enemy/AAAAAAAAAAAAAAAA.tres") #temp stats!!!!!!!!!!!!!!!
-		new_enemy.update_enemy_stats(stats)
+		var stats = load(Random.get_random_enemy_resource(false))
+		
+		await new_enemy.update_enemy_stats(stats)
 		new_enemy.enemy_next_action = enemy_choose_action(new_enemy)
 		enemies.append(new_enemy)
 		
@@ -167,6 +175,17 @@ func update_enemy_positions():
 		@warning_ignore("integer_division")
 		enemies[n].global_position.x = (screen_width/2) + (column * HORIZONTAL_ENEMY_SPACING) + 200 # WORK OUT THIS LATER
 
+func spawn_boss_enemy():
+	var new_enemy = ENEMY_SCENE.instantiate()
+	$"../EnemyManager".add_child(new_enemy)
+	new_enemy.name = "BOSS_ENEMY"
+	var stats = load(Random.get_random_enemy_resource(true))
+	
+	await new_enemy.update_enemy_stats(stats)
+	new_enemy.enemy_next_action = enemy_choose_action(new_enemy)
+	enemies.append(new_enemy)
+	
+	update_enemy_positions()
 
 func update_enemy_labels():
 	for n in enemies:
@@ -232,7 +251,7 @@ func battle_loop():
 				await player_turn()
 			else:
 				await enemy_turn()
-				print("player hp", player.hp)
+				#print("player hp", player.hp)
 		else:
 			battle_ends()
 			
@@ -242,6 +261,7 @@ func battle_loop():
 func battle_ends():
 	SaveManager.save_file_data.current_icon += 1
 	await save_to_savefile()
-	emit_signal("battle_complete")
 	battle = false
+	SignalManager.change_scene_to_map()
+	
 	

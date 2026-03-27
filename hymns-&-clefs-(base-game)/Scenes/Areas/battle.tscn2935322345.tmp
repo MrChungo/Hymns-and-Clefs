@@ -1,19 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://cri5a32uv57us"]
+[gd_scene load_steps=10 format=3 uid="uid://cri5a32uv57us"]
 
 [ext_resource type="PackedScene" uid="uid://ct2tgcgnfh01i" path="res://Scenes/Managers/input_manager.tscn" id="1_6jolc"]
 [ext_resource type="PackedScene" uid="uid://dul2fujevqvbb" path="res://Scenes/card_stuffs/deck.tscn" id="1_h8jgs"]
 [ext_resource type="PackedScene" uid="uid://dklw0ow2g53n1" path="res://Scenes/card_stuffs/hand.tscn" id="1_iqqcv"]
 [ext_resource type="Script" uid="uid://dr23xr8m8a22" path="res://Scripts/Managers/battle_manager.gd" id="1_kbr7l"]
 [ext_resource type="Script" uid="uid://cngysf3dl46ds" path="res://Scripts/Battle stuffs/battle.gd" id="1_of1b8"]
+[ext_resource type="Script" uid="uid://jeo7pbkic6gu" path="res://Scripts/Managers/input_manager.gd" id="2_u3xo8"]
+[ext_resource type="PackedScene" uid="uid://c1nbu1vj1lyb2" path="res://Scenes/Misc/SignalManager.tscn" id="3_80xfc"]
 [ext_resource type="PackedScene" uid="uid://dj0n21bmv1fyn" path="res://Scenes/Managers/card_manager.tscn" id="3_u3xo8"]
 [ext_resource type="PackedScene" uid="uid://c47usf0t2d3pb" path="res://Scenes/Managers/enemy_manager.tscn" id="4_80xfc"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_of1b8")
 
+[node name="SignalManager" parent="." instance=ExtResource("3_80xfc")]
+
 [node name="EnemyManager" parent="." instance=ExtResource("4_80xfc")]
 
 [node name="InputManager" parent="." instance=ExtResource("1_6jolc")]
+script = ExtResource("2_u3xo8")
 
 [node name="card_manager" parent="." instance=ExtResource("3_u3xo8")]
 unique_name_in_owner = true
@@ -29,4 +34,5 @@ script = ExtResource("1_kbr7l")
 unique_name_in_owner = true
 position = Vector2(96, 389)
 
+[connection signal="battle_complete" from="BattleManager" to="SignalManager" method="_on_battle_manager_battle_complete"]
 [connection signal="card_used" from="BattleManager" to="Deck" method="_on_battle_manager_card_used"]
