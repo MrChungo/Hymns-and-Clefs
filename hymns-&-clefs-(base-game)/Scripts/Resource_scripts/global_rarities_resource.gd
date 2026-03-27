@@ -2,9 +2,9 @@ extends Resource
 class_name global_rarities_resource
 
 #card stuff
-@export var card_type_rarities := {"common" : 10,
-									"uncomon": 5,
-									"rare" : 2
+@export var card_type_rarities := {"common" : [100,100,100],
+									"uncommon": [50,60,75],
+									"rare" : [10,15,20]
 									}
 
 #enemy stuff

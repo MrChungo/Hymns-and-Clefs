@@ -5,15 +5,14 @@ var rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
 	SaveManager._load()
-
-func get_random_int(min_int:int,max_int:int):
 	rng.randomize()
+	
+func get_random_int(min_int:int,max_int:int):
 	return rng.randi_range(min_int,max_int)
 	
 	
 
 func get_weighted_rarity(item_rarity):
-	rng.randomize()
 	var weighted_sum = 0
 	
 	for n in item_rarity:
@@ -28,8 +27,6 @@ func get_weighted_rarity(item_rarity):
 
 
 func get_weighted_rarity_by_world(item_rarity):
-	
-	rng.randomize()
 	var weighted_sum = 0
 	var world_diff_index_ref: int
 	
