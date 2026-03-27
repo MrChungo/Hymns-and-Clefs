@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="enemy_resource" load_steps=3 format=3 uid="uid://cglaardyp0ede"]
+
+[ext_resource type="Script" uid="uid://d30o7gn70rkta" path="res://Scripts/Resource_scripts/enemy_resource.gd" id="1_lydfj"]
+[ext_resource type="Texture2D" uid="uid://8d8muftpgl1n" path="res://Assets/Sprites/enemy sprite/Takanaka.png" id="2_0dlnp"]
+
+[resource]
+script = ExtResource("1_lydfj")
+texture = ExtResource("2_0dlnp")
+texture_frames = 4
+is_boss_enemy = true
+base_enemy_attack = 10
+base_enemy_shield_attack = 20
+base_enemy_hp = 20
+base_starting_shield = 10
+enemy_action_type = 1
+metadata/_custom_type_script = "uid://d30o7gn70rkta"

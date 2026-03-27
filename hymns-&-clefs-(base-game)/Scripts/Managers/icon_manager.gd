@@ -81,4 +81,5 @@ func _on_input_manager_left_mouse_button_released() -> void:
 	var icon = raycast_check_for_icon()
 	if entered == true and icon.enterable:
 		await $"..".save_to_savefile()
-		get_tree().change_scene_to_file("uid://cri5a32uv57us")#"res://Scenes/Areas/battle.tscn"
+		SignalManager.change_scene_to_battle()
+		

@@ -5,7 +5,6 @@ var rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
 	SaveManager._load()
-	print(get_random_enemy_resource(false))
 
 func get_random_int(min_int:int,max_int:int):
 	rng.randomize()
@@ -73,8 +72,15 @@ func get_random_enemy_resource(is_boss:bool):
 		elif world_difficulty == 3:
 			path = "res://Resources/Enemy/WorldThreeEnemies/"
 			enemies_in_folder = dir_contents(path)
-		print(type_string(typeof(enemies_in_folder[get_random_int(0,len(enemies_in_folder)-1)])))
+		
 		return path + enemies_in_folder[get_random_int(0,len(enemies_in_folder)-1)]
+		
+	else:
+		path = "res://Resources/Enemy/Bosses/"
+		enemies_in_folder = dir_contents(path)
+		
+		return path + enemies_in_folder[SaveManager.save_file_data.world_difficulty - 1]
+		
 
 func dir_contents(path):
 	var files = []
@@ -84,9 +90,10 @@ func dir_contents(path):
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				print("Found directory: " + file_name)
+				#print("Found directory: " + file_name)
+				pass
 			else:
-				print("Found file: " + file_name)
+				#print("Found file: " + file_name)
 				files.append(file_name)
 			file_name = dir.get_next()
 	else:

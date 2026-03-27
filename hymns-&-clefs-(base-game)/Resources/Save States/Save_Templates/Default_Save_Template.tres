@@ -6,8 +6,8 @@
 [resource]
 script = ExtResource("2_r661m")
 world_difficulty = 1
-current_player_hp = 10
-max_player_hp = 10
+current_player_hp = 20
+max_player_hp = 20
 deck = ExtResource("1_g1an5")
 hand_size = 3
 metadata/_custom_type_script = "uid://vu1ok1sil6qg"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="enemy_resource" load_steps=3 format=3 uid="uid://cea7fxjmcp733"]
+
+[ext_resource type="Script" uid="uid://d30o7gn70rkta" path="res://Scripts/Resource_scripts/enemy_resource.gd" id="1_s8yxr"]
+[ext_resource type="Texture2D" uid="uid://cd3m762sgttls" path="res://Assets/Sprites/enemy sprite/Terrence.png" id="2_1stin"]
+
+[resource]
+script = ExtResource("1_s8yxr")
+texture = ExtResource("2_1stin")
+texture_frames = 4
+is_boss_enemy = true
+base_enemy_attack = 8
+base_enemy_shield_attack = 4
+base_enemy_hp = 10
+base_starting_shield = 4
+enemy_action_type = 2
+metadata/_custom_type_script = "uid://d30o7gn70rkta"
