@@ -13,9 +13,9 @@ var deck_reference
 func _ready() -> void:
 	var current_scene = get_tree().current_scene
 	if current_scene.has_node("Deck"): #"res://Scenes/card_stuffs/deck.tscn"
-		deck_reference = %Deck
+		deck_reference = $"../Deck"
 	if current_scene.has_node("card_manager"): #"res://Scenes/Managers/card_manager.tscn"
-		card_manager_reference = %card_manager
+		card_manager_reference = $"../card_manager"
 
 	
 func _input(event):

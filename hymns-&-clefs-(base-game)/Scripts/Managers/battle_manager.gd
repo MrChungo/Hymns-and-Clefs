@@ -56,9 +56,7 @@ func battle_setup():
 	await load_from_save()
 	
 	
-	
-		
-		
+
 	#ENEMY STUFF!!!!!!!!!!!!!!
 	max_possible_enemies = difficulty + 2
 	min_possible_enemies = difficulty

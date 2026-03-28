@@ -37,12 +37,13 @@ func draw_card():
 		var card_drawn = deck[0]
 		
 		var new_card = CARD_SCENE.instantiate()
-		
-		$"../card_manager".add_child(new_card)
+		new_card.deck_reference = self
+		new_card.move_card_to_deck()
+		%card_manager.add_child(new_card)
 		new_card.stats = card_drawn
 		new_card.name = card_drawn.card_name
 		new_card._update_card_stats(card_drawn)
-		$"../Hand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
+		%Hand.add_card_to_hand(new_card, CARD_DRAW_SPEED)
 		new_card.get_node("AnimationPlayer").play("card_flip")
 		deck.erase(card_drawn)
 		

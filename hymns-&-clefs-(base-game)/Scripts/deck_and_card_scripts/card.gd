@@ -10,14 +10,17 @@ var position_in_hand
 var deck_nodePath
 var card_slot_card_is_in
 
+var deck_reference
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	deck_nodePath = get_node(^"/root/Battle/Deck")
 
-	self.position.x = deck_nodePath.position.x
-	self.position.y = deck_nodePath.position.y
 	#all cards must be a child of CardManager or this will error
 	get_parent().connect_card_signals(self)
+
+func move_card_to_deck():
+	self.position.x = deck_reference.position.x
+	self.position.y = deck_reference.position.y
 
 func _update_card_stats(loaded_stats):
 	stats = loaded_stats

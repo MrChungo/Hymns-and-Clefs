@@ -10,11 +10,14 @@
 script = ExtResource("1_ql2vn")
 
 [node name="card_manager" parent="." instance=ExtResource("2_ql2vn")]
+unique_name_in_owner = true
 
 [node name="Deck" parent="." instance=ExtResource("2_h0dam")]
+unique_name_in_owner = true
 position = Vector2(68, 527)
 
 [node name="Hand" parent="." instance=ExtResource("3_ql2vn")]
+unique_name_in_owner = true
 
 [node name="InputManager" parent="." instance=ExtResource("5_rb1ip")]
 
