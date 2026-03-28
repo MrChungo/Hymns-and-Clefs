@@ -1,8 +1,11 @@
 extends Node2D
 
+const USED_CARD_SLOT_REFERENCE = preload("uid://bc446000gge8c")
+
 var global_rarities = load("uid://dxut7bry6abc") #RANDOM_REFERENCE.get_weighted_rarity()
 
 var temp_rewards_deck = []
+var card_slot
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,12 +21,17 @@ func hide_buttons():
 
 func _on_upgrade_pressed() -> void:
 	hide_buttons()
-	print("a")
 
 
 func _on_new_card_pressed() -> void:
 	hide_buttons()
 	get_random_cards()
+	update_deck_position()
+	create_card_slot()
+	await %card_manager.card_used_on_enemy
+	SaveManager.save_file_data.deck.deck_resource.append(card_slot.card_in_slot.stats)
+	SaveManager._save()
+	SignalManager.change_scene_to_map()
 	
 func draw_cards_to_hand():
 	var deck_ref = %Deck
@@ -38,3 +46,12 @@ func get_random_cards():
 		
 	for n in range(len(%Deck.deck)):
 		%Deck.draw_card()
+
+func create_card_slot():
+	card_slot = USED_CARD_SLOT_REFERENCE.instantiate()
+	$".".add_child(card_slot)
+	card_slot.name = "CardSlot"
+	card_slot.position = Vector2(Globals.center_screen_x,Globals.center_screen_y)
+
+func update_deck_position():
+	%Deck.position = Vector2(Globals.center_screen_x,Globals.center_screen_y)

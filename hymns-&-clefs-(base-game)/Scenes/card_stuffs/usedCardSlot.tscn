@@ -10,6 +10,7 @@ size = Vector2(40, 60)
 script = ExtResource("1_8ss42")
 
 [node name="UsedCardSlotImage" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_8ss42")
 
 [node name="Area2D" type="Area2D" parent="."]

@@ -7,7 +7,6 @@ signal card_hovered
 signal card_hovered_off
 
 var position_in_hand
-var deck_nodePath
 var card_slot_card_is_in
 
 var deck_reference
