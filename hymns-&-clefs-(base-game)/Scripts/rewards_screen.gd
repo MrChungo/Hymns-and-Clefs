@@ -13,14 +13,11 @@ func _ready() -> void:
 
 func show_buttons():
 	$new_card.visible = true
-	$Upgrade.visible = true
+	$remove_card.visible = true
 
 func hide_buttons():
 	$new_card.visible = false
-	$Upgrade.visible = false
-
-func _on_upgrade_pressed() -> void:
-	hide_buttons()
+	$remove_card.visible = false
 
 
 func _on_new_card_pressed() -> void:
@@ -55,3 +52,14 @@ func create_card_slot():
 
 func update_deck_position():
 	%Deck.position = Vector2(Globals.center_screen_x,Globals.center_screen_y)
+
+
+func _on_remove_card_pressed() -> void:
+	hide_buttons()
+	get_random_cards()
+	create_card_slot()
+
+	await %card_manager.card_used_on_enemy
+	SaveManager.save_file_data.deck.deck_resource.append(card_slot.card_in_slot.stats)
+	SaveManager._save()
+	SignalManager.change_scene_to_map()

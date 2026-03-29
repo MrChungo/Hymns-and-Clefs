@@ -29,7 +29,7 @@ offset_bottom = 317.0
 text = "New Card
 "
 
-[node name="Upgrade" type="Button" parent="."]
+[node name="remove_card" type="Button" parent="."]
 offset_left = 612.0
 offset_top = 288.0
 offset_right = 687.0
@@ -37,4 +37,4 @@ offset_bottom = 319.0
 text = "Upgrade"
 
 [connection signal="pressed" from="new_card" to="." method="_on_new_card_pressed"]
-[connection signal="pressed" from="Upgrade" to="." method="_on_upgrade_pressed"]
+[connection signal="pressed" from="remove_card" to="." method="_on_remove_card_pressed"]
