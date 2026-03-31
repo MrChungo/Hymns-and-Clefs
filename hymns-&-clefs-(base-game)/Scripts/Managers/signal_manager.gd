@@ -1,15 +1,10 @@
 extends Node2D
-
-
-func _on_battle_manager_battle_complete() -> void:
-	if (len(SaveManager.save_file_data.map_icons)) == SaveManager.save_file_data.current_icon:
-		SaveManager.save_file_data.world_difficulty += 1
-	SaveManager._save()
-	
-	change_scene_to_map()
 	
 
 func change_scene_to_map():
+	if (len(SaveManager.save_file_data.map_icons)) == SaveManager.save_file_data.current_icon:
+		SaveManager.save_file_data.world_difficulty += 1
+	SaveManager._save()
 	get_tree().change_scene_to_file("uid://cbiowlor3xmxe") #"res://Scenes/Areas/map/map.tscn"
 	
 func change_scene_to_battle():
