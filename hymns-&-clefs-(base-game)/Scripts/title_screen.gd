@@ -9,7 +9,7 @@ func _ready() -> void:
 
 
 func _on_load_game_pressed() -> void:
-	#SaveManager.save_file_data.world_difficulty = 5
+	#SaveManager.save_file_data.world_difficulty = 3
 	#SaveManager.save_file_data.current_icon = 5
 	#SaveManager._save()
 	SignalManager.change_scene_to_map()

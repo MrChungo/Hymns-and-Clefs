@@ -10,11 +10,14 @@
 script = ExtResource("1_ql2vn")
 
 [node name="card_manager" parent="." instance=ExtResource("2_ql2vn")]
+unique_name_in_owner = true
 
 [node name="Deck" parent="." instance=ExtResource("2_h0dam")]
+unique_name_in_owner = true
 position = Vector2(68, 527)
 
 [node name="Hand" parent="." instance=ExtResource("3_ql2vn")]
+unique_name_in_owner = true
 
 [node name="InputManager" parent="." instance=ExtResource("5_rb1ip")]
 
@@ -26,12 +29,28 @@ offset_bottom = 317.0
 text = "New Card
 "
 
-[node name="Upgrade" type="Button" parent="."]
+[node name="remove_card" type="Button" parent="."]
 offset_left = 612.0
 offset_top = 288.0
 offset_right = 687.0
 offset_bottom = 319.0
-text = "Upgrade"
+text = "Remove Card	"
+
+[node name="heal" type="Button" parent="."]
+offset_left = 395.0
+offset_top = 399.0
+offset_right = 506.0
+offset_bottom = 430.0
+text = "Heal"
+
+[node name="max_hp+" type="Button" parent="."]
+offset_left = 622.0
+offset_top = 399.0
+offset_right = 733.0
+offset_bottom = 430.0
+text = "Max Hp+"
 
 [connection signal="pressed" from="new_card" to="." method="_on_new_card_pressed"]
-[connection signal="pressed" from="Upgrade" to="." method="_on_upgrade_pressed"]
+[connection signal="pressed" from="remove_card" to="." method="_on_remove_card_pressed"]
+[connection signal="pressed" from="heal" to="." method="_on_heal_pressed"]
+[connection signal="pressed" from="max_hp+" to="." method="_on_max_hp_pressed"]

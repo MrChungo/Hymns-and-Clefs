@@ -11,6 +11,10 @@
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_of1b8")
 
+[node name="Deck" parent="." instance=ExtResource("1_h8jgs")]
+unique_name_in_owner = true
+position = Vector2(96, 389)
+
 [node name="EnemyManager" parent="." instance=ExtResource("4_80xfc")]
 
 [node name="InputManager" parent="." instance=ExtResource("1_6jolc")]
@@ -24,9 +28,5 @@ unique_name_in_owner = true
 [node name="BattleManager" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_kbr7l")
-
-[node name="Deck" parent="." instance=ExtResource("1_h8jgs")]
-unique_name_in_owner = true
-position = Vector2(96, 389)
 
 [connection signal="card_used" from="BattleManager" to="Deck" method="_on_battle_manager_card_used"]

@@ -10,7 +10,6 @@ const VERTICAL_ENEMY_SPACING:= 125
 const HORIZONTAL_ENEMY_SPACING := 100
 
 signal card_used(enemy)
-signal battle_complete
 
 var global_rarities = load("uid://dxut7bry6abc") #RANDOM_REFERENCE.get_weighted_rarity()
 var test_save = load("uid://chmnudsaqsjho") #"res://Resources/Save States/Test_Battle_save.tres"
@@ -56,9 +55,7 @@ func battle_setup():
 	await load_from_save()
 	
 	
-	
-		
-		
+
 	#ENEMY STUFF!!!!!!!!!!!!!!
 	max_possible_enemies = difficulty + 2
 	min_possible_enemies = difficulty
@@ -137,6 +134,9 @@ func draw_cards_to_hand():
 	var deck_ref = %Deck
 	for n in range(hand_size):
 		deck_ref.draw_card()
+	if len(%Hand.player_hand) < hand_size:
+		for n in range(hand_size - len(%Hand.player_hand)):
+			deck_ref.draw_card()
 
 func empty_hand():
 	var hand_ref = %Hand
@@ -262,6 +262,6 @@ func battle_ends():
 	SaveManager.save_file_data.current_icon += 1
 	await save_to_savefile()
 	battle = false
-	SignalManager.change_scene_to_map()
+	SignalManager.change_scene_to_rewards()
 	
 	

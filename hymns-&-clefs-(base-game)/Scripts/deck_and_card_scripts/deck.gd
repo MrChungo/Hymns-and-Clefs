@@ -6,16 +6,25 @@ const CARD_SCENE :=  preload(CARD_SCENE_PATH)
 const CARD_DRAW_SPEED := 0.2 #default is 0.2
 const STARTING_HAND_SIZE := 3
 
+
+@onready var deck_x_position = Globals.center_screen_x / 4
+@onready var deck_y_position = Globals.center_screen_y + Globals.center_screen_y / 1.5
+
 @export var deck_resource: starting_deck_resource
 @export var deck = []
 var discard_pile = []
- 
 
+
+func _ready() -> void:
+	self.position.x = deck_x_position
+	self.position.y = deck_y_position
+	$RichTextLabel.visible = false
 
 func load_from_save():
 	deck_resource = SaveManager.save_file_data.deck
 	await load_deck_from_resource(deck_resource)
 	$RichTextLabel.text = str(deck.size())
+	$RichTextLabel.visible = true
 
 
 func load_deck_from_resource(resource: starting_deck_resource):
@@ -37,12 +46,13 @@ func draw_card():
 		var card_drawn = deck[0]
 		
 		var new_card = CARD_SCENE.instantiate()
-		
-		$"../card_manager".add_child(new_card)
+		new_card.deck_reference = self
+		new_card.move_card_to_deck()
+		%card_manager.add_child(new_card)
 		new_card.stats = card_drawn
 		new_card.name = card_drawn.card_name
 		new_card._update_card_stats(card_drawn)
-		$"../Hand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
+		%Hand.add_card_to_hand(new_card, CARD_DRAW_SPEED)
 		new_card.get_node("AnimationPlayer").play("card_flip")
 		deck.erase(card_drawn)
 		

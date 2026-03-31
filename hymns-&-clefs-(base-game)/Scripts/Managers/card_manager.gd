@@ -15,7 +15,7 @@ var player_hand_reference
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	player_hand_reference = $"../Hand"
+	player_hand_reference = %Hand
 	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,7 +40,7 @@ func finish_drag():
 		card_being_dragged.position = card_slot_found.position
 		card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
 		card_slot_found.card_in_slot = card_being_dragged
-		if card_slot_found is enemy_class:
+		if (card_slot_found is enemy_class) or (card_slot_found is card_slot_class) :
 			card_used_on_enemy.emit(card_slot_found)
 	else:
 		player_hand_reference.add_card_to_hand(card_being_dragged, card_being_dragged.position_in_hand)

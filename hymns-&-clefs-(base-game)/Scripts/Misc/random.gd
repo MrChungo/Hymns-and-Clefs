@@ -81,7 +81,25 @@ func get_random_enemy_resource(is_boss:bool):
 			enemy_index = 2
 		
 		return path + enemies_in_folder[enemy_index]
+
+
+func get_random_card_resource(card_rarity):
+	
+	var path = "res://Resources/Card/"
+	var cards_in_folder = []
+	
+
+	if card_rarity == "common":
+		path = "res://Resources/Card/Common_Rarity/"
+		cards_in_folder = dir_contents(path)
+	elif card_rarity == "uncommon":
+		path = "res://Resources/Card/uncommon_Rarity/"
+		cards_in_folder = dir_contents(path)
+	elif card_rarity == "rare":
+		path = "res://Resources/Card/Rare_Rarity/"
+		cards_in_folder = dir_contents(path)
 		
+	return path + cards_in_folder[get_random_int(0,len(cards_in_folder)-1)]
 
 func dir_contents(path):
 	var files = []
@@ -100,4 +118,3 @@ func dir_contents(path):
 	else:
 		print("An error occurred when trying to access the path.")
 	return files.duplicate()
-	
