@@ -36,12 +36,21 @@ offset_right = 687.0
 offset_bottom = 319.0
 text = "Remove Card	"
 
-[node name="remove_card2" type="Button" parent="."]
-offset_left = 1224.0
-offset_top = 576.0
-offset_right = 1335.0
-offset_bottom = 607.0
+[node name="heal" type="Button" parent="."]
+offset_left = 395.0
+offset_top = 399.0
+offset_right = 506.0
+offset_bottom = 430.0
 text = "Heal"
+
+[node name="max_hp+" type="Button" parent="."]
+offset_left = 622.0
+offset_top = 399.0
+offset_right = 733.0
+offset_bottom = 430.0
+text = "Max Hp+"
 
 [connection signal="pressed" from="new_card" to="." method="_on_new_card_pressed"]
 [connection signal="pressed" from="remove_card" to="." method="_on_remove_card_pressed"]
+[connection signal="pressed" from="heal" to="." method="_on_heal_pressed"]
+[connection signal="pressed" from="max_hp+" to="." method="_on_max_hp_pressed"]

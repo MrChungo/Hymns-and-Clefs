@@ -14,12 +14,16 @@ func _ready() -> void:
 func show_buttons():
 	$new_card.visible = true
 	$remove_card.visible = true
-
+	$heal.visible = true
+	$"max_hp+".visible = true
+	
 func hide_buttons():
 	$new_card.visible = false
 	$remove_card.visible = false
-
-
+	$heal.visible = false
+	$"max_hp+".visible = false
+	
+	
 func _on_new_card_pressed() -> void:
 	hide_buttons()
 	get_random_cards()
@@ -79,4 +83,12 @@ func empty_hand():
 
 
 func _on_heal_pressed() -> void:
-	pass # Replace with function body.
+	SaveManager.save_file_data.current_player_hp = SaveManager.save_file_data.max_player_hp
+	SaveManager._save()
+	SignalManager.change_scene_to_map()
+
+
+func _on_max_hp_pressed() -> void:
+	SaveManager.save_file_data.max_player_hp += 10
+	SaveManager._save()
+	SignalManager.change_scene_to_map()
