@@ -23,7 +23,7 @@ func hide_buttons():
 func _on_new_card_pressed() -> void:
 	hide_buttons()
 	get_random_cards()
-	update_deck_position()
+	center_deck_position()
 	create_card_slot()
 	await %card_manager.card_used_on_enemy
 	SaveManager.save_file_data.deck.deck_resource.append(card_slot.card_in_slot.stats)
@@ -31,9 +31,8 @@ func _on_new_card_pressed() -> void:
 	SignalManager.change_scene_to_map()
 	
 func draw_cards_to_hand():
-	var deck_ref = %Deck
 	for n in range(SaveManager.save_file_data.hand_size):
-		deck_ref.draw_card()
+		%Deck.draw_card()
 
 func get_random_cards():
 	
@@ -50,16 +49,34 @@ func create_card_slot():
 	card_slot.name = "CardSlot"
 	card_slot.position = Vector2(Globals.center_screen_x,Globals.center_screen_y)
 
-func update_deck_position():
+func center_deck_position():
 	%Deck.position = Vector2(Globals.center_screen_x,Globals.center_screen_y)
 
 
 func _on_remove_card_pressed() -> void:
 	hide_buttons()
-	get_random_cards()
 	create_card_slot()
-
+	%Deck.load_from_save()
+	draw_cards_to_hand()
+	center_deck_position()
+	
 	await %card_manager.card_used_on_enemy
-	SaveManager.save_file_data.deck.deck_resource.append(card_slot.card_in_slot.stats)
+	
+	empty_hand()
+	%Deck.renew_deck()
+	%Deck.save_to_savefile()
 	SaveManager._save()
 	SignalManager.change_scene_to_map()
+	
+
+func empty_hand():
+	var hand_ref = %Hand
+	var deck_ref = %Deck
+	
+	for n in hand_ref.player_hand:
+		deck_ref.send_card_to_discard(n)
+	hand_ref.player_hand.clear()
+
+
+func _on_heal_pressed() -> void:
+	pass # Replace with function body.

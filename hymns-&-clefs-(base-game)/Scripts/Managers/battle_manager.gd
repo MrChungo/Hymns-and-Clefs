@@ -134,6 +134,9 @@ func draw_cards_to_hand():
 	var deck_ref = %Deck
 	for n in range(hand_size):
 		deck_ref.draw_card()
+	if len(%Hand.player_hand) < hand_size:
+		for n in range(hand_size - len(%Hand.player_hand)):
+			deck_ref.draw_card()
 
 func empty_hand():
 	var hand_ref = %Hand
@@ -259,6 +262,6 @@ func battle_ends():
 	SaveManager.save_file_data.current_icon += 1
 	await save_to_savefile()
 	battle = false
-	SignalManager.change_scene_to_map()
+	SignalManager.change_scene_to_rewards()
 	
 	
