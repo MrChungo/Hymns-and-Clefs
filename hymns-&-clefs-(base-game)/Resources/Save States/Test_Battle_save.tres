@@ -1,13 +1,10 @@
-[gd_resource type="Resource" script_class="save_resource" load_steps=3 format=3 uid="uid://chmnudsaqsjho"]
+[gd_resource type="Resource" script_class="save_resource" load_steps=2 format=3 uid="uid://chmnudsaqsjho"]
 
 [ext_resource type="Script" uid="uid://vu1ok1sil6qg" path="res://Scripts/Resource_scripts/save_resource.gd" id="1_q87i3"]
-[ext_resource type="Script" uid="uid://sgfc57h1wefs" path="res://Scripts/Resource_scripts/card_resource.gd" id="1_ti8u6"]
 
 [resource]
 script = ExtResource("1_q87i3")
 world_difficulty = 1
 current_player_hp = 11
 max_player_hp = 20
-current_player_shield = 7
-current_hand_size = 3
 metadata/_custom_type_script = "uid://vu1ok1sil6qg"
