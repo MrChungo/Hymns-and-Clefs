@@ -31,8 +31,7 @@ func _on_new_card_pressed() -> void:
 	create_card_slot()
 	await %card_manager.card_used_on_enemy
 	SaveManager.save_file_data.deck.deck_resource.append(card_slot.card_in_slot.stats)
-	SaveManager._save()
-	SignalManager.change_scene_to_map()
+	leave_rewards_screen()
 	
 func draw_cards_to_hand():
 	for n in range(SaveManager.save_file_data.hand_size):
@@ -69,8 +68,7 @@ func _on_remove_card_pressed() -> void:
 	empty_hand()
 	%Deck.renew_deck()
 	%Deck.save_to_savefile()
-	SaveManager._save()
-	SignalManager.change_scene_to_map()
+	leave_rewards_screen()
 	
 
 func empty_hand():
@@ -84,11 +82,14 @@ func empty_hand():
 
 func _on_heal_pressed() -> void:
 	SaveManager.save_file_data.current_player_hp = SaveManager.save_file_data.max_player_hp
-	SaveManager._save()
-	SignalManager.change_scene_to_map()
+	leave_rewards_screen()
 
 
 func _on_max_hp_pressed() -> void:
 	SaveManager.save_file_data.max_player_hp += 10
+	leave_rewards_screen()
+	
+
+func leave_rewards_screen():
 	SaveManager._save()
 	SignalManager.change_scene_to_map()
