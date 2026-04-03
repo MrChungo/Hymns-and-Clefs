@@ -14,13 +14,13 @@ var save_file_template: save_resource = preload(SAVE_FILE_TEMPLATE_LOCATION)
 
 func _new_save():
 	var data = save_file_template.duplicate(true)
-	data.deck.deck_resource = data.deck.deck_resource.duplicate()
+	data.deck = data.deck.duplicate(true)
 	ResourceSaver.save(data, save_location)
 	_load()
 	
 # Called when the node enters the scene tree for the first time.
 func _save():
-	ResourceSaver.save(save_file_data, save_location)
+	ResourceSaver.save(save_file_data.duplicate(true), save_location)
 	_load()
 
 func _load():
