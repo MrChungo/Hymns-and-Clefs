@@ -66,15 +66,11 @@ func order_lines():
 		var measure = lines[s]
 		var measure_width = measure[-1].get_line_lenght()
 		var middle_index = (len(lines[s]) - 1) / 2.0
+
 		for n in range(len(lines[s])):
-			lines[s][n].scale.x = target_x_scale
-			#lines[s][n].scale.y = target_y_scale
-			lines[s][n].position.x = Globals.center_screen_x
-			lines[s][n].position.y = vertical_staff_center_position + ((n - middle_index) * vertical_spacing)
+			measure[n].position.x = start_lenght_position + x_offset + measure_width/2.0
+			measure[n].position.y = (n - middle_index) * vertical_spacing
 			
-			# Toggle visibility for every other line (ledger lines or spacing)
-			# Using get_node("Sprite2D") or find_child to ensure it's found
-			var sprite = lines[s][n].get_node_or_null("Sprite2D")
 			if n % 2 == 0:
 				var line = measure[n]
 				line.get_node("mid_line_texture").visible = false
