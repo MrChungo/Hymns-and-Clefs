@@ -2,39 +2,70 @@ extends Node2D
 
 const STAFF_LINE_REFERENCE = preload("uid://l7qvyru1rdq6") #"res://Scenes/Music Battle System Stuffs/Staff Stuff/staff_line.tscn"
 const C_SCALE_NOTES = ["G","F","E","D","C","B","A","G","F","E","D"]
+const MEASURE_WIDTH_SEGMENTS = 20
 
 var lines := []
-var measure_segments = 2
+var measure_segments = 8
 
-@onready var vertical_spacing = Globals.center_screen_y / 16
-@onready var vertical_staff_center_position = Globals.center_screen_y
+
+var vertical_spacing: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for n in measure_segments:
-		spawn_lines()
+	self.position = Vector2(Globals.center_screen_x,Globals.center_screen_y)
+	print(Globals.center_screen_x*2)
+	
+	spawn_measures()
+	set_spacing_variables()
+	
 	order_lines()
+	
 	order_icons()
 	assign_notes_to_lines()
 
 
-func spawn_lines():
+func set_spacing_variables():
+	vertical_spacing = lines[-1][-1].get_node("mid_line_texture").texture.get_height() * 2
+	
+	print(vertical_spacing)
+
+func spawn_measures():
+	var line_width
+	for n in range(measure_segments):
+		if measure_segments == 1:
+			line_width = MEASURE_WIDTH_SEGMENTS + 4 + 8 #(do the math later of staff + end line)
+		else:
+			if n == 0:
+				line_width = MEASURE_WIDTH_SEGMENTS + 8
+			elif n == measure_segments:
+				line_width = MEASURE_WIDTH_SEGMENTS + 4
+			else:
+				line_width = MEASURE_WIDTH_SEGMENTS
+		spawn_lines(line_width)
+
+func spawn_lines(line_width):
 	lines.append(Array())
 	for n in range(5+6): # lines + spaces = 11
-		var new_line = STAFF_LINE_REFERENCE.instantiate()
-		$".".add_child(new_line)
-		lines[-1].append(new_line)
+		spawn_line(line_width)
 
+func spawn_line(line_width):
+	var new_line = STAFF_LINE_REFERENCE.instantiate()
+	new_line.transform_line_to_lenght(line_width)
+	$line_manager.add_child(new_line)
+	lines[-1].append(new_line)
 
 func order_lines():
-	var target_x_scale = Globals.center_screen_x / 14
-	var target_y_scale = Globals.center_screen_y / 100
-	
-	
+	var total_lenght = 0
+	for s in lines:
+		total_lenght += s[-1].get_line_lenght()
+
+	var start_lenght_position = -total_lenght/2.0
+	var x_offset = 0
 	
 	for s in range(len(lines)):
+		var measure = lines[s]
+		var measure_width = measure[-1].get_line_lenght()
 		var middle_index = (len(lines[s]) - 1) / 2.0
-		
 		for n in range(len(lines[s])):
 			lines[s][n].scale.x = target_x_scale
 			#lines[s][n].scale.y = target_y_scale
@@ -44,35 +75,18 @@ func order_lines():
 			# Toggle visibility for every other line (ledger lines or spacing)
 			# Using get_node("Sprite2D") or find_child to ensure it's found
 			var sprite = lines[s][n].get_node_or_null("Sprite2D")
-			if sprite:
-				sprite.visible = (n % 2 != 0)
+			if n % 2 == 0:
+				var line = measure[n]
+				line.get_node("mid_line_texture").visible = false
+				line.get_node("end_line_texture_left").visible = false
+				line.get_node("end_line_texture_right").visible = false
+		x_offset += measure_width
+	
+	
+
 
 func order_icons():
-	var cleff_scale = Globals.center_screen_x / 260
-	var line_scale = Vector2(Globals.center_screen_x / 190,Globals.center_screen_y / 190)
-	var line_y_position = vertical_staff_center_position
-	
-	#$TrebleClef.scale = Vector2(cleff_scale,cleff_scale)
-	$TrebleClef.position.x = Globals.center_screen_x / 6
-	$TrebleClef.position.y = vertical_staff_center_position
-	
-	#$BassClef.scale = Vector2(cleff_scale,cleff_scale)
-	$BassClef.position.x = Globals.center_screen_x / 6
-	$BassClef.position.y = vertical_staff_center_position - vertical_spacing * 3
-	
-	#$EndLine.scale = Vector2(Globals.center_screen_x / 185,Globals.center_screen_y / 185)
-	$EndLine.position.x = 2*Globals.center_screen_x - Globals.center_screen_x / 22
-	$EndLine.position.y = line_y_position
-	
-	
-	for n in range(len(lines) - 1):
-		var line = Sprite2D.new()
-		var texture = load("uid://b8eroo4yxm34b")# "res://Assets/Sprites/Staff/staff_start_line.png"
-		line.texture = texture
-		#line.scale = line_scale
-		line.position.x = (2*Globals.center_screen_x) / len(lines) + n*(2*Globals.center_screen_x) / len(lines)
-		line.position.y = line_y_position
-		add_child(line)
+	pass
 
 	
 

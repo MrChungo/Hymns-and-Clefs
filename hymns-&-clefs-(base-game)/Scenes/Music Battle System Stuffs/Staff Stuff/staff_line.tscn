@@ -1,16 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://l7qvyru1rdq6"]
+[gd_scene load_steps=5 format=3 uid="uid://l7qvyru1rdq6"]
 
-[ext_resource type="Texture2D" uid="uid://d3okogiivs26q" path="res://Assets/Sprites/Staff/staff_line.png" id="1_ne5a7"]
 [ext_resource type="Script" uid="uid://dmoj77w707mn" path="res://Scripts/Music Battle Stuffs/staff_line.gd" id="1_xgug5"]
+[ext_resource type="Texture2D" uid="uid://bv3xs38h6bqas" path="res://Assets/Sprites/updated_staff/Hor_line_mid.png" id="2_kqq56"]
+[ext_resource type="Texture2D" uid="uid://bu0sxvm44oiio" path="res://Assets/Sprites/updated_staff/Hor_line_end.png" id="3_wn7fx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_173bk"]
-size = Vector2(28, 14)
+size = Vector2(6, 12)
 
 [node name="StaffLine" type="Node2D"]
 script = ExtResource("1_xgug5")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ne5a7")
+[node name="mid_line_texture" type="Sprite2D" parent="."]
+texture = ExtResource("2_kqq56")
+
+[node name="end_line_texture_left" type="Sprite2D" parent="."]
+position = Vector2(-6, 0)
+texture = ExtResource("3_wn7fx")
+
+[node name="end_line_texture_right" type="Sprite2D" parent="."]
+position = Vector2(6, 0)
+texture = ExtResource("3_wn7fx")
+flip_h = true
 
 [node name="Area2D" type="Area2D" parent="."]
 

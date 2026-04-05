@@ -6,6 +6,32 @@ var line_defined_note: String
 
 var notes_being_held: Array = []
 
+var line_segments: int
+
+#func _ready() -> void:
+	#transform_line_to_lenght(5)
+	#print(get_line_lenght())
+	#self.position = Vector2(Globals.center_screen_x,Globals.center_screen_y)
+
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func transform_line_to_lenght(segments):
+	line_segments = segments
+	
+	var mid = $mid_line_texture
+	
+	# Scale the middle
+	mid.scale.x = line_segments
+	
+	# Get REAL width after scaling
+	var width = mid.texture.get_width() * mid.scale.x
+	
+	# Position ends based on real width
+	$end_line_texture_right.position.x = width / 2
+	$end_line_texture_left.position.x = -width / 2
+	
+	# Scale collision safely
+	$Area2D/CollisionShape2D.scale.x = mid.scale.x
+
+func get_line_lenght():
+	var mid = $mid_line_texture
+	return $mid_line_texture.texture.get_width() * mid.scale.x
