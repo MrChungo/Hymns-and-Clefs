@@ -25,13 +25,15 @@ func transform_line_to_lenght(segments):
 	# Get REAL width after scaling
 	var width = mid.texture.get_width() * mid.scale.x
 	
+	var texture_offset = $end_line_texture_right.texture.get_width()/2
 	# Position ends based on real width
-	$end_line_texture_right.position.x = width / 2
-	$end_line_texture_left.position.x = -width / 2
+	$end_line_texture_right.position.x = width / 2 + texture_offset
+	$end_line_texture_left.position.x = -width / 2 - texture_offset
 	
 	# Scale collision safely
-	$Area2D/CollisionShape2D.scale.x = mid.scale.x
+	$Area2D/CollisionShape2D.scale.x = line_segments + 2
 
 func get_line_lenght():
 	var mid = $mid_line_texture
-	return $mid_line_texture.texture.get_width() * mid.scale.x
+	var end = $end_line_texture_left
+	return (mid.texture.get_width() * mid.scale.x) + (end.texture.get_width()*2)

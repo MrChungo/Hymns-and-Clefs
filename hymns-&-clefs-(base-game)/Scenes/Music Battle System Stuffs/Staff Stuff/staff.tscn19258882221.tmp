@@ -8,6 +8,7 @@
 script = ExtResource("1_atfdq")
 
 [node name="TrebleClef" type="Sprite2D" parent="."]
+visible = false
 z_index = 1
 texture = ExtResource("2_fxpwy")
 offset = Vector2(-5.835, -17.595)

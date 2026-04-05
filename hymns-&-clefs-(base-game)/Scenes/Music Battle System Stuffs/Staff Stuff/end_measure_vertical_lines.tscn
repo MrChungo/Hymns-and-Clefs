@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bktwnnt44k6br"]
+
+[ext_resource type="Script" uid="uid://doy8kwqbxe4la" path="res://Scripts/Music Battle Stuffs/measure_vertical_lines.gd" id="1_0bf2h"]
+[ext_resource type="Texture2D" uid="uid://btmp6imniqdh4" path="res://Assets/Sprites/updated_staff/staff_end_line_mid.png" id="2_0bf2h"]
+[ext_resource type="Texture2D" uid="uid://d1rmemdkfs4cr" path="res://Assets/Sprites/updated_staff/staff_end_line_end.png" id="3_qhgbl"]
+
+[node name="EndMeasureVerLine" type="Node2D"]
+script = ExtResource("1_0bf2h")
+
+[node name="mid_line_texture" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("2_0bf2h")
+
+[node name="end_line_texture_top" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(0, -6)
+texture = ExtResource("3_qhgbl")
+flip_v = true
+
+[node name="end_line_texture_bottom" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(0, 6)
+texture = ExtResource("3_qhgbl")

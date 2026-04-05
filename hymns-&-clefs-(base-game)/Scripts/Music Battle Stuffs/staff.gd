@@ -1,17 +1,24 @@
 extends Node2D
 
 const STAFF_LINE_REFERENCE = preload("uid://l7qvyru1rdq6") #"res://Scenes/Music Battle System Stuffs/Staff Stuff/staff_line.tscn"
+const MEASURE_VER_LINE_REFERENCE = preload("uid://rahc3qlfgf7x") #"res://Scenes/Music Battle System Stuffs/Staff Stuff/measure_vertical_lines.tscn"
+const END_MEASURE_VER_LINE_REFERENCE = preload("uid://bktwnnt44k6br")#"res://Scenes/Music Battle System Stuffs/Staff Stuff/end_measure_vertical_lines.tscn"
 const C_SCALE_NOTES = ["G","F","E","D","C","B","A","G","F","E","D"]
-const MEASURE_WIDTH_SEGMENTS = 20
+const MEASURE_WIDTH_SEGMENTS = 18
 
 var lines := []
-var measure_segments = 8
+var measure_separators := []
+var end_line
+var measure_segments := 4
+
 
 
 var vertical_spacing: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var scale = 2
+	self.scale = Vector2(scale,scale)
 	self.position = Vector2(Globals.center_screen_x,Globals.center_screen_y)
 	print(Globals.center_screen_x*2)
 	
@@ -19,6 +26,9 @@ func _ready() -> void:
 	set_spacing_variables()
 	
 	order_lines()
+	spawn_measure_separators()
+	order_measure_separators()
+	spawn_and_order_end_line()
 	
 	order_icons()
 	assign_notes_to_lines()
@@ -33,12 +43,12 @@ func spawn_measures():
 	var line_width
 	for n in range(measure_segments):
 		if measure_segments == 1:
-			line_width = MEASURE_WIDTH_SEGMENTS + 4 + 8 #(do the math later of staff + end line)
+			line_width = MEASURE_WIDTH_SEGMENTS + 2 + 8 #(do the math later of staff + end line)
 		else:
 			if n == 0:
 				line_width = MEASURE_WIDTH_SEGMENTS + 8
-			elif n == measure_segments:
-				line_width = MEASURE_WIDTH_SEGMENTS + 4
+			elif n == measure_segments - 1:
+				line_width = MEASURE_WIDTH_SEGMENTS + 2
 			else:
 				line_width = MEASURE_WIDTH_SEGMENTS
 		spawn_lines(line_width)
@@ -77,14 +87,34 @@ func order_lines():
 				line.get_node("end_line_texture_left").visible = false
 				line.get_node("end_line_texture_right").visible = false
 		x_offset += measure_width
-	
-	
+
+
+func spawn_measure_separators():
+	var line_height = 15 #15 line heights from top line to bottom line (exclusive)
+	for n in range(measure_segments):
+		var new_line = MEASURE_VER_LINE_REFERENCE.instantiate()
+		new_line.transform_line_to_lenght(line_height)
+		$".".add_child(new_line)
+		measure_separators.append(new_line)
+
+func order_measure_separators():
+	var middle_height_index = (len(lines[-1]) - 1) / 2.0
+	var m = measure_separators
+	for n in range(len(lines)):
+		m[n].position.x = lines[n][middle_height_index].position.x - lines[n][middle_height_index].get_line_lenght() / 2.0 + m[n].get_node("mid_line_texture").texture.get_width()/2
+
+func spawn_and_order_end_line():
+	var line_height = 15 #15 line heights from top line to bottom line (exclusive)
+	var middle_height_index = (len(lines[-1]) - 1) / 2.0
+	var new_line = END_MEASURE_VER_LINE_REFERENCE.instantiate()
+	new_line.transform_line_to_lenght(line_height)
+	$".".add_child(new_line)
+	measure_separators.append(new_line)
+	new_line.position.x = lines[-1][middle_height_index].position.x + lines[-1][middle_height_index].get_line_lenght() / 2.0 - new_line.get_node("mid_line_texture").texture.get_width()/2
 
 
 func order_icons():
 	pass
-
-	
 
 func assign_notes_to_lines():
 	for s in range(len(lines)):
