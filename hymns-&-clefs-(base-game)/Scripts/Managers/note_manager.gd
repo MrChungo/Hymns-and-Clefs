@@ -1,14 +1,14 @@
 extends Node2D
 
-signal note_used_on_enemy(enemy_target)
+signal note_used(target)
 
-const COLLISION_MASK_note := 4
-const COLLISION_MASK_note_SLOT := 4
+const COLLISION_MASK_NOTE := 8
+const COLLISION_MASK_NOTE_SLOT := 16
 
 var screen_size
 var note_being_dragged
 var is_hovering_on_note
-var player_hand_reference
+var battle_chord_system_reference
 
 @onready var note_scale = Globals.center_screen_x/280
 
@@ -16,7 +16,7 @@ var player_hand_reference
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	player_hand_reference = %Hand
+	battle_chord_system_reference = $".."
 	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,18 +33,17 @@ func start_drag(note):
 func finish_drag():
 	note_being_dragged.scale = Vector2(note_scale+0.5,note_scale+0.5)
 	var note_slot_found = raycast_check_for_note_slot()
-	if note_slot_found and not note_slot_found.note_in_slot:
+	if note_slot_found and (note_slot_found is staffLineClass):
 		#note dropped in empty note slot
 		note_being_dragged.z_index = -1
-		note_being_dragged.note_slot_note_is_in = note_slot_found
-		player_hand_reference.remove_note_from_hand(note_being_dragged)
+		note_being_dragged.line_note_is_in = note_slot_found
+		battle_chord_system_reference.remove_note_from_hand(note_being_dragged)
 		note_being_dragged.position = note_slot_found.position
-		note_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
-		note_slot_found.note_in_slot = note_being_dragged
+		note_slot_found.notes_being_held.append(note_being_dragged)
 		if (note_slot_found is staffLineClass) :
-			note_used_on_enemy.emit(note_slot_found)
+			note_used.emit(note_slot_found)
 	else:
-		player_hand_reference.add_note_to_hand(note_being_dragged, note_being_dragged.position_in_hand)
+		battle_chord_system_reference.add_note_to_hand(note_being_dragged, note_being_dragged.position_in_hand)
 	note_being_dragged = null
 	
 	
@@ -93,7 +92,7 @@ func raycast_check_for_note_slot():
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_note_SLOT
+	parameters.collision_mask = COLLISION_MASK_NOTE_SLOT
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return result[0].collider.get_parent()
@@ -106,7 +105,7 @@ func raycast_check_for_note():
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	parameters.collision_mask = COLLISION_MASK_note
+	parameters.collision_mask = COLLISION_MASK_NOTE
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		#return result[0].collider.get_parent()

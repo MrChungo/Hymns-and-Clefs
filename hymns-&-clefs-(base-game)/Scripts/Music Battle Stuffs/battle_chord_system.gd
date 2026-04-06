@@ -1,6 +1,6 @@
 extends Node2D
 
-
+const DEFAULT_CARD_MOVE_SPEED = 0.1
 const NOTE_SCENE = preload("uid://21biyctn0unu")#"res://Scenes/Music Battle System Stuffs/Staff Stuff/note.tscn"
 const STAFF_SCENE = preload("uid://cavmm10t43b7r")#"res://Scenes/Music Battle System Stuffs/Staff Stuff/staff.tscn"
 
@@ -19,7 +19,7 @@ func load_battle_chord_system(chords):
 	set_up_staff(chords)
 	get_chords(chords)
 	spawn_notes()
-	update_note_positions(0.1)
+	update_note_positions(DEFAULT_CARD_MOVE_SPEED)
 
 func set_up_staff(segments):
 	$SubmitChords.visible = true
@@ -65,7 +65,20 @@ func calculate_note_position(index):
 @warning_ignore("unused_parameter")
 func animate_note_to_position(note, new_position, speed):
 	var tween = get_tree().create_tween()
-	tween.tween_property(note, "position", new_position, 0.1)
+	tween.tween_property(note, "position", new_position, speed)
+
+func add_note_to_hand(note, speed):
+	if note not in notes:
+		notes.insert(0, note)
+		update_note_positions(speed)
+	else:
+		animate_note_to_position(note, note.position_in_hand,DEFAULT_CARD_MOVE_SPEED)
+
+
+func remove_note_from_hand(note):
+	if note in notes:
+		notes.erase(note)
+		update_note_positions(DEFAULT_CARD_MOVE_SPEED)
 
 
 

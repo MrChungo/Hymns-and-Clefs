@@ -1,4 +1,6 @@
 extends Node2D
+class_name NoteClass
+
 
 signal note_hovered
 signal note_hovered_off
@@ -6,6 +8,7 @@ signal note_hovered_off
 var note: String
 var position_in_hand
 var measure:int
+var line_note_is_in
 
 func _ready() -> void:
 	get_parent().connect_note_signals(self)

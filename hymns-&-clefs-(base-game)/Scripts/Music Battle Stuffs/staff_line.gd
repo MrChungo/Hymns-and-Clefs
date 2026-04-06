@@ -37,3 +37,4 @@ func get_line_lenght():
 	var mid = $mid_line_texture
 	var end = $end_line_texture_left
 	return (mid.texture.get_width() * mid.scale.x) + (end.texture.get_width()*2)
+	
