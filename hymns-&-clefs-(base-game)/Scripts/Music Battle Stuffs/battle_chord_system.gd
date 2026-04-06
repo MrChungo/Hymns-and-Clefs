@@ -13,7 +13,7 @@ var notes = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	load_battle_chord_system(4)
+	load_battle_chord_system(2)
 
 func load_battle_chord_system(chords):
 	set_up_staff(chords)
@@ -44,7 +44,7 @@ func spawn_notes():
 			note.position.x = Globals.center_screen_x
 			note.position.y = Globals.center_screen_y + Globals.center_screen_y/4
 			note.scale = Vector2(overall_scale,overall_scale)
-			$".".add_child(note)
+			$NoteManager.add_child(note)
 			notes.append(note)
 	
 func update_note_positions(speed):
@@ -56,7 +56,6 @@ func update_note_positions(speed):
 		animate_note_to_position(note, new_position, speed)
 
 func calculate_note_position(index):
-	
 	var note_width =  notes[-1].get_node("Sprite2D").texture.get_width()*overall_scale
 	var total_width = note_width * notes.size()
 	

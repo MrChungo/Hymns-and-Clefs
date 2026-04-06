@@ -1,5 +1,5 @@
 extends Node2D
-class_name staffLine
+class_name staffLineClass
 
 
 var line_defined_note: String

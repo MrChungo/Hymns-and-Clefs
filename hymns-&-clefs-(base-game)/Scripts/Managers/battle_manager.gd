@@ -39,7 +39,6 @@ var screen_height: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$"../SubmitChords".visible = false
 	screen_width = get_viewport().size.x
 	screen_height = get_viewport().size.y
 	

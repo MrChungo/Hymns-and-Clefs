@@ -22,6 +22,11 @@ shape = SubResource("RectangleShape2D_sh6fj")
 debug_color = Color(0.7441144, 0.46146715, 0.1358765, 0.41960785)
 
 [node name="MouseClickeable" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseClickeable"]
 shape = SubResource("RectangleShape2D_vnnnj")
+
+[connection signal="mouse_entered" from="MouseClickeable" to="." method="_on_mouse_clickeable_mouse_entered"]
+[connection signal="mouse_exited" from="MouseClickeable" to="." method="_on_mouse_clickeable_mouse_exited"]
