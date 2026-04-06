@@ -1,4 +1,6 @@
 extends Node
+class_name ChordManager
+
 '''
 https://www.musictheory.net/lessons/40
 https://en.wikipedia.org/wiki/Chord_(music)

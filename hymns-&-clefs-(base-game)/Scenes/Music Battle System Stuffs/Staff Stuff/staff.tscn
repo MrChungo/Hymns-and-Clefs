@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cavmm10t43b7r"]
 
 [ext_resource type="Script" uid="uid://1pxhhkvcvpor" path="res://Scripts/Music Battle Stuffs/staff.gd" id="1_atfdq"]
-[ext_resource type="Texture2D" uid="uid://dp2ttm2q7kl5u" path="res://Assets/Sprites/Staff/staff_treble_clef.png" id="2_fxpwy"]
-[ext_resource type="Texture2D" uid="uid://cl6jolyvq3m5p" path="res://Assets/Sprites/Staff/staff_bass_clef.png" id="3_51v8x"]
+[ext_resource type="Texture2D" uid="uid://cnav0e6uohgar" path="res://Assets/Sprites/updated_staff/treble_clef.png" id="2_fxpwy"]
+[ext_resource type="Texture2D" uid="uid://de5q6c1aaqcbb" path="res://Assets/Sprites/updated_staff/bass_clef.png" id="3_51v8x"]
 
 [node name="Staff" type="Node2D"]
 script = ExtResource("1_atfdq")
@@ -10,12 +10,12 @@ script = ExtResource("1_atfdq")
 [node name="TrebleClef" type="Sprite2D" parent="."]
 z_index = 1
 texture = ExtResource("2_fxpwy")
-offset = Vector2(-5.835, -17.595)
+offset = Vector2(-6, 6)
 
 [node name="BassClef" type="Sprite2D" parent="."]
 visible = false
 z_index = 1
 texture = ExtResource("3_51v8x")
-offset = Vector2(0, 25.7)
+offset = Vector2(0, -1)
 
 [node name="line_manager" type="Node2D" parent="."]

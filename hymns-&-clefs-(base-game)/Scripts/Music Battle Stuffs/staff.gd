@@ -6,6 +6,8 @@ const END_MEASURE_VER_LINE_REFERENCE = preload("uid://bktwnnt44k6br")#"res://Sce
 const C_SCALE_NOTES = ["G","F","E","D","C","B","A","G","F","E","D"]
 const MEASURE_WIDTH_SEGMENTS = 18
 
+#var scale
+
 var lines := []
 var measure_separators := []
 var end_line
@@ -17,9 +19,9 @@ var vertical_spacing: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var scale = 2
-	self.scale = Vector2(scale,scale)
-	self.position = Vector2(Globals.center_screen_x,Globals.center_screen_y)
+	var staff_scale = Globals.center_screen_x/280
+	self.scale = Vector2(staff_scale,staff_scale)
+	#self.position = Vector2(Globals.center_screen_x,Globals.center_screen_y)
 	print(Globals.center_screen_x*2)
 	
 	spawn_measures()
@@ -34,21 +36,27 @@ func _ready() -> void:
 	assign_notes_to_lines()
 
 
+func load_from_save():
+	pass
+
 func set_spacing_variables():
 	vertical_spacing = lines[-1][-1].get_node("mid_line_texture").texture.get_height() * 2
 	
 	print(vertical_spacing)
 
 func spawn_measures():
+	var extra_start_segments = 10
+	var extra_end_segments = 2
+	
 	var line_width
 	for n in range(measure_segments):
 		if measure_segments == 1:
-			line_width = MEASURE_WIDTH_SEGMENTS + 2 + 8 #(do the math later of staff + end line)
+			line_width = MEASURE_WIDTH_SEGMENTS + extra_end_segments + extra_start_segments
 		else:
 			if n == 0:
-				line_width = MEASURE_WIDTH_SEGMENTS + 8
+				line_width = MEASURE_WIDTH_SEGMENTS + extra_start_segments
 			elif n == measure_segments - 1:
-				line_width = MEASURE_WIDTH_SEGMENTS + 2
+				line_width = MEASURE_WIDTH_SEGMENTS + extra_end_segments
 			else:
 				line_width = MEASURE_WIDTH_SEGMENTS
 		spawn_lines(line_width)
@@ -114,7 +122,15 @@ func spawn_and_order_end_line():
 
 
 func order_icons():
-	pass
+	var middle_height_index = (len(lines[-1]) - 1) / 2.
+	var clef_position = lines[0][middle_height_index].position.x - (lines[0][middle_height_index].get_line_lenght() / 4.0)
+	
+	$TrebleClef.position.y = lines[0][middle_height_index].position.y
+	$TrebleClef.position.x = clef_position
+	$BassClef.position.y = lines[0][middle_height_index].position.y
+	$BassClef.position.x = clef_position
+	
+
 
 func assign_notes_to_lines():
 	for s in range(len(lines)):

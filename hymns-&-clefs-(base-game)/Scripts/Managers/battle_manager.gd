@@ -27,6 +27,8 @@ var player: Node2D
 var hand_size: int
 var card_being_used: Node2D
 
+#battle runtime stuff
+
 #enemy spawning
 var enemy_quantity :int
 var max_possible_enemies :int
@@ -37,7 +39,7 @@ var screen_height: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
+	$"../SubmitChords".visible = false
 	screen_width = get_viewport().size.x
 	screen_height = get_viewport().size.y
 	
@@ -105,6 +107,7 @@ func player_turn():
 	await %card_manager.card_used_on_enemy
 	
 	var target = select_target()
+	
 	await use_card(target, target.card_in_slot)
 	
 	empty_hand()
@@ -146,7 +149,12 @@ func empty_hand():
 		deck_ref.send_card_to_discard(n)
 	hand_ref.player_hand.clear()
 
+
+
 	
+
+
+
 
 #enemy functions
 func spawn_enemies(_enemy_quantity):
@@ -163,7 +171,6 @@ func spawn_enemies(_enemy_quantity):
 		
 	
 	update_enemy_positions()
-	
 
 func update_enemy_positions():
 	for n in range(len(enemies)):
@@ -224,6 +231,8 @@ func enemy_death(target):
 	enemies.erase(target)
 	await target.death()
 
+
+
 #general functions (used for both enemies and players)
 func attack(target, damage):
 	if target.shield > 0:
@@ -244,6 +253,7 @@ func add_shield(target, shield_added):
 	target.shield += shield_added
 
 
+
 func battle_loop():
 	while battle:
 		if enemies.size() > 0:
@@ -254,14 +264,9 @@ func battle_loop():
 				#print("player hp", player.hp)
 		else:
 			battle_ends()
-			
-			
-		
 
 func battle_ends():
 	SaveManager.save_file_data.current_icon += 1
 	await save_to_savefile()
 	battle = false
 	SignalManager.change_scene_to_rewards()
-	
-	

@@ -1,3 +1,25 @@
-[gd_scene format=3 uid="uid://21biyctn0unu"]
+[gd_scene load_steps=4 format=3 uid="uid://21biyctn0unu"]
+
+[ext_resource type="Texture2D" uid="uid://ouyih2dpghjs" path="res://Assets/Sprites/updated_staff/note.png" id="1_ojev1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sh6fj"]
+size = Vector2(14, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vnnnj"]
+size = Vector2(30, 20)
 
 [node name="Note" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ojev1")
+
+[node name="StaffInteractable" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaffInteractable"]
+shape = SubResource("RectangleShape2D_sh6fj")
+debug_color = Color(0.7441144, 0.46146715, 0.1358765, 0.41960785)
+
+[node name="MouseClickeable" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseClickeable"]
+shape = SubResource("RectangleShape2D_vnnnj")
