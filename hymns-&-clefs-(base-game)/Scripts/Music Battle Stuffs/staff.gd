@@ -11,18 +11,19 @@ const MEASURE_WIDTH_SEGMENTS = 18
 var lines := []
 var measure_separators := []
 var end_line
-var measure_segments := 4
+var measure_segments : int
 
 
 
 var vertical_spacing: float
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	var staff_scale = Globals.center_screen_x/280
-	self.scale = Vector2(staff_scale,staff_scale)
+
+
+func load_staff(segments):
+	measure_segments = segments
+	#var staff_scale = Globals.center_screen_x/280
+	#self.scale = Vector2(staff_scale,staff_scale)
 	#self.position = Vector2(Globals.center_screen_x,Globals.center_screen_y)
-	print(Globals.center_screen_x*2)
 	
 	spawn_measures()
 	set_spacing_variables()
@@ -36,8 +37,6 @@ func _ready() -> void:
 	assign_notes_to_lines()
 
 
-func load_from_save():
-	pass
 
 func set_spacing_variables():
 	vertical_spacing = lines[-1][-1].get_node("mid_line_texture").texture.get_height() * 2

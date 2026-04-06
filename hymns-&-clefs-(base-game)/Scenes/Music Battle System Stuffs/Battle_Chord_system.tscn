@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6oxxvrroq6ke"]
+[gd_scene load_steps=3 format=3 uid="uid://b6oxxvrroq6ke"]
 
 [ext_resource type="Script" uid="uid://bu3j4f5w4syri" path="res://Scripts/Music Battle Stuffs/battle_chord_system.gd" id="1_f3qxo"]
+[ext_resource type="Script" uid="uid://du6yetekcwf5c" path="res://Scripts/Managers/chord_manager.gd" id="2_nh0p3"]
 
 [node name="BattleChordSystem" type="Node2D"]
 script = ExtResource("1_f3qxo")
@@ -11,3 +12,6 @@ offset_top = 602.0
 offset_right = 1134.0
 offset_bottom = 633.0
 text = "Submit Chords"
+
+[node name="ChordManager" type="Node" parent="."]
+script = ExtResource("2_nh0p3")
