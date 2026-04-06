@@ -95,6 +95,7 @@ func raycast_check_for_note_slot():
 	parameters.collision_mask = COLLISION_MASK_NOTE_SLOT
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
+		print(result[0].collider.get_parent())
 		return result[0].collider.get_parent()
 	else:
 		return null

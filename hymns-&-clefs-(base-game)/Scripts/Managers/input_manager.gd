@@ -55,6 +55,7 @@ func raycast_at_cursor():
 			#deck_reference.draw_card() #player does not draw manually
 			pass
 		elif result_collision_mask == COLLISION_MASK_NOTE:
-			var object_found = result[0].collider.get_parent()
-			if object_found and (object_found is NoteClass):
-				note_manager_reference.start_drag(object_found)
+			for obj in result:
+				var object_found = obj.collider.get_parent()
+				if object_found and (object_found is NoteClass):
+					note_manager_reference.start_drag(object_found)
