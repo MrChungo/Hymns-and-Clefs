@@ -35,7 +35,7 @@ func get_chords(chords):
 	for n in range(chords):
 		target_chords.append($ChordManager.gen_chord())
 	print(target_chords)
-	
+
 
 func spawn_notes():
 	for chord in target_chords:
