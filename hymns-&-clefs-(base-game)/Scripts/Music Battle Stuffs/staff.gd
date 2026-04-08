@@ -5,6 +5,9 @@ const MEASURE_VER_LINE_REFERENCE = preload("uid://rahc3qlfgf7x") #"res://Scenes/
 const END_MEASURE_VER_LINE_REFERENCE = preload("uid://bktwnnt44k6br")#"res://Scenes/Music Battle System Stuffs/Staff Stuff/end_measure_vertical_lines.tscn"
 const C_SCALE_NOTES = ["G","F","E","D","C","B","A","G","F","E","D"]
 const MEASURE_WIDTH_SEGMENTS = 18
+const CLEFF_START_SEGMENTS = 10
+const END_LINE_END_SEGMENTS = 2
+
 
 #var scale
 
@@ -40,22 +43,20 @@ func load_staff(segments):
 
 func set_spacing_variables():
 	vertical_spacing = lines[-1][-1].get_node("mid_line_texture").texture.get_height() * 2
-	
-	print(vertical_spacing)
+	#print(vertical_spacing)
 
 func spawn_measures():
-	var extra_start_segments = 10
-	var extra_end_segments = 2
+
 	
 	var line_width
 	for n in range(measure_segments):
 		if measure_segments == 1:
-			line_width = MEASURE_WIDTH_SEGMENTS + extra_end_segments + extra_start_segments
+			line_width = MEASURE_WIDTH_SEGMENTS + END_LINE_END_SEGMENTS + CLEFF_START_SEGMENTS
 		else:
 			if n == 0:
-				line_width = MEASURE_WIDTH_SEGMENTS + extra_start_segments
+				line_width = MEASURE_WIDTH_SEGMENTS + CLEFF_START_SEGMENTS
 			elif n == measure_segments - 1:
-				line_width = MEASURE_WIDTH_SEGMENTS + extra_end_segments
+				line_width = MEASURE_WIDTH_SEGMENTS + END_LINE_END_SEGMENTS
 			else:
 				line_width = MEASURE_WIDTH_SEGMENTS
 		spawn_lines(line_width)
@@ -139,3 +140,27 @@ func assign_notes_to_lines():
 	#for s in lines:
 		#for n in s:
 			#print(n.line_defined_note)
+			
+			
+
+func align_notes():
+	for measure in range(len(lines)):
+		print("measure: ", measure)
+		for line in range(len(lines[measure])):
+			print("line: ", line)
+			for note in lines[measure][line].notes_being_held:
+				print("note: ", note)
+				var line_ref = lines[measure][line]
+				if lines.size() == 1:
+					note.global_position.x = line_ref.global_position.x
+					note.global_position.y = line_ref.global_position.y
+				else:
+					if measure == 1:
+						note.global_position.x = line_ref.global_position.x
+						note.global_position.y = line_ref.global_position.y
+					elif measure == len(lines):
+						note.global_position.x = line_ref.global_position.x
+						note.global_position.y = line_ref.global_position.y
+					else:
+						note.global_position.x = line_ref.global_position.x
+						note.global_position.y = line_ref.global_position.y

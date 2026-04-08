@@ -1,6 +1,8 @@
 extends Node2D
 
-signal note_used(target)
+signal note_used()
+signal remove_from_old_array(note)
+
 
 const COLLISION_MASK_NOTE := 8
 const COLLISION_MASK_NOTE_SLOT := 16
@@ -39,9 +41,11 @@ func finish_drag():
 		note_being_dragged.line_note_is_in = note_slot_found
 		battle_chord_system_reference.remove_note_from_hand(note_being_dragged)
 		note_being_dragged.position = note_slot_found.position
-		note_slot_found.notes_being_held.append(note_being_dragged)
+		
 		if (note_slot_found is staffLineClass) :
-			note_used.emit(note_slot_found)
+			remove_from_old_array.emit(note_being_dragged)
+			note_slot_found.notes_being_held.append(note_being_dragged)
+			note_used.emit()
 	else:
 		battle_chord_system_reference.add_note_to_hand(note_being_dragged, note_being_dragged.position_in_hand)
 	note_being_dragged = null

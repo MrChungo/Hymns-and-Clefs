@@ -13,13 +13,15 @@ var notes = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	load_battle_chord_system(2)
+	load_battle_chord_system(4)
+	$NoteManager.note_used.connect(update_staff)
+	$NoteManager.remove_from_old_array.connect(remove_note_from_line)
 
 func load_battle_chord_system(chords):
 	set_up_staff(chords)
 	get_chords(chords)
 	spawn_notes()
-	update_note_positions(DEFAULT_CARD_MOVE_SPEED)
+	update_note_hand_positions(DEFAULT_CARD_MOVE_SPEED)
 
 func set_up_staff(segments):
 	$SubmitChords.visible = true
@@ -47,15 +49,15 @@ func spawn_notes():
 			$NoteManager.add_child(note)
 			notes.append(note)
 	
-func update_note_positions(speed):
+func update_note_hand_positions(speed):
 	for i in range(notes.size()):
 		#get new card position based on index
-		var new_position = Vector2(calculate_note_position(i), note_y_position)
+		var new_position = Vector2(calculate_note_hand_position(i), note_y_position)
 		var note = notes[i]
 		note.position_in_hand = new_position
 		animate_note_to_position(note, new_position, speed)
 
-func calculate_note_position(index):
+func calculate_note_hand_position(index):
 	var note_width =  notes[-1].get_node("Sprite2D").texture.get_width()*overall_scale
 	var total_width = note_width * notes.size()
 	
@@ -70,7 +72,7 @@ func animate_note_to_position(note, new_position, speed):
 func add_note_to_hand(note, speed):
 	if note not in notes:
 		notes.insert(0, note)
-		update_note_positions(speed)
+		update_note_hand_positions(speed)
 	else:
 		animate_note_to_position(note, note.position_in_hand,DEFAULT_CARD_MOVE_SPEED)
 
@@ -78,9 +80,21 @@ func add_note_to_hand(note, speed):
 func remove_note_from_hand(note):
 	if note in notes:
 		notes.erase(note)
-		update_note_positions(DEFAULT_CARD_MOVE_SPEED)
+		update_note_hand_positions(DEFAULT_CARD_MOVE_SPEED)
 
 
+
+func remove_note_from_line(note):
+	for measure in staff.lines:
+		for line in measure:
+			for line_note in line.notes_being_held:
+				if line_note == note:
+					line.notes_being_held.erase(note)
+	update_staff()
+
+
+func update_staff():
+	staff.align_notes()
 
 
 

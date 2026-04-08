@@ -3,6 +3,8 @@ extends Node2D
 signal left_mouse_button_clicked
 signal left_mouse_button_released
 
+
+
 const COLLISION_MASK_CARD := 1
 const COLLISION_MASK_DECK := 4
 

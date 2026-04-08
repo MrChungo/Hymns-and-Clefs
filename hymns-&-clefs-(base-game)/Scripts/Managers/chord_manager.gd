@@ -83,7 +83,7 @@ func gen_chord() -> Array:
 		else:
 			fifth = root + 6 - 12
 			
-	print(root, " ", third, " ", fifth)
+	#print(root, " ", third, " ", fifth)
 	chord.append(scale[root])
 	chord.append(scale[third])
 	chord.append(scale[fifth])
