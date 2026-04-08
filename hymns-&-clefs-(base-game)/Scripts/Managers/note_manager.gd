@@ -2,7 +2,7 @@ extends Node2D
 
 signal note_used()
 signal remove_from_old_array(note)
-
+signal add_note_to_hand(note)
 
 const COLLISION_MASK_NOTE := 8
 const COLLISION_MASK_NOTE_SLOT := 16
@@ -46,6 +46,8 @@ func finish_drag():
 			remove_from_old_array.emit(note_being_dragged)
 			note_slot_found.notes_being_held.append(note_being_dragged)
 			note_used.emit()
+		else:
+			add_note_to_hand.emit(note)
 	else:
 		battle_chord_system_reference.add_note_to_hand(note_being_dragged, note_being_dragged.position_in_hand)
 	note_being_dragged = null
