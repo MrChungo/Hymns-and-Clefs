@@ -16,6 +16,7 @@ func _ready() -> void:
 	load_battle_chord_system(4)
 	$NoteManager.note_used.connect(update_staff)
 	$NoteManager.remove_from_old_array.connect(remove_note_from_line)
+	$NoteManager.add_note_to_hand.connect()
 
 func load_battle_chord_system(chords):
 	set_up_staff(chords)
