@@ -3,6 +3,8 @@ extends Node2D
 signal left_mouse_button_clicked
 signal left_mouse_button_released
 
+signal right_mouse_button_clicked
+signal right_mouse_button_released
 
 
 const COLLISION_MASK_CARD := 1
@@ -32,32 +34,48 @@ func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			emit_signal("left_mouse_button_clicked")
-			raycast_at_cursor()
+			raycast_at_cursor("left")
 		else:
 			emit_signal("left_mouse_button_released")
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		if event.pressed:
+			emit_signal("right_mouse_button_clicked")
+			raycast_at_cursor("right")
+		else:
+			emit_signal("right_mouse_button_released")
 			
 
 
-func raycast_at_cursor():
+func raycast_at_cursor(mouse_click):
 	#checks if card is below mouse position
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
 	var result = space_state.intersect_point(parameters)
+	
 	if result.size() > 0:
-		var result_collision_mask = result[0].collider.collision_mask
-		if result_collision_mask == COLLISION_MASK_CARD:
-			#card clicked
-			var object_found = result[0].collider.get_parent()
-			if object_found and (object_found is card_class):
-				card_manager_reference.start_drag(object_found)
-		elif result_collision_mask == COLLISION_MASK_DECK:
-			#deck clicked
-			#deck_reference.draw_card() #player does not draw manually
-			pass
-		elif result_collision_mask == COLLISION_MASK_NOTE:
-			for obj in result:
-				var object_found = obj.collider.get_parent()
-				if object_found and (object_found is NoteClass):
-					note_manager_reference.start_drag(object_found)
+		if mouse_click == "left":
+			var result_collision_mask = result[0].collider.collision_mask
+			if result_collision_mask == COLLISION_MASK_CARD:
+				#card clicked
+				var object_found = result[0].collider.get_parent()
+				if object_found and (object_found is card_class):
+					card_manager_reference.start_drag(object_found)
+			elif result_collision_mask == COLLISION_MASK_DECK:
+				#deck clicked
+				#deck_reference.draw_card() #player does not draw manually
+				pass
+			elif result_collision_mask == COLLISION_MASK_NOTE:
+				for obj in result:
+					var object_found = obj.collider.get_parent()
+					if object_found and (object_found is NoteClass):
+						note_manager_reference.start_drag(object_found)
+		
+		elif mouse_click == "right":
+			var result_collision_mask = result[0].collider.collision_mask
+			if result_collision_mask == COLLISION_MASK_NOTE:
+				for obj in result:
+					var object_found = obj.collider.get_parent()
+					if object_found and (object_found is NoteClass):
+						note_manager_reference.start_drag(object_found)

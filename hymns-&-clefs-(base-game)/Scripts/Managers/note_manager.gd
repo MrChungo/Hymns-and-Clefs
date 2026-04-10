@@ -20,6 +20,7 @@ func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	battle_chord_system_reference = $".."
 	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
+	$"../InputManager".connect("right_mouse_button_released", on_right_click_released)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -63,6 +64,11 @@ func connect_note_signals(note):
 func on_left_click_released():
 	if note_being_dragged:
 		finish_drag()
+
+func on_right_click_released():
+	if note_being_dragged:
+		finish_drag()
+		#note_being_dragged.change_note_type()
 
 
 func on_hovered_over_note(note):

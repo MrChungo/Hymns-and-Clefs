@@ -13,7 +13,7 @@ var notes = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	load_battle_chord_system(2)
+	load_battle_chord_system(1)
 	$NoteManager.note_used.connect(update_staff)
 	$NoteManager.remove_from_old_array.connect(remove_note_from_line)
 	$NoteManager.add_note_to_hand.connect(add_note_to_hand)
@@ -102,7 +102,9 @@ func update_staff():
 
 func _on_submit_chords_pressed() -> void:
 	var are_chords_true = false
+	print(target_chords)
 	var chord_check_container = target_chords.duplicate()
+	print(chord_check_container)
 	for chord in len(target_chords):
 		for measure in staff.lines:
 			for line in measure:
@@ -110,7 +112,8 @@ func _on_submit_chords_pressed() -> void:
 						for chord_note in target_chords[chord]:
 							if chord_note == line.line_defined_note:
 								chord_check_container[chord].erase(chord_note)
-		
+	print(target_chords)
+	print(chord_check_container)
 	for container in chord_check_container:
 		are_chords_true = true
 		for note in container:
