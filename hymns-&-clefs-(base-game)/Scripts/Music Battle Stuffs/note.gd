@@ -9,6 +9,7 @@ var note: String
 var position_in_hand
 var measure:int
 var line_note_is_in
+var type: String
 
 func _ready() -> void:
 	get_parent().connect_note_signals(self)

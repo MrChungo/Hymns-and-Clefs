@@ -22,3 +22,5 @@ offset_top = 602.0
 offset_right = 1134.0
 offset_bottom = 633.0
 text = "Submit Chords"
+
+[connection signal="pressed" from="SubmitChords" to="." method="_on_submit_chords_pressed"]
