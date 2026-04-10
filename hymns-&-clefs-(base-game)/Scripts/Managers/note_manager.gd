@@ -47,9 +47,9 @@ func finish_drag():
 			note_slot_found.notes_being_held.append(note_being_dragged)
 			note_used.emit()
 		else:
-			add_note_to_hand.emit(note)
+			add_note_to_hand.emit(note_being_dragged)
 	else:
-		battle_chord_system_reference.add_note_to_hand(note_being_dragged, note_being_dragged.position_in_hand)
+		battle_chord_system_reference.add_note_to_hand(note_being_dragged)
 	note_being_dragged = null
 	
 	
@@ -101,7 +101,7 @@ func raycast_check_for_note_slot():
 	parameters.collision_mask = COLLISION_MASK_NOTE_SLOT
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
-		print(result[0].collider.get_parent())
+		#print(result[0].collider.get_parent())
 		return result[0].collider.get_parent()
 	else:
 		return null

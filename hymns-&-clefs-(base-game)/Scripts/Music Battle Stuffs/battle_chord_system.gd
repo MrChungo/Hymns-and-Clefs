@@ -16,13 +16,13 @@ func _ready() -> void:
 	load_battle_chord_system(4)
 	$NoteManager.note_used.connect(update_staff)
 	$NoteManager.remove_from_old_array.connect(remove_note_from_line)
-	$NoteManager.add_note_to_hand.connect()
+	$NoteManager.add_note_to_hand.connect(add_note_to_hand)
 
 func load_battle_chord_system(chords):
 	set_up_staff(chords)
 	get_chords(chords)
 	spawn_notes()
-	update_note_hand_positions(DEFAULT_CARD_MOVE_SPEED)
+	update_note_hand_positions()
 
 func set_up_staff(segments):
 	$SubmitChords.visible = true
@@ -50,13 +50,13 @@ func spawn_notes():
 			$NoteManager.add_child(note)
 			notes.append(note)
 	
-func update_note_hand_positions(speed):
+func update_note_hand_positions():
 	for i in range(notes.size()):
 		#get new card position based on index
 		var new_position = Vector2(calculate_note_hand_position(i), note_y_position)
 		var note = notes[i]
 		note.position_in_hand = new_position
-		animate_note_to_position(note, new_position, speed)
+		animate_note_to_position(note, new_position)
 
 func calculate_note_hand_position(index):
 	var note_width =  notes[-1].get_node("Sprite2D").texture.get_width()*overall_scale
@@ -66,22 +66,22 @@ func calculate_note_hand_position(index):
 	return x_offset
 
 @warning_ignore("unused_parameter")
-func animate_note_to_position(note, new_position, speed):
+func animate_note_to_position(note, new_position):
 	var tween = get_tree().create_tween()
-	tween.tween_property(note, "position", new_position, speed)
+	tween.tween_property(note, "position", new_position, DEFAULT_CARD_MOVE_SPEED)
 
-func add_note_to_hand(note, speed):
+func add_note_to_hand(note):
 	if note not in notes:
 		notes.insert(0, note)
-		update_note_hand_positions(speed)
+		update_note_hand_positions()
 	else:
-		animate_note_to_position(note, note.position_in_hand,DEFAULT_CARD_MOVE_SPEED)
+		animate_note_to_position(note, note.position_in_hand)
 
 
 func remove_note_from_hand(note):
 	if note in notes:
 		notes.erase(note)
-		update_note_hand_positions(DEFAULT_CARD_MOVE_SPEED)
+		update_note_hand_positions()
 
 
 

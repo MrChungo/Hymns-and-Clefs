@@ -10,14 +10,15 @@ size = Vector2(28, 18)
 script = ExtResource("1_sh6fj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 4
 texture = ExtResource("1_ojev1")
 
 [node name="MouseClickeable" type="Area2D" parent="."]
-z_index = 2
+z_index = 4
 collision_layer = 8
 collision_mask = 8
 collision_priority = 2.0
-priority = 2
+priority = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseClickeable"]
 shape = SubResource("RectangleShape2D_vnnnj")

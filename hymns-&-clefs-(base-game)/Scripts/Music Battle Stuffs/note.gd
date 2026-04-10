@@ -21,3 +21,8 @@ func _on_mouse_clickeable_mouse_entered() -> void:
 
 func _on_mouse_clickeable_mouse_exited() -> void:
 	emit_signal("note_hovered_off",self)
+	
+
+func get_note_lenght():
+	var note_texture = $Sprite2D
+	return (note_texture.texture.get_width() * self.scale.x)

@@ -144,22 +144,25 @@ func assign_notes_to_lines():
 			
 
 func align_notes():
+	var start_line_offset = CLEFF_START_SEGMENTS*lines[0][0].get_node("mid_line_texture").texture.get_width()
+	var end_line_offset = END_LINE_END_SEGMENTS*lines[0][0].get_node("mid_line_texture").texture.get_width()
+	
 	for measure in range(len(lines)):
-		print("measure: ", measure)
+		#print("measure: ", measure)
 		for line in range(len(lines[measure])):
-			print("line: ", line)
+			#print("line: ", line)
 			for note in lines[measure][line].notes_being_held:
-				print("note: ", note)
+				#print("note: ", note)
 				var line_ref = lines[measure][line]
 				if lines.size() == 1:
-					note.global_position.x = line_ref.global_position.x
+					note.global_position.x = line_ref.global_position.x + start_line_offset - end_line_offset
 					note.global_position.y = line_ref.global_position.y
 				else:
-					if measure == 1:
-						note.global_position.x = line_ref.global_position.x
+					if measure == 0:
+						note.global_position.x = line_ref.global_position.x + start_line_offset
 						note.global_position.y = line_ref.global_position.y
-					elif measure == len(lines):
-						note.global_position.x = line_ref.global_position.x
+					elif measure == len(lines)-1:
+						note.global_position.x = line_ref.global_position.x - end_line_offset
 						note.global_position.y = line_ref.global_position.y
 					else:
 						note.global_position.x = line_ref.global_position.x
