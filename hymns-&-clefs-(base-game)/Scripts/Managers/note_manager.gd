@@ -18,9 +18,11 @@ var battle_chord_system_reference
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	battle_chord_system_reference = $".."
-	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
-	$"../InputManager".connect("right_mouse_button_released", on_right_click_released)
+	battle_chord_system_reference = get_parent()
+	var input_manager = get_tree().current_scene.get_node("InputManager")
+	input_manager.start_note_drag.connect(start_drag)
+	input_manager.left_mouse_button_released.connect(on_left_click_released)
+	input_manager.right_mouse_button_released.connect(on_right_click_released)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -46,10 +48,17 @@ func finish_drag():
 		if (note_slot_found is staffLineClass) :
 			remove_from_old_array.emit(note_being_dragged)
 			note_slot_found.notes_being_held.append(note_being_dragged)
+			note_being_dragged.line_note_is_in = note_slot_found
+			note_being_dragged.note = note_slot_found.line_defined_note
 			note_used.emit()
 		else:
 			add_note_to_hand.emit(note_being_dragged)
 	else:
+		if note_being_dragged.line_note_is_in:
+			battle_chord_system_reference.remove_note_from_line(note_being_dragged)
+			note_being_dragged.line_note_is_in = null
+		while note_being_dragged.type != "natural":
+			note_being_dragged.shift_note_type()
 		battle_chord_system_reference.add_note_to_hand(note_being_dragged)
 	note_being_dragged = null
 	

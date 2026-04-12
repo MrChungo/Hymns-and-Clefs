@@ -2,7 +2,7 @@ extends Node2D
 
 # THIS FILE MUST BE AT THE BOTTOM OF THE TREE FOR EVERYTHING TO WORK
 
-
+const BATTLE_CHORD_SYSTEM_SCENE = preload("uid://b6oxxvrroq6ke")#"res://Scenes/Music Battle System Stuffs/Battle_Chord_system.tscn"
 const PLAYER_SCENE = preload("uid://bys0uidt8s34i")#"res://Scenes/player/player.tscn"
 const ENEMY_SCENE :=  preload("uid://448b5kjxjtf5") #res://Scenes/enemies/enemy.tscn
 const MAX_ENEMIES_PER_ROW:= 4
@@ -28,6 +28,7 @@ var hand_size: int
 var card_being_used: Node2D
 
 #battle runtime stuff
+var battle_chord_system
 
 #enemy spawning
 var enemy_quantity :int
@@ -109,7 +110,8 @@ func player_turn():
 	
 	await use_card(target, target.card_in_slot)
 	
-	empty_hand()
+	
+	
 	
 	player.update_label()
 	update_enemy_labels()
@@ -125,11 +127,17 @@ func select_target():
 			return n
 
 func use_card(target, card):
-	if card.stats.attack_points > 0:
-		attack(target, card.stats.attack_points)
-	if card.stats.shield_points > 0:
-		add_shield(player, card.stats.shield_points)
-		
+	empty_hand()
+	
+	await load_battle_chord_system(card)
+	
+	if battle_chord_system.last_chord_check:
+		if card.stats.attack_points > 0:
+			attack(target, card.stats.attack_points)
+		if card.stats.shield_points > 0:
+			add_shield(player, card.stats.shield_points)
+	
+	unload_battle_chord_system()
 	emit_signal("card_used", target)
 
 func draw_cards_to_hand():
@@ -150,8 +158,27 @@ func empty_hand():
 
 
 
-	
+func load_battle_chord_system(card):
+	var measures
+	if card.stats.rarity == 1:
+		measures = 1
+	elif card.stats.rarity == 2:
+		measures = 2
+	elif card.stats.rarity == 3:
+		measures = 4
+	else:
+		measures = 1
+	battle_chord_system = BATTLE_CHORD_SYSTEM_SCENE.instantiate()
+	battle_chord_system.name = "BattleChordSystem"
+	$"..".add_child(battle_chord_system)
+	await get_tree().process_frame
+	battle_chord_system.load_battle_chord_system(measures)
+	%InputManager.refresh_conections()
+	await battle_chord_system.chord_checked
 
+func unload_battle_chord_system():
+	battle_chord_system.queue_free()
+	battle_chord_system = null
 
 
 

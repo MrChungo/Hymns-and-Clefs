@@ -1,5 +1,7 @@
 extends Node2D
 
+signal start_note_drag(note)
+
 signal left_mouse_button_clicked
 signal left_mouse_button_released
 
@@ -19,14 +21,19 @@ var deck_reference
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	refresh_conections()
+	
+
+func refresh_conections():
 	var current_scene = get_tree().current_scene
+	if current_scene.has_node("NoteManager"):
+		note_manager_reference = current_scene.get_node("NoteManager")
 	if current_scene.has_node("Deck"): #"res://Scenes/card_stuffs/deck.tscn"
 		deck_reference = $"../Deck"
 	if current_scene.has_node("card_manager"): #"res://Scenes/Managers/card_manager.tscn"
 		card_manager_reference = $"../card_manager"
-	if current_scene.has_node("NoteManager"):
-		note_manager_reference = $"../NoteManager"
-
+	else:
+		card_manager_reference = null
 	
 func _input(event):
 	#checks list of all events (key inputs)
@@ -70,7 +77,7 @@ func raycast_at_cursor(mouse_click):
 				for obj in result:
 					var object_found = obj.collider.get_parent()
 					if object_found and (object_found is NoteClass):
-						note_manager_reference.start_drag(object_found)
+						start_note_drag.emit(object_found)
 		
 		elif mouse_click == "right":
 			var result_collision_mask = result[0].collider.collision_mask
@@ -78,4 +85,5 @@ func raycast_at_cursor(mouse_click):
 				for obj in result:
 					var object_found = obj.collider.get_parent()
 					if object_found and (object_found is NoteClass):
-						note_manager_reference.start_drag(object_found)
+						if object_found.line_note_is_in:
+							object_found.shift_note_type()

@@ -27,3 +27,29 @@ func _on_mouse_clickeable_mouse_exited() -> void:
 func get_note_lenght():
 	var note_texture = $Sprite2D
 	return (note_texture.texture.get_width() * self.scale.x)
+	
+
+func shift_note_type():
+	$Sharp.visible = false
+	$Flat.visible = false
+	if type == "natural":
+		type = "sharp"
+		$Sharp.visible = true
+	elif type == "sharp":
+		type = "flat"
+		$Flat.visible = true
+	else:
+		type = "natural"
+
+func get_note_name_with_type() -> String:
+	if type == "sharp":
+		return note + "#"
+	elif type == "flat":
+		return note + "b"
+	return note
+
+
+
+
+
+	

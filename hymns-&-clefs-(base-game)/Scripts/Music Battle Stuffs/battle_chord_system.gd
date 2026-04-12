@@ -1,8 +1,11 @@
 extends Node2D
 
+signal chord_checked
+
 const DEFAULT_CARD_MOVE_SPEED = 0.1
 const NOTE_SCENE = preload("uid://21biyctn0unu")#"res://Scenes/Music Battle System Stuffs/Staff Stuff/note.tscn"
 const STAFF_SCENE = preload("uid://cavmm10t43b7r")#"res://Scenes/Music Battle System Stuffs/Staff Stuff/staff.tscn"
+
 
 var staff
 var target_chords = []
@@ -10,10 +13,12 @@ var notes = []
 @onready var overall_scale = Globals.center_screen_x/280
 @onready var note_y_position = Globals.center_screen_y + Globals.center_screen_y / 1.5
 
+var last_chord_check = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	load_battle_chord_system(1)
+	#load_battle_chord_system(2)
 	$NoteManager.note_used.connect(update_staff)
 	$NoteManager.remove_from_old_array.connect(remove_note_from_line)
 	$NoteManager.add_note_to_hand.connect(add_note_to_hand)
@@ -59,13 +64,13 @@ func update_note_hand_positions():
 		animate_note_to_position(note, new_position)
 
 func calculate_note_hand_position(index):
-	var note_width =  notes[-1].get_node("Sprite2D").texture.get_width()*overall_scale
+	var note_width =  notes[-1].get_node("NoteSprite").texture.get_width()*overall_scale
 	var total_width = note_width * notes.size()
 	
 	var x_offset = Globals.center_screen_x + (index * note_width) - (total_width / 2.0)
 	return x_offset
 
-@warning_ignore("unused_parameter")
+
 func animate_note_to_position(note, new_position):
 	var tween = get_tree().create_tween()
 	tween.tween_property(note, "position", new_position, DEFAULT_CARD_MOVE_SPEED)
@@ -102,24 +107,21 @@ func update_staff():
 
 func _on_submit_chords_pressed() -> void:
 	var are_chords_true = false
-	print(target_chords)
-	var chord_check_container = target_chords.duplicate()
-	print(chord_check_container)
+	var chord_check_container = target_chords.duplicate(true)
 	for chord in len(target_chords):
 		for measure in staff.lines:
 			for line in measure:
-				if line.notes_being_held.size() > 0:
+					for note in line.notes_being_held:
 						for chord_note in target_chords[chord]:
-							if chord_note == line.line_defined_note:
+							if chord_note == note.get_note_name_with_type():
 								chord_check_container[chord].erase(chord_note)
-	print(target_chords)
-	print(chord_check_container)
+								
 	for container in chord_check_container:
 		are_chords_true = true
 		for note in container:
 			are_chords_true = false
-			
-	print(are_chords_true)
+	last_chord_check = are_chords_true
+	chord_checked.emit()
 
 
 
