@@ -2,7 +2,7 @@ extends Node2D
 
 # THIS FILE MUST BE AT THE BOTTOM OF THE TREE FOR EVERYTHING TO WORK
 
-
+const BATTLE_CHORD_SYSTEM_SCENE = preload("uid://b6oxxvrroq6ke")#"res://Scenes/Music Battle System Stuffs/Battle_Chord_system.tscn"
 const PLAYER_SCENE = preload("uid://bys0uidt8s34i")#"res://Scenes/player/player.tscn"
 const ENEMY_SCENE :=  preload("uid://448b5kjxjtf5") #res://Scenes/enemies/enemy.tscn
 const MAX_ENEMIES_PER_ROW:= 4
@@ -27,6 +27,9 @@ var player: Node2D
 var hand_size: int
 var card_being_used: Node2D
 
+#battle runtime stuff
+var battle_chord_system
+
 #enemy spawning
 var enemy_quantity :int
 var max_possible_enemies :int
@@ -37,7 +40,6 @@ var screen_height: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
 	screen_width = get_viewport().size.x
 	screen_height = get_viewport().size.y
 	
@@ -105,9 +107,11 @@ func player_turn():
 	await %card_manager.card_used_on_enemy
 	
 	var target = select_target()
+	
 	await use_card(target, target.card_in_slot)
 	
-	empty_hand()
+	
+	
 	
 	player.update_label()
 	update_enemy_labels()
@@ -123,11 +127,17 @@ func select_target():
 			return n
 
 func use_card(target, card):
-	if card.stats.attack_points > 0:
-		attack(target, card.stats.attack_points)
-	if card.stats.shield_points > 0:
-		add_shield(player, card.stats.shield_points)
-		
+	empty_hand()
+	
+	await load_battle_chord_system(card)
+	
+	if battle_chord_system.last_chord_check:
+		if card.stats.attack_points > 0:
+			attack(target, card.stats.attack_points)
+		if card.stats.shield_points > 0:
+			add_shield(player, card.stats.shield_points)
+	
+	unload_battle_chord_system()
 	emit_signal("card_used", target)
 
 func draw_cards_to_hand():
@@ -146,7 +156,31 @@ func empty_hand():
 		deck_ref.send_card_to_discard(n)
 	hand_ref.player_hand.clear()
 
-	
+
+
+func load_battle_chord_system(card):
+	var measures
+	if card.stats.rarity == 1:
+		measures = 1
+	elif card.stats.rarity == 2:
+		measures = 2
+	elif card.stats.rarity == 3:
+		measures = 4
+	else:
+		measures = 1
+	battle_chord_system = BATTLE_CHORD_SYSTEM_SCENE.instantiate()
+	battle_chord_system.name = "BattleChordSystem"
+	$"..".add_child(battle_chord_system)
+	await get_tree().process_frame
+	battle_chord_system.load_battle_chord_system(measures)
+	%InputManager.refresh_conections()
+	await battle_chord_system.chord_checked
+
+func unload_battle_chord_system():
+	battle_chord_system.queue_free()
+	battle_chord_system = null
+
+
 
 #enemy functions
 func spawn_enemies(_enemy_quantity):
@@ -163,7 +197,6 @@ func spawn_enemies(_enemy_quantity):
 		
 	
 	update_enemy_positions()
-	
 
 func update_enemy_positions():
 	for n in range(len(enemies)):
@@ -224,6 +257,8 @@ func enemy_death(target):
 	enemies.erase(target)
 	await target.death()
 
+
+
 #general functions (used for both enemies and players)
 func attack(target, damage):
 	if target.shield > 0:
@@ -244,6 +279,7 @@ func add_shield(target, shield_added):
 	target.shield += shield_added
 
 
+
 func battle_loop():
 	while battle:
 		if enemies.size() > 0:
@@ -254,14 +290,9 @@ func battle_loop():
 				#print("player hp", player.hp)
 		else:
 			battle_ends()
-			
-			
-		
 
 func battle_ends():
 	SaveManager.save_file_data.current_icon += 1
 	await save_to_savefile()
 	battle = false
 	SignalManager.change_scene_to_rewards()
-	
-	

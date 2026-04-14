@@ -1,3 +1,41 @@
-[gd_scene format=3 uid="uid://21biyctn0unu"]
+[gd_scene load_steps=6 format=3 uid="uid://21biyctn0unu"]
+
+[ext_resource type="Texture2D" uid="uid://ouyih2dpghjs" path="res://Assets/Sprites/updated_staff/note.png" id="1_ojev1"]
+[ext_resource type="Script" uid="uid://b6thjam38r6dm" path="res://Scripts/Music Battle Stuffs/note.gd" id="1_sh6fj"]
+[ext_resource type="Texture2D" uid="uid://b8ps24w8mehuy" path="res://Assets/Sprites/updated_staff/flat.png" id="3_n86gt"]
+[ext_resource type="Texture2D" uid="uid://55chlmd30o7v" path="res://Assets/Sprites/updated_staff/sharp.png" id="4_hebny"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vnnnj"]
+size = Vector2(28, 18)
 
 [node name="Note" type="Node2D"]
+script = ExtResource("1_sh6fj")
+
+[node name="NoteSprite" type="Sprite2D" parent="."]
+z_index = 4
+texture = ExtResource("1_ojev1")
+
+[node name="Flat" type="Sprite2D" parent="."]
+visible = false
+z_index = 4
+position = Vector2(-23, -3)
+texture = ExtResource("3_n86gt")
+
+[node name="Sharp" type="Sprite2D" parent="."]
+visible = false
+z_index = 4
+position = Vector2(-25, 0)
+texture = ExtResource("4_hebny")
+
+[node name="MouseClickeable" type="Area2D" parent="."]
+z_index = 4
+collision_layer = 8
+collision_mask = 8
+collision_priority = 2.0
+priority = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseClickeable"]
+shape = SubResource("RectangleShape2D_vnnnj")
+
+[connection signal="mouse_entered" from="MouseClickeable" to="." method="_on_mouse_clickeable_mouse_entered"]
+[connection signal="mouse_exited" from="MouseClickeable" to="." method="_on_mouse_clickeable_mouse_exited"]

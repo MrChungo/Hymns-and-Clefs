@@ -18,9 +18,9 @@ config/icon="res://icon.svg"
 [autoload]
 
 SaveManager="*res://Scripts/Managers/Save_Manager.gd"
+Globals="*res://Scenes/Misc/Globals.tscn"
 Random="*res://Scripts/Misc/random.gd"
 SignalManager="*res://Scripts/Managers/signal_manager.gd"
-Globals="*res://Scenes/Misc/Globals.tscn"
 
 [display]
 
