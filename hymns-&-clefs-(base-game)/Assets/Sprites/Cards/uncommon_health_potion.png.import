@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp5vxj5gwcm2c"
-path="res://.godot/imported/common_wooden_shield.png-5290da7c9265d6bdf1b52762aa0e769d.ctex"
+uid="uid://mj6ycm4w0try"
+path="res://.godot/imported/uncommon_health_potion.png-5ca73976c93144404c0e20b9458897a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Cards/common_wooden_shield.png"
-dest_files=["res://.godot/imported/common_wooden_shield.png-5290da7c9265d6bdf1b52762aa0e769d.ctex"]
+source_file="res://Assets/Sprites/Cards/uncommon_health_potion.png"
+dest_files=["res://.godot/imported/uncommon_health_potion.png-5ca73976c93144404c0e20b9458897a3.ctex"]
 
 [params]
 
