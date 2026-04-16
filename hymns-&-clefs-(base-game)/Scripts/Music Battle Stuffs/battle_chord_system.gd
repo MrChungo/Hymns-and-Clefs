@@ -28,6 +28,7 @@ func load_battle_chord_system(chords):
 	get_chords(chords)
 	spawn_notes()
 	update_note_hand_positions()
+	spawn_note_labels()
 
 func set_up_staff(segments):
 	$SubmitChords.visible = true
@@ -123,7 +124,15 @@ func _on_submit_chords_pressed() -> void:
 	last_chord_check = are_chords_true
 	chord_checked.emit()
 
-
+func spawn_note_labels():
+	for chord in target_chords:
+		var new_chord_label = RichTextLabel.new()
+		new_chord_label.position.x = Globals.center_screen_x
+		new_chord_label.position.y = Globals.center_screen_y + Globals.center_screen_y/4
+		new_chord_label.scale = Vector2(overall_scale,overall_scale)
+		new_chord_label.name = "chord: " + $ChordManager.get_chord_name(chord)
+		$".".add_child(new_chord_label)
+		
 
 
 
