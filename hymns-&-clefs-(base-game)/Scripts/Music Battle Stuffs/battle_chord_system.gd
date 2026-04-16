@@ -127,9 +127,9 @@ func _on_submit_chords_pressed() -> void:
 func spawn_note_labels():
 	for chord in target_chords:
 		var new_chord_label = RichTextLabel.new()
-		new_chord_label.position.x = Globals.center_screen_x
-		new_chord_label.position.y = Globals.center_screen_y + Globals.center_screen_y/4
-		new_chord_label.scale = Vector2(overall_scale,overall_scale)
+		#new_chord_label.position.x = Globals.center_screen_x
+		#new_chord_label.position.y = Globals.center_screen_y + Globals.center_screen_y/4
+		#new_chord_label.scale = Vector2(overall_scale,overall_scale)
 		new_chord_label.name = "chord: " + $ChordManager.get_chord_name(chord)
 		$".".add_child(new_chord_label)
 		

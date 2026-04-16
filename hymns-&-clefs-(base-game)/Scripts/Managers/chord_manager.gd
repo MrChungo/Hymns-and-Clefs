@@ -104,6 +104,47 @@ func get_random_index_from_scale(scale):
 func get_chord_type():
 	return Random.get_weighted_rarity_by_world(global_rarities.chord_type_rarity)
 	
+
+func identify_chord_type(chord):
+	var chord_type: String
+	var chord_scale_index = get_chord_scale_index(chord)
+	var third = ""
+	var fifth = ""
+	
+	#checking if major third
+	if chord_scale_index[1] - chord_scale_index[0] == 4 or chord_scale_index[1] + 12 - chord_scale_index[0] == 4:
+		third = "major"
+	elif chord_scale_index[1] - chord_scale_index[0] == 3 or chord_scale_index[1] + 12 - chord_scale_index[0] == 3:
+		third = "minor"
+	else:
+		third = "error"
+	
+	
+	
+	if chord_scale_index[2] - chord_scale_index[0] == 7 or chord_scale_index[2] - chord_scale_index[0] == 7 - 12:
+		fifth = "perfect"
+	elif chord_scale_index[2] - chord_scale_index[0] == 8 or chord_scale_index[2] - chord_scale_index[0] == 8 - 12:
+		fifth = "augmented"
+	elif chord_scale_index[2] - chord_scale_index[0] == 6 or chord_scale_index[2] - chord_scale_index[0] == 6 - 12:
+		fifth = "diminished"
+	else:
+		fifth = "error"
+
+	#print(third)
+	#print(fifth)
+	
+	if third == "major" and fifth == "perfect":
+		chord_type = "major"
+	elif third == "minor" and fifth == "perfect":
+		chord_type = "minor"
+	elif third == "major" and fifth == "augmented":
+		chord_type = "augmented"
+	elif third == "minor" and fifth == "diminished":
+		chord_type = "diminished"
+	else:
+		return "ERROR"
+	return chord_type
+
 	
 func get_chord_name(chord:Array) -> String:
 	var chord_name: String
