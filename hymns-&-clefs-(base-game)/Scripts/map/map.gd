@@ -73,6 +73,9 @@ func load_map():
 
 func update_map_icon_pos():
 	for icon in range(len(node_icons)):
+		var icon_scale = Globals.center_screen_x/150
+		node_icons[icon].scale = Vector2(icon_scale,icon_scale)
+		
 		@warning_ignore("integer_division")
 		node_icons[icon].position.x = icon*(screen_width/len(node_icons))+90 #HARDCODED NUMBER
 		@warning_ignore("integer_division")

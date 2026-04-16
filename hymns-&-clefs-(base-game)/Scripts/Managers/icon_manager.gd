@@ -39,11 +39,13 @@ func on_hovered_off_icon(icon):
 				
 			
 func highlight_icon(icon, hovered):
+	var icon_scale = Globals.center_screen_x/150
+	
 	if hovered && icon.enterable:
-		icon.scale = Vector2(1.1,1.1)
+		icon.scale = icon.scale*1.2
 		icon.z_index = 2
 	else:
-		icon.scale = Vector2(1,1)
+		icon.scale = Vector2(icon_scale,icon_scale)
 		icon.z_index = 1
 		
 		
