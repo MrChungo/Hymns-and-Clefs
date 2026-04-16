@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfypdhmhbghgy"]
-
-[ext_resource type="Script" uid="uid://dha1rl61i6gaa" path="res://Scripts/Music Battle Stuffs/clef.gd" id="1_7eq2h"]
-
-[node name="Clef" type="Node2D"]
-script = ExtResource("1_7eq2h")
