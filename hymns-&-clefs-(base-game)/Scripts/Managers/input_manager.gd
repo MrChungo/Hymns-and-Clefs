@@ -13,6 +13,7 @@ const COLLISION_MASK_CARD := 1
 const COLLISION_MASK_DECK := 4
 
 const COLLISION_MASK_NOTE := 8
+const COLLISION_MASK_LINE:= 16
 
 
 var card_manager_reference
@@ -60,13 +61,18 @@ func raycast_at_cursor(mouse_click):
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
 	var result = space_state.intersect_point(parameters)
+	var usable_results = get_usable_results(result)
 	
 	if result.size() > 0:
 		if mouse_click == "left":
-			var result_collision_mask = result[0].collider.collision_mask
+			var result_collision_mask
+			for n in result:
+				if n.collider.collision_mask != COLLISION_MASK_LINE:
+					result_collision_mask = n.collider.collision_mask
+			
 			if result_collision_mask == COLLISION_MASK_CARD:
 				#card clicked
-				var object_found = result[0].collider.get_parent()
+				var object_found = usable_results[0].collider.get_parent()
 				if object_found and (object_found is card_class):
 					card_manager_reference.start_drag(object_found)
 			elif result_collision_mask == COLLISION_MASK_DECK:
@@ -74,16 +80,43 @@ func raycast_at_cursor(mouse_click):
 				#deck_reference.draw_card() #player does not draw manually
 				pass
 			elif result_collision_mask == COLLISION_MASK_NOTE:
-				for obj in result:
+				for obj in usable_results:
 					var object_found = obj.collider.get_parent()
 					if object_found and (object_found is NoteClass):
 						start_note_drag.emit(object_found)
 		
 		elif mouse_click == "right":
-			var result_collision_mask = result[0].collider.collision_mask
+			var result_collision_mask
+			for n in result:
+				if n.collider.collision_mask != COLLISION_MASK_LINE:
+					result_collision_mask = n.collider.collision_mask
+			
 			if result_collision_mask == COLLISION_MASK_NOTE:
-				for obj in result:
+				for obj in usable_results:
 					var object_found = obj.collider.get_parent()
 					if object_found and (object_found is NoteClass):
 						if object_found.line_note_is_in:
 							object_found.shift_note_type()
+							
+
+func get_usable_results(list):
+	var new_list: Array
+	for element in list:
+			if is_object_able_to_collide_with_mouse(element):
+				new_list.append(element)
+	return new_list
+
+func is_object_able_to_collide_with_mouse(object):
+	if object.collider.collision_mask != COLLISION_MASK_LINE:
+		return true
+	else:
+		return false
+
+
+
+
+
+
+
+
+	
