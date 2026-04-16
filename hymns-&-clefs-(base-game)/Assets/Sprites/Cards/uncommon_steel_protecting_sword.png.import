@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp5vxj5gwcm2c"
-path="res://.godot/imported/common_wooden_shield.png-5290da7c9265d6bdf1b52762aa0e769d.ctex"
+uid="uid://braj7equmygyl"
+path="res://.godot/imported/uncommon_steel_protecting_sword.png-ff7820244765770f864a342b7814391b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Cards/common_wooden_shield.png"
-dest_files=["res://.godot/imported/common_wooden_shield.png-5290da7c9265d6bdf1b52762aa0e769d.ctex"]
+source_file="res://Assets/Sprites/Cards/uncommon_steel_protecting_sword.png"
+dest_files=["res://.godot/imported/uncommon_steel_protecting_sword.png-ff7820244765770f864a342b7814391b.ctex"]
 
 [params]
 
