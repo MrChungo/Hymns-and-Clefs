@@ -167,3 +167,26 @@ func align_notes():
 					else:
 						note.global_position.x = line_ref.global_position.x
 						note.global_position.y = line_ref.global_position.y
+
+
+func align_label(labels):
+	var start_line_offset = CLEFF_START_SEGMENTS*lines[0][0].get_node("mid_line_texture").texture.get_width()
+	var end_line_offset = END_LINE_END_SEGMENTS*lines[0][0].get_node("mid_line_texture").texture.get_width()
+	var fixed_y_position = Globals.center_screen_y / 4
+	
+	
+	
+	for measure in range(len(lines)):
+		if lines.size() == 1:
+			labels[measure].global_position.x = lines[measure][0].global_position.x + start_line_offset - end_line_offset - (labels[measure].size.x * labels[measure].scale.x) / 2.0
+			labels[measure].global_position.y = fixed_y_position
+		else:
+			if measure == 0:
+				labels[measure].global_position.x = lines[measure][0].global_position.x + start_line_offset - (labels[measure].size.x * labels[measure].scale.x) / 2.0
+				labels[measure].global_position.y = fixed_y_position
+			elif measure == len(lines)-1:
+				labels[measure].global_position.x = lines[measure][0].global_position.x - end_line_offset - (labels[measure].size.x * labels[measure].scale.x) / 2.0
+				labels[measure].global_position.y = fixed_y_position
+			else:
+				labels[measure].global_position.x = lines[measure][0].global_position.x - (labels[measure].size.x * labels[measure].scale.x) / 2.0
+				labels[measure].global_position.y = fixed_y_position

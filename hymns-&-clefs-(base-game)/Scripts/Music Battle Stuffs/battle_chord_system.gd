@@ -10,6 +10,7 @@ const STAFF_SCENE = preload("uid://cavmm10t43b7r")#"res://Scenes/Music Battle Sy
 var staff
 var target_chords = []
 var notes = []
+var labels = []
 @onready var overall_scale = Globals.center_screen_x/280
 @onready var note_y_position = Globals.center_screen_y + Globals.center_screen_y / 1.5
 
@@ -29,6 +30,7 @@ func load_battle_chord_system(chords):
 	spawn_notes()
 	update_note_hand_positions()
 	spawn_note_labels()
+	staff.align_label(labels)
 
 func set_up_staff(segments):
 	$SubmitChords.visible = true
@@ -125,13 +127,36 @@ func _on_submit_chords_pressed() -> void:
 	chord_checked.emit()
 
 func spawn_note_labels():
-	for chord in target_chords:
+	for chord in len(target_chords):
 		var new_chord_label = RichTextLabel.new()
-		#new_chord_label.position.x = Globals.center_screen_x
-		#new_chord_label.position.y = Globals.center_screen_y + Globals.center_screen_y/4
-		#new_chord_label.scale = Vector2(overall_scale,overall_scale)
-		new_chord_label.name = "chord: " + $ChordManager.get_chord_name(chord)
+		
+		new_chord_label.text = $ChordManager.get_chord_name(target_chords[chord])
+		
+		new_chord_label.fit_content = true
+		new_chord_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+		new_chord_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		
 		$".".add_child(new_chord_label)
+		
+		new_chord_label.scale = Vector2(overall_scale,overall_scale)
+		new_chord_label.size = new_chord_label.get_minimum_size()
+		
+		new_chord_label.pivot_offset = new_chord_label.size / 2.0
+		
+		var half_width = (new_chord_label.size.x * new_chord_label.scale.x) / 2.0
+		
+		#new_chord_label.global_position.x = staff.lines[chord][0].global_position.x 
+		new_chord_label.global_position.x = staff.lines[chord][0].global_position.x - half_width
+		
+		
+		
+		
+		new_chord_label.name = "chord: " + $ChordManager.get_chord_name(target_chords[chord])
+		
+		
+		
+		labels.append(new_chord_label)
+		
 		
 
 

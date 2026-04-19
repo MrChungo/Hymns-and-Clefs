@@ -274,7 +274,8 @@ func attack(target, damage):
 			enemy_death(target)
 		elif target is player_class:
 			player_death(target)
-	
+
+
 func add_shield(target, shield_added):
 	target.shield += shield_added
 
