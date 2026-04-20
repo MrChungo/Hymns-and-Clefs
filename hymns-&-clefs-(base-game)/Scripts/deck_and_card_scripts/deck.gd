@@ -7,7 +7,7 @@ const CARD_DRAW_SPEED := 0.2 #default is 0.2
 const STARTING_HAND_SIZE := 3
 
 
-@onready var deck_x_position = Globals.center_screen_x / 4
+@onready var deck_x_position = Globals.center_screen_x / 6
 @onready var deck_y_position = Globals.center_screen_y + Globals.center_screen_y / 1.5
 
 @export var deck_resource: starting_deck_resource
@@ -18,13 +18,23 @@ var discard_pile = []
 func _ready() -> void:
 	self.position.x = deck_x_position
 	self.position.y = deck_y_position
-	$RichTextLabel.visible = false
+
+	var deck_scale = round(Globals.center_screen_x / 250)
+	self.scale = Vector2(deck_scale, deck_scale)
+	%RichTextLabel.visible = false
+	
 
 func load_from_save():
 	deck_resource = SaveManager.save_file_data.deck
 	await load_deck_from_resource(deck_resource)
-	$RichTextLabel.text = str(deck.size())
-	$RichTextLabel.visible = true
+	var text_size = int(round(Globals.center_screen_x / 16))
+
+	%RichTextLabel.add_theme_font_size_override("normal_font_size", text_size)
+	
+	%RichTextLabel.text = str(deck.size())
+	%RichTextLabel.visible = true
+	
+	%RichTextLabel.fit_content = true
 
 
 func load_deck_from_resource(resource: starting_deck_resource):
@@ -62,7 +72,7 @@ func draw_card():
 	if deck.size() == 0:
 		renew_deck()
 		
-	$RichTextLabel.text = str(deck.size())
+	%RichTextLabel.text = str(deck.size())
 	
 func send_card_to_discard(card):
 	discard_pile.append(card.stats)
