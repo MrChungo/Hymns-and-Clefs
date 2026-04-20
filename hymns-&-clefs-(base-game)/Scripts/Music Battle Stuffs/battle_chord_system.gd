@@ -110,7 +110,6 @@ func update_staff():
 
 func _on_submit_chords_pressed() -> void:
 	var are_chords_true = false
-	var chord_check_container = target_chords.duplicate(true)
 	
 	var played_notes = []
 	for measure in staff.lines:

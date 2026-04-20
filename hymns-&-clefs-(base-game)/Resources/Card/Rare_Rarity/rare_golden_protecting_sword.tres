@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_afgjp")
+card_name = "Golden protecting sword"
 texture = ExtResource("2_achhg")
 rarity = 3
 shield_points = 5

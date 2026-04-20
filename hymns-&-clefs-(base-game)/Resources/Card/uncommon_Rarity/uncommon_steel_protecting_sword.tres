@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_mhpm6")
+card_name = "Steel protecting sword"
 texture = ExtResource("2_rcpbc")
 rarity = 2
 shield_points = 1
