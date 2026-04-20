@@ -129,17 +129,32 @@ func _on_submit_chords_pressed() -> void:
 func spawn_note_labels():
 	for chord in len(target_chords):
 		var new_chord_label = RichTextLabel.new()
+		new_chord_label.bbcode_enabled = true
 		
-		new_chord_label.text = $ChordManager.get_chord_name(target_chords[chord])
+		var chord_text: String
+		
+		if SaveManager.save_file_data.world_difficulty == 1:
+			chord_text = $ChordManager.get_chord_name(target_chords[chord])  + "[br]" + $ChordManager.get_string_chord_notes(target_chords[chord])
+		elif SaveManager.save_file_data.world_difficulty == 2:
+			if $ChordManager.get_chord_type(target_chords[chord]) in ["major", "minor"]:
+				chord_text = $ChordManager.get_chord_name(target_chords[chord])
+			else:
+				chord_text = $ChordManager.get_chord_name(target_chords[chord]) + "[br]" + $ChordManager.get_string_chord_notes(target_chords[chord])
+		elif SaveManager.save_file_data.world_difficulty == 3:
+			chord_text = $ChordManager.get_chord_name(target_chords[chord])
+		else:
+			chord_text = $ChordManager.get_chord_name(target_chords[chord])
+		
+		var text_size = round(Globals.center_screen_x / 15)
+		new_chord_label.text = "[font_size=%d]%s[/font_size]" % [text_size, chord_text]
 		
 		new_chord_label.fit_content = true
 		new_chord_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 		new_chord_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		
 		$".".add_child(new_chord_label)
-		
-		new_chord_label.scale = Vector2(overall_scale,overall_scale)
 		new_chord_label.size = new_chord_label.get_minimum_size()
+		
 		
 		new_chord_label.pivot_offset = new_chord_label.size / 2.0
 		

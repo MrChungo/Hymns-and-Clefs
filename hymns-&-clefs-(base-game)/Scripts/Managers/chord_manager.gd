@@ -186,6 +186,15 @@ func get_chord_name(chord:Array) -> String:
 		return "ERROR"
 	return chord_name
 
+func get_string_chord_notes(chord):
+	var chord_name = ""
+	for n in range(len(chord)):
+		if n != len(chord)-1:
+			chord_name += chord[n] + " "
+		else:
+			chord_name += chord[n]
+	return chord_name
+
 
 func get_chord_scale_index(chord:Array) -> Array:
 	var chord_scale_indexes: Array
@@ -207,4 +216,3 @@ func find_scale_from_chord(chord):
 		if "b" in note:
 			return NOTES_WITH_FLATS
 	return NOTES_WITH_SHARPS
-	
