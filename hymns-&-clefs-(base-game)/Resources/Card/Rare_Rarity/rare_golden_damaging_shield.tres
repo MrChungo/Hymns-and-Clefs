@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="card_resource" load_steps=3 format=3 uid="uid://djufduwj01vj5"]
+
+[ext_resource type="Script" uid="uid://sgfc57h1wefs" path="res://Scripts/Resource_scripts/card_resource.gd" id="1_5co6i"]
+[ext_resource type="Texture2D" uid="uid://dnq2gjdciwvry" path="res://Assets/Sprites/Cards/rare_golden_damaging_shield.png" id="2_bq7j5"]
+
+[resource]
+script = ExtResource("1_5co6i")
+card_name = "Golden damaging shield"
+texture = ExtResource("2_bq7j5")
+rarity = 3
+shield_points = 7
+attack_points = 5
+metadata/_custom_type_script = "uid://sgfc57h1wefs"

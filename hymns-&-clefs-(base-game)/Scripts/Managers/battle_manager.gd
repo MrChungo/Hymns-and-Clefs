@@ -184,7 +184,7 @@ func unload_battle_chord_system():
 
 #enemy functions
 func spawn_enemies(_enemy_quantity):
-	print("spawned ", _enemy_quantity, " enemies")
+	#print("spawned ", _enemy_quantity, " enemies")
 	for n in range(_enemy_quantity):
 		var new_enemy = ENEMY_SCENE.instantiate()
 		$"../EnemyManager".add_child(new_enemy)

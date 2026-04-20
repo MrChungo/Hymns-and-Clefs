@@ -8,6 +8,5 @@ script = ExtResource("1_hphmi")
 card_name = "Golden Shield"
 texture = ExtResource("2_ky847")
 rarity = 3
-price = 9
-shield_points = 7
+shield_points = 10
 metadata/_custom_type_script = "uid://sgfc57h1wefs"

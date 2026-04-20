@@ -11,14 +11,6 @@ const NOTES_WITH_FLATS = ["A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"]
 
 var global_rarities = load("uid://dxut7bry6abc") #RANDOM_REFERENCE.get_weighted_rarity()
 
-#func _ready() -> void:
-	#SaveManager._load()
-	#SaveManager.save_file_data.world_difficulty = 2
-	#var trials = 10
-	#for n in range(trials):
-		#var chord = gen_chord()
-		#print(chord)
-		#print(get_chord_name(chord))
 
 
 func gen_chord() -> Array:
@@ -130,8 +122,6 @@ func identify_chord_type(chord):
 	else:
 		fifth = "error"
 
-	#print(third)
-	#print(fifth)
 	
 	if third == "major" and fifth == "perfect":
 		chord_type = "major"
@@ -171,8 +161,6 @@ func get_chord_name(chord:Array) -> String:
 	else:
 		fifth = "error"
 
-	#print(third)
-	#print(fifth)
 	
 	if third == "major" and fifth == "perfect":
 		chord_name = chord[0]
@@ -216,3 +204,30 @@ func find_scale_from_chord(chord):
 		if "b" in note:
 			return NOTES_WITH_FLATS
 	return NOTES_WITH_SHARPS
+
+
+
+func swap_flats_and_sharps(chord):
+	var new_chord: Array
+	if find_scale_from_chord(chord) == NOTES_WITH_SHARPS:
+		for index in get_chord_scale_index(chord).duplicate(true):
+			new_chord.append(NOTES_WITH_FLATS[index])
+	else:
+		for index in get_chord_scale_index(chord).duplicate(true):
+			new_chord.append(NOTES_WITH_SHARPS[index])
+	return new_chord
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
