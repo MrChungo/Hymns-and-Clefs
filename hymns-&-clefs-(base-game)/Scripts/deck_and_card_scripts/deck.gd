@@ -44,11 +44,13 @@ func draw_card():
 	#if there are cards in the deck, create an instance of the card & place it on hand
 	if deck.size() > 0:
 		var card_drawn = deck[0]
-		
 		var new_card = CARD_SCENE.instantiate()
 		new_card.deck_reference = self
 		new_card.move_card_to_deck()
 		%card_manager.add_child(new_card)
+		
+		var card_scale = round(Globals.center_screen_x/250)
+		new_card.scale = Vector2(card_scale,card_scale)
 		new_card.stats = card_drawn
 		new_card.name = card_drawn.card_name
 		new_card._update_card_stats(card_drawn)
