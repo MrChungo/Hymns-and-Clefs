@@ -118,35 +118,40 @@ func _on_submit_chords_pressed() -> void:
 			for line in measure:
 					for note in line.notes_being_held:
 						for chord_note in target_chords[chord]:
-							if chord_note == note.get_note_name_with_type():
+							if chord_note == note.get_note_name_with_type() or chord:
 								chord_check_container[chord].erase(chord_note)
-								
+						
+						for chord_note in target_chords[chord]:
+							pass
+	
+
+	
 	for container in chord_check_container:
 		are_chords_true = true
 		for note in container:
 			are_chords_true = false
 	last_chord_check = are_chords_true
 	
-	if !are_chords_true:
-		chord_check_container.clear()
-		print(target_chords)
-		for n in target_chords:
-			chord_check_container.append($ChordManager.swap_flats_and_sharps((n.duplicate(true))))
-		print(chord_check_container)
-		
-		#checks every note in chord
-		for chord in len(target_chords):
-			for measure in staff.lines:
-				for line in measure:
-						for note in line.notes_being_held:
-							for chord_note in target_chords[chord]:
-								if chord_note == note.get_note_name_with_type():
-									chord_check_container[chord].erase(chord_note)
-		for container in chord_check_container:
-			are_chords_true = true
-			for note in container:
-				are_chords_true = false
-		last_chord_check = are_chords_true
+	#if !are_chords_true:
+		#chord_check_container.clear()
+		#print(target_chords)
+		#for n in target_chords:
+			#chord_check_container.append($ChordManager.swap_flats_and_sharps((n.duplicate(true))))
+		#print(chord_check_container)
+		#
+		##checks every note in chord
+		#for chord in len(target_chords):
+			#for measure in staff.lines:
+				#for line in measure:
+						#for note in line.notes_being_held:
+							#for chord_note in target_chords[chord]:
+								#if chord_note == note.get_note_name_with_type():
+									#chord_check_container[chord].erase(chord_note)
+		#for container in chord_check_container:
+			#are_chords_true = true
+			#for note in container:
+				#are_chords_true = false
+		#last_chord_check = are_chords_true
 	
 	chord_checked.emit()
 
