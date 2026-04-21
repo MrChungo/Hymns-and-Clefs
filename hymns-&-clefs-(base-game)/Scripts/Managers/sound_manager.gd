@@ -8,7 +8,9 @@ var instrument: String
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	load_instrument("flute")
-	play_note("F","4")
+	play_note("A#","4")
+	play_note("D","5")
+	play_note("F","5")
 	 
 
 
