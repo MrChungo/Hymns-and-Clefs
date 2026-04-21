@@ -4,7 +4,9 @@ const STAFF_LINE_REFERENCE = preload("uid://l7qvyru1rdq6") #"res://Scenes/Music 
 const MEASURE_VER_LINE_REFERENCE = preload("uid://rahc3qlfgf7x") #"res://Scenes/Music Battle System Stuffs/Staff Stuff/measure_vertical_lines.tscn"
 const END_MEASURE_VER_LINE_REFERENCE = preload("uid://bktwnnt44k6br")#"res://Scenes/Music Battle System Stuffs/Staff Stuff/end_measure_vertical_lines.tscn"
 const G_CLEF_NOTES = ["G","F","E","D","C","B","A","G","F","E","D"]
+const G_CLEF_PITCH = ["5","5","5","5","5","4","4","4","4","4","4"]
 const F_CLEF_NOTES = ["B","A","G","F","E","D","C","B","A","G","F"]
+const F_CLEF_PITCH = []
 
 const MEASURE_WIDTH_SEGMENTS = 18
 const CLEFF_START_SEGMENTS = 10

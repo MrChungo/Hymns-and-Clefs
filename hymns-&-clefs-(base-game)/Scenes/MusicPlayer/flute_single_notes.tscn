@@ -22,97 +22,97 @@
 
 [node name="FluteSingleNotes" type="Node"]
 
-[node name="G#5 Flute" type="AudioStreamPlayer" parent="."]
+[node name="G#5 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_ems4n")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="G5 Flute" type="AudioStreamPlayer" parent="."]
+[node name="G5 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_u2lbs")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="F#5 Flute" type="AudioStreamPlayer" parent="."]
+[node name="F#5 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_si0tc")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="F5 Flute" type="AudioStreamPlayer" parent="."]
+[node name="F5 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_ems4n")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="E5 Flute" type="AudioStreamPlayer" parent="."]
+[node name="E5 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_si0tc")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="D#5 Flute" type="AudioStreamPlayer" parent="."]
+[node name="D#5 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_wbc3p")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="D5 Flute" type="AudioStreamPlayer" parent="."]
+[node name="D5 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_wbc3p")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="C#5 Flute" type="AudioStreamPlayer" parent="."]
+[node name="C#5 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_74wum")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="C5 Flute" type="AudioStreamPlayer" parent="."]
+[node name="C5 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_hrupk")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="B4 Flute" type="AudioStreamPlayer" parent="."]
+[node name="B4 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_jb6lf")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="A#4 Flute" type="AudioStreamPlayer" parent="."]
+[node name="A#4 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_xxqna")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="A4 Flute" type="AudioStreamPlayer" parent="."]
+[node name="A4 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_tsekf")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="G#4 Flute" type="AudioStreamPlayer" parent="."]
+[node name="G#4 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_oxund")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="G4 Flute" type="AudioStreamPlayer" parent="."]
+[node name="G4 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_1hk1a")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="F#4 Flute" type="AudioStreamPlayer" parent="."]
+[node name="F#4 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_xk8pg")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="F4 Flute" type="AudioStreamPlayer" parent="."]
+[node name="F4 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_da8d4")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="E4 Flute" type="AudioStreamPlayer" parent="."]
+[node name="E4 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_53gx4")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="D#4 Flute" type="AudioStreamPlayer" parent="."]
+[node name="D#4 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_k628l")
 volume_db = 20.0
 bus = &"SFX"
 
-[node name="D4 Flute" type="AudioStreamPlayer" parent="."]
+[node name="D4 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("19_xny2w")
 volume_db = 20.0
 bus = &"SFX"
