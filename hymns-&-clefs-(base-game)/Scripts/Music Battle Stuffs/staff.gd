@@ -3,13 +3,18 @@ extends Node2D
 const STAFF_LINE_REFERENCE = preload("uid://l7qvyru1rdq6") #"res://Scenes/Music Battle System Stuffs/Staff Stuff/staff_line.tscn"
 const MEASURE_VER_LINE_REFERENCE = preload("uid://rahc3qlfgf7x") #"res://Scenes/Music Battle System Stuffs/Staff Stuff/measure_vertical_lines.tscn"
 const END_MEASURE_VER_LINE_REFERENCE = preload("uid://bktwnnt44k6br")#"res://Scenes/Music Battle System Stuffs/Staff Stuff/end_measure_vertical_lines.tscn"
-const C_SCALE_NOTES = ["G","F","E","D","C","B","A","G","F","E","D"]
+const G_CLEF_NOTES = ["G","F","E","D","C","B","A","G","F","E","D"]
+const G_CLEF_PITCH = ["5","5","5","5","5","4","4","4","4","4","4"]
+const F_CLEF_NOTES = ["B","A","G","F","E","D","C","B","A","G","F"]
+const F_CLEF_PITCH = []
+
 const MEASURE_WIDTH_SEGMENTS = 18
 const CLEFF_START_SEGMENTS = 10
 const END_LINE_END_SEGMENTS = 2
 
 
-#var scale
+
+var clef
 
 var lines := []
 var measure_separators := []
@@ -23,6 +28,8 @@ var vertical_spacing: float
 
 
 func load_staff(segments):
+	load_clef_from_memory()
+	
 	measure_segments = segments
 	#var staff_scale = Globals.center_screen_x/280
 	#self.scale = Vector2(staff_scale,staff_scale)
@@ -39,6 +46,20 @@ func load_staff(segments):
 	order_icons()
 	assign_notes_to_lines()
 
+
+func load_clef_from_memory():
+	if SaveManager.save_file_data.cleff_type == 0:
+		clef = G_CLEF_NOTES
+		$TrebleClef.visible = true
+		$BassClef.visible = false
+	elif SaveManager.save_file_data.cleff_type == 1:
+		clef = F_CLEF_NOTES
+		$TrebleClef.visible = false
+		$BassClef.visible = true
+	else:
+		clef = G_CLEF_NOTES
+		$TrebleClef.visible = true
+		$BassClef.visible = false
 
 
 func set_spacing_variables():
@@ -135,7 +156,7 @@ func order_icons():
 func assign_notes_to_lines():
 	for s in range(len(lines)):
 		for n in range(len(lines[s])):
-			lines[s][n].line_defined_note = C_SCALE_NOTES[n]
+			lines[s][n].line_defined_note = clef[n]
 	
 	#for s in lines:
 		#for n in s:

@@ -110,43 +110,32 @@ func update_staff():
 
 func _on_submit_chords_pressed() -> void:
 	var are_chords_true = false
-	var chord_check_container = target_chords.duplicate(true)
 	
-	#checks every note in chord
-	for chord in len(target_chords):
-		for measure in staff.lines:
-			for line in measure:
-					for note in line.notes_being_held:
-						for chord_note in target_chords[chord]:
-							if chord_note == note.get_note_name_with_type():
-								chord_check_container[chord].erase(chord_note)
-								
-	for container in chord_check_container:
-		are_chords_true = true
-		for note in container:
-			are_chords_true = false
+	var played_notes = []
+	for measure in staff.lines:
+		for line in measure:
+			for note in line.notes_being_held:
+				played_notes.append(note.get_note_name_with_type())
+	
+	for chord in range(len(target_chords)):
+		var remaining_notes = target_chords[chord].duplicate(true)
+		var swapped_notes =  $ChordManager.swap_flats_and_sharps(target_chords[chord].duplicate(true))
+		
+		for note in played_notes:
+			if note in remaining_notes:
+				remaining_notes.erase(note)
+			elif note in swapped_notes:
+				var artificial_array = [note]
+				var swapped_note = $ChordManager.swap_flats_and_sharps(artificial_array)
+				remaining_notes.erase(swapped_note[0])
+		
+		
+		if remaining_notes.size() == 0:
+			are_chords_true = true
+			
+
 	last_chord_check = are_chords_true
 	
-	if !are_chords_true:
-		chord_check_container.clear()
-		print(target_chords)
-		for n in target_chords:
-			chord_check_container.append($ChordManager.swap_flats_and_sharps((n.duplicate(true))))
-		print(chord_check_container)
-		
-		#checks every note in chord
-		for chord in len(target_chords):
-			for measure in staff.lines:
-				for line in measure:
-						for note in line.notes_being_held:
-							for chord_note in target_chords[chord]:
-								if chord_note == note.get_note_name_with_type():
-									chord_check_container[chord].erase(chord_note)
-		for container in chord_check_container:
-			are_chords_true = true
-			for note in container:
-				are_chords_true = false
-		last_chord_check = are_chords_true
 	
 	chord_checked.emit()
 

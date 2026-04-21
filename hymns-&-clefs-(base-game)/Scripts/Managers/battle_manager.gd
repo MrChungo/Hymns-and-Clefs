@@ -136,6 +136,8 @@ func use_card(target, card):
 			attack(target, card.stats.attack_points)
 		if card.stats.shield_points > 0:
 			add_shield(player, card.stats.shield_points)
+		if card.stats.health_gain > 0:
+			heal(player, card.stats.health_gain)
 	
 	unload_battle_chord_system()
 	emit_signal("card_used", target)
@@ -279,7 +281,12 @@ func attack(target, damage):
 func add_shield(target, shield_added):
 	target.shield += shield_added
 
-
+func heal(target, health):
+	target.hp += health
+	if target is player_class:
+		if target.hp > target.max_hp:
+			target.hp = target.max_hp
+	
 
 func battle_loop():
 	while battle:

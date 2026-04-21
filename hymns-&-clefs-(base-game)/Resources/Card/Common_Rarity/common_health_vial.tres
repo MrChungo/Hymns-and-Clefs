@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="card_resource" load_steps=3 format=3 uid="uid://cb1o8d57os8al"]
+
+[ext_resource type="Script" uid="uid://sgfc57h1wefs" path="res://Scripts/Resource_scripts/card_resource.gd" id="1_q1xp3"]
+[ext_resource type="Texture2D" uid="uid://cowcikmrsdykr" path="res://Assets/Sprites/Cards/common_health_potion.png" id="2_q72kx"]
+
+[resource]
+script = ExtResource("1_q1xp3")
+card_name = "Health vial"
+texture = ExtResource("2_q72kx")
+rarity = 1
+health_gain = 1
+metadata/_custom_type_script = "uid://sgfc57h1wefs"

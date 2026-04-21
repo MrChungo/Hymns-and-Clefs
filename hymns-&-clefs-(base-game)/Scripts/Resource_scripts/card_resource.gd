@@ -8,3 +8,4 @@ class_name card_resource
 
 @export var shield_points: int
 @export var attack_points: int
+@export var health_gain: int

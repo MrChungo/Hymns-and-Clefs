@@ -1,0 +1,118 @@
+[gd_scene load_steps=20 format=3 uid="uid://civcgmid4g4fj"]
+
+[ext_resource type="AudioStream" uid="uid://c2e1pm3hf4jj7" path="res://Assets/Sound/Note Sfx/G#5 Flute.mp3" id="1_ems4n"]
+[ext_resource type="AudioStream" uid="uid://clg5sso5vcnb7" path="res://Assets/Sound/Note Sfx/F#5 Flute.mp3" id="3_si0tc"]
+[ext_resource type="AudioStream" uid="uid://di8dx15vgd8t0" path="res://Assets/Sound/Note Sfx/D#5 Flute.mp3" id="6_wbc3p"]
+[ext_resource type="AudioStream" uid="uid://bkilu7ydm3rod" path="res://Assets/Sound/Note Sfx/C#5 Flute.mp3" id="8_74wum"]
+[ext_resource type="AudioStream" uid="uid://bmvlsbtwa34mk" path="res://Assets/Sound/Note Sfx/G5 Flute.mp3" id="8_u2lbs"]
+[ext_resource type="AudioStream" uid="uid://cy7a21kh8a4h8" path="res://Assets/Sound/Note Sfx/F5 Flute.mp3" id="9_ems4n"]
+[ext_resource type="AudioStream" uid="uid://djcen7ad2np1o" path="res://Assets/Sound/Note Sfx/C5 Flute.mp3" id="9_hrupk"]
+[ext_resource type="AudioStream" uid="uid://b5gfbw2r43hdr" path="res://Assets/Sound/Note Sfx/B4 Flute.mp3" id="10_jb6lf"]
+[ext_resource type="AudioStream" uid="uid://bsd3lros2pvnv" path="res://Assets/Sound/Note Sfx/E5 Flute.mp3" id="10_si0tc"]
+[ext_resource type="AudioStream" uid="uid://d2xb46qqvlck5" path="res://Assets/Sound/Note Sfx/D5 Flute.mp3" id="11_wbc3p"]
+[ext_resource type="AudioStream" uid="uid://de3m6uadc25oa" path="res://Assets/Sound/Note Sfx/A#4 Flute.mp3" id="11_xxqna"]
+[ext_resource type="AudioStream" uid="uid://han1sft852cb" path="res://Assets/Sound/Note Sfx/A4 Flute.mp3" id="12_tsekf"]
+[ext_resource type="AudioStream" uid="uid://mifwpd31hgrr" path="res://Assets/Sound/Note Sfx/G#4 Flute.mp3" id="13_oxund"]
+[ext_resource type="AudioStream" uid="uid://bij1dy2ueh1w4" path="res://Assets/Sound/Note Sfx/G4 Flute.mp3" id="14_1hk1a"]
+[ext_resource type="AudioStream" uid="uid://tht75lajoqqn" path="res://Assets/Sound/Note Sfx/F#4 Flute.mp3" id="15_xk8pg"]
+[ext_resource type="AudioStream" uid="uid://wwfhrx72fprg" path="res://Assets/Sound/Note Sfx/F4 Flute.mp3" id="16_da8d4"]
+[ext_resource type="AudioStream" uid="uid://be533pdat353d" path="res://Assets/Sound/Note Sfx/E4 Flute.mp3" id="17_53gx4"]
+[ext_resource type="AudioStream" uid="uid://chwvvpl78u84e" path="res://Assets/Sound/Note Sfx/D#4 Flute.mp3" id="18_k628l"]
+[ext_resource type="AudioStream" uid="uid://p53u8gxx170d" path="res://Assets/Sound/Note Sfx/D4 Flute.mp3" id="19_xny2w"]
+
+[node name="FluteSingleNotes" type="Node"]
+
+[node name="G#5 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_ems4n")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="G5 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_u2lbs")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="F#5 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_si0tc")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="F5 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_ems4n")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="E5 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_si0tc")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="D#5 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_wbc3p")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="D5 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_wbc3p")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="C#5 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_74wum")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="C5 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_hrupk")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="B4 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_jb6lf")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="A#4 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_xxqna")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="A4 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_tsekf")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="G#4 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_oxund")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="G4 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_1hk1a")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="F#4 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_xk8pg")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="F4 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_da8d4")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="E4 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_53gx4")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="D#4 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_k628l")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="D4 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_xny2w")
+volume_db = 20.0
+bus = &"SFX"

@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_bx377")
+card_name = "Steel damaging shield"
 texture = ExtResource("2_a3cgk")
 rarity = 2
 shield_points = 3

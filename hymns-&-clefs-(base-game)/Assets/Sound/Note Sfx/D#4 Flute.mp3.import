@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://chwvvpl78u84e"
+path="res://.godot/imported/D#4 Flute.mp3-faf6b69cda9d2a1a86e5b9ca43d627a4.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/Note Sfx/D#4 Flute.mp3"
+dest_files=["res://.godot/imported/D#4 Flute.mp3-faf6b69cda9d2a1a86e5b9ca43d627a4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
