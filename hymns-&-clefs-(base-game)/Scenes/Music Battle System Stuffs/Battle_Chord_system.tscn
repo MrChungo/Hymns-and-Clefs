@@ -11,6 +11,7 @@ script = ExtResource("1_f3qxo")
 script = ExtResource("3_l5j22")
 
 [node name="ChordManager" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("2_nh0p3")
 
 [node name="SubmitChords" type="Button" parent="."]

@@ -15,6 +15,7 @@ const END_LINE_END_SEGMENTS = 2
 
 
 var clef
+var pitches
 
 var lines := []
 var measure_separators := []
@@ -50,14 +51,17 @@ func load_staff(segments):
 func load_clef_from_memory():
 	if SaveManager.save_file_data.cleff_type == 0:
 		clef = G_CLEF_NOTES
+		pitches = G_CLEF_PITCH
 		$TrebleClef.visible = true
 		$BassClef.visible = false
 	elif SaveManager.save_file_data.cleff_type == 1:
 		clef = F_CLEF_NOTES
+		pitches = F_CLEF_PITCH
 		$TrebleClef.visible = false
 		$BassClef.visible = true
 	else:
 		clef = G_CLEF_NOTES
+		pitches = G_CLEF_PITCH
 		$TrebleClef.visible = true
 		$BassClef.visible = false
 
@@ -157,6 +161,7 @@ func assign_notes_to_lines():
 	for s in range(len(lines)):
 		for n in range(len(lines[s])):
 			lines[s][n].line_defined_note = clef[n]
+			lines[s][n].line_defined_pitch = pitches[n]
 	
 	#for s in lines:
 		#for n in s:

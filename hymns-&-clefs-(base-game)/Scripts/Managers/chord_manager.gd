@@ -217,6 +217,16 @@ func swap_flats_and_sharps(chord):
 			new_chord.append(NOTES_WITH_SHARPS[index])
 	return new_chord
 
+func swap_note_flats_and_sharps(note):
+	var new_note: String
+	if find_scale_from_chord([note]) == NOTES_WITH_SHARPS:
+		for index in get_chord_scale_index([note]).duplicate(true):
+			new_note = NOTES_WITH_FLATS[index]
+	else:
+		for index in find_scale_from_chord([note]).duplicate(true):
+			new_note = NOTES_WITH_SHARPS[index]
+	return new_note
+
 
 
 

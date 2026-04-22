@@ -8,10 +8,7 @@ var instrument: String
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	load_instrument("flute")
-	play_note("A#","4")
-	play_note("D","5")
-	play_note("F","5")
-	 
+
 
 
 func load_instrument(string):
@@ -20,6 +17,25 @@ func load_instrument(string):
 		var instrument_sounds = FLUTE_NOTES_PATH.instantiate()
 		$".".add_child(instrument_sounds)
 
-func play_note(note, pitch):
+func play_note(note, pitch, wait = false):
+		
 	var node_name = note + pitch + " " + instrument
-	$FluteSingleNotes.get_node(node_name).play()
+	# Store the specific note node in a variable
+	var note_node = $FluteSingleNotes.get_node(node_name)
+	
+	note_node.play()
+	
+	if wait:
+		# Await the signal from the SPECIFIC note that is playing
+		#print("Finished playing: ", node_name)
+		await note_node.finished 
+		
+
+
+func play_chord(notes: Array, pitches: Array):
+	for n in range(len(notes)):
+		if n != len(notes) -1:
+			play_note(notes[n], pitches[n])
+		else:
+			await play_note(notes[n], pitches[n],true)
+	

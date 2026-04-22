@@ -3,6 +3,7 @@ class_name staffLineClass
 
 
 var line_defined_note: String
+var line_defined_pitch: String
 
 var notes_being_held: Array = []
 
