@@ -216,3 +216,6 @@ func align_label(labels):
 			else:
 				labels[measure].global_position.x = lines[measure][0].global_position.x - (labels[measure].size.x * labels[measure].scale.x) / 2.0
 				labels[measure].global_position.y = fixed_y_position
+
+
+	

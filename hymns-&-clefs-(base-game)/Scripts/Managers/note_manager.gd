@@ -3,6 +3,7 @@ extends Node2D
 signal note_used()
 signal remove_from_old_array(note)
 signal add_note_to_hand(note)
+signal play_note_sound(note)
 
 const COLLISION_MASK_NOTE := 8
 const COLLISION_MASK_NOTE_SLOT := 16
@@ -50,20 +51,19 @@ func finish_drag():
 			note_slot_found.notes_being_held.append(note_being_dragged)
 			note_being_dragged.line_note_is_in = note_slot_found
 			note_being_dragged.note = note_slot_found.line_defined_note
+			note_being_dragged.pitch = note_slot_found.line_defined_pitch
 			note_used.emit()
-			var sound_note_name = note_being_dragged.note
-			if note_being_dragged.type == "sharp":
-				sound_note_name += "#"
-			elif note_being_dragged.type == "flat":
-				sound_note_name += "b"
-				sound_note_name = %ChordManager.swap_note_flats_and_sharps(sound_note_name)
-			SoundManager.play_note(sound_note_name, note_slot_found.line_defined_pitch)
+			
+			play_note_sound.emit(note_being_dragged)
+			
+			
 			
 		else:
 			add_note_to_hand.emit(note_being_dragged)
 	else:
 		if note_being_dragged.line_note_is_in:
 			battle_chord_system_reference.remove_note_from_line(note_being_dragged)
+			
 			note_being_dragged.line_note_is_in = null
 		while note_being_dragged.type != "natural":
 			note_being_dragged.shift_note_type()

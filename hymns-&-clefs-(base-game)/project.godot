@@ -22,6 +22,7 @@ Globals="*res://Scenes/Misc/Globals.tscn"
 Random="*res://Scripts/Misc/random.gd"
 SignalManager="*res://Scripts/Managers/signal_manager.gd"
 SoundManager="*res://Scenes/Managers/SoundManager.tscn"
+ChordManager="*res://Scripts/Managers/chord_manager.gd"
 
 [display]
 
