@@ -113,6 +113,9 @@ func update_staff():
 
 
 func _on_submit_chords_pressed() -> void:
+	for chord in staff.get_notes_from_current_chords():
+		await play_chord_sound(chord)
+	
 	var are_chords_true = false
 	
 	var played_notes = []
@@ -139,6 +142,7 @@ func _on_submit_chords_pressed() -> void:
 			
 
 	last_chord_check = are_chords_true
+	
 	
 	
 	chord_checked.emit()
@@ -207,6 +211,26 @@ func play_note_sound(note):
 	print(sound_note_name)
 	SoundManager.play_note(sound_note_name, pitch)
 
+
+func play_chord_sound(chord):
+	var pitches: Array
+	var note_names: Array
+	for note in chord:
+		var pitch = note.pitch
+		print(note.note, " ", note.type)
+		var sound_note_name = note.get_note_name_with_type()
+		
+		if note.type == "flat":
+			if note.note == "C":
+				pitch = str(int(note.pitch) - 1)
+			sound_note_name = %ChordManager.swap_note_flats_and_sharps(sound_note_name)
+		elif note.type == "sharp":
+			if note.note == "B":
+				pitch = str(int(note.pitch) + 1)
+			
+		pitches.append(pitch)
+		note_names.append(sound_note_name)
+	await SoundManager.play_chord(note_names,pitches)
 
 
 

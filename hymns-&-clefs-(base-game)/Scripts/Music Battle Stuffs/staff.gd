@@ -22,7 +22,7 @@ var measure_separators := []
 var end_line
 var measure_segments : int
 
-
+var current_chords:Array = []
 
 var vertical_spacing: float
 
@@ -218,4 +218,12 @@ func align_label(labels):
 				labels[measure].global_position.y = fixed_y_position
 
 
-	
+func get_notes_from_current_chords():
+	current_chords.clear()
+	for measure in lines:
+		var chords = []
+		for line in measure:
+			for note in line.notes_being_held:
+				chords.append(note)
+		current_chords.append(chords)
+	return current_chords

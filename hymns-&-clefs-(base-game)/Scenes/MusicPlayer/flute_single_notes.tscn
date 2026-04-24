@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://civcgmid4g4fj"]
+[gd_scene load_steps=21 format=3 uid="uid://civcgmid4g4fj"]
 
 [ext_resource type="AudioStream" uid="uid://c2e1pm3hf4jj7" path="res://Assets/Sound/Note Sfx/G#5 Flute.mp3" id="1_ems4n"]
 [ext_resource type="AudioStream" uid="uid://clg5sso5vcnb7" path="res://Assets/Sound/Note Sfx/F#5 Flute.mp3" id="3_si0tc"]
@@ -19,6 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://be533pdat353d" path="res://Assets/Sound/Note Sfx/E4 Flute.mp3" id="17_53gx4"]
 [ext_resource type="AudioStream" uid="uid://chwvvpl78u84e" path="res://Assets/Sound/Note Sfx/D#4 Flute.mp3" id="18_k628l"]
 [ext_resource type="AudioStream" uid="uid://p53u8gxx170d" path="res://Assets/Sound/Note Sfx/D4 Flute.mp3" id="19_xny2w"]
+[ext_resource type="AudioStream" uid="uid://dlm7uylg0y6fo" path="res://Assets/Sound/Note Sfx/C#4 Flute.mp3" id="20_ihjj8"]
 
 [node name="FluteSingleNotes" type="Node"]
 
@@ -114,5 +115,10 @@ bus = &"SFX"
 
 [node name="D4 flute" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("19_xny2w")
+volume_db = 20.0
+bus = &"SFX"
+
+[node name="C#4 flute" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_ihjj8")
 volume_db = 20.0
 bus = &"SFX"
