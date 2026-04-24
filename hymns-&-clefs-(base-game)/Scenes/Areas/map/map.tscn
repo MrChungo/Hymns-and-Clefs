@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbiowlor3xmxe"]
+[gd_scene load_steps=5 format=3 uid="uid://cbiowlor3xmxe"]
 
 [ext_resource type="Script" uid="uid://5obs1wjlqmho" path="res://Scripts/map/map.gd" id="1_kdptv"]
 [ext_resource type="Script" uid="uid://bmhuvtqhx3ol6" path="res://Scripts/Managers/icon_manager.gd" id="2_kdptv"]
 [ext_resource type="PackedScene" uid="uid://ct2tgcgnfh01i" path="res://Scenes/Managers/input_manager.tscn" id="2_wd3yk"]
+[ext_resource type="Texture2D" uid="uid://vo0m5mxy1tti" path="res://Assets/Sprites/screens/BLUE.png" id="4_unrqr"]
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_kdptv")
@@ -11,5 +12,9 @@ script = ExtResource("1_kdptv")
 
 [node name="IconManager" type="Node2D" parent="."]
 script = ExtResource("2_kdptv")
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -20
+texture = ExtResource("4_unrqr")
 
 [connection signal="left_mouse_button_released" from="InputManager" to="IconManager" method="_on_input_manager_left_mouse_button_released"]

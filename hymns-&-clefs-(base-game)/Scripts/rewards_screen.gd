@@ -9,7 +9,9 @@ var card_slot
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	background_setup()
 	show_buttons()
+	
 
 func show_buttons():
 	$new_card.visible = true
@@ -93,3 +95,31 @@ func _on_max_hp_pressed() -> void:
 func leave_rewards_screen():
 	SaveManager._save()
 	SignalManager.change_scene_to_map()
+
+
+
+
+func background_setup():
+	var scale = Globals.center_screen_y*2 / $Background.texture.get_height()
+	
+	$Background.position.x = Globals.center_screen_x 
+	$Background.position.y = Globals.center_screen_y
+	
+	$Background.scale = Vector2(scale,scale)
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

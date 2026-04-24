@@ -118,7 +118,9 @@ func player_turn():
 	is_player_turn = false
 	
 func player_death(target):
+	battle = false
 	target.death()
+	SignalManager.change_scene_to_death()
 
 #card logic
 func select_target():
@@ -303,4 +305,11 @@ func battle_ends():
 	SaveManager.save_file_data.current_icon += 1
 	await save_to_savefile()
 	battle = false
-	SignalManager.change_scene_to_rewards()
+	if SaveManager.save_file_data.current_icon == 5 and SaveManager.save_file_data.world_difficulty == 0:
+		SignalManager.change_scene_to_win()
+	else:
+		SignalManager.change_scene_to_rewards()
+
+
+
+	

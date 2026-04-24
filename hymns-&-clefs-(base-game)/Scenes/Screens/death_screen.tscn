@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://drn5v72bxkeoa"]
+
+[ext_resource type="Script" uid="uid://bfos2mkihhi31" path="res://Scripts/Screens/death_screen.gd" id="1_swhjb"]
+[ext_resource type="Texture2D" uid="uid://bkpy58uj54yya" path="res://Assets/Sprites/screens/RED.png" id="2_ltcsj"]
+
+[node name="DeathScreen" type="Node2D"]
+script = ExtResource("1_swhjb")
+
+[node name="NewGame" type="Button" parent="."]
+offset_left = 559.0
+offset_top = 304.0
+offset_right = 652.0
+offset_bottom = 335.0
+text = "New Game"
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -20
+texture = ExtResource("2_ltcsj")
+
+[connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cri5a32uv57us"]
+[gd_scene load_steps=11 format=3 uid="uid://cri5a32uv57us"]
 
 [ext_resource type="PackedScene" uid="uid://ct2tgcgnfh01i" path="res://Scenes/Managers/input_manager.tscn" id="1_6jolc"]
 [ext_resource type="PackedScene" uid="uid://dul2fujevqvbb" path="res://Scenes/card_stuffs/deck.tscn" id="1_h8jgs"]
@@ -7,6 +7,9 @@
 [ext_resource type="Script" uid="uid://cngysf3dl46ds" path="res://Scripts/Battle stuffs/battle.gd" id="1_of1b8"]
 [ext_resource type="PackedScene" uid="uid://dj0n21bmv1fyn" path="res://Scenes/Managers/card_manager.tscn" id="3_u3xo8"]
 [ext_resource type="PackedScene" uid="uid://c47usf0t2d3pb" path="res://Scenes/Managers/enemy_manager.tscn" id="4_80xfc"]
+[ext_resource type="Texture2D" uid="uid://b3r2ax0agqae5" path="res://Assets/Sprites/Worlds/World_1_long.png" id="8_80xfc"]
+[ext_resource type="Texture2D" uid="uid://cil07ih0th5q5" path="res://Assets/Sprites/Worlds/World_2_long.png" id="9_vu3jq"]
+[ext_resource type="Texture2D" uid="uid://bym317dm4qlpn" path="res://Assets/Sprites/Worlds/World_3.png" id="10_7jssd"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_of1b8")
@@ -29,5 +32,26 @@ unique_name_in_owner = true
 [node name="BattleManager" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_kbr7l")
+
+[node name="BackgroundWorldOne" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(0.74558026, 0.7455802, 0.7455802, 1)
+z_index = -20
+position = Vector2(257, 130)
+texture = ExtResource("8_80xfc")
+
+[node name="BackgroundWorldTwo" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(0.74509805, 0.74509805, 0.74509805, 1)
+z_index = -20
+position = Vector2(514, 260)
+texture = ExtResource("9_vu3jq")
+
+[node name="BackgroundWorldThree" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(0.74509805, 0.74509805, 0.74509805, 1)
+z_index = -20
+position = Vector2(771, 390)
+texture = ExtResource("10_7jssd")
 
 [connection signal="card_used" from="BattleManager" to="Deck" method="_on_battle_manager_card_used"]

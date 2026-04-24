@@ -12,3 +12,9 @@ func change_scene_to_rewards():
 	if (len(SaveManager.save_file_data.map_icons)) == SaveManager.save_file_data.current_icon:
 		SaveManager.save_file_data.world_difficulty += 1
 	get_tree().change_scene_to_file("uid://b2qnuy73pfn82") #"res://Scenes/Areas/rewards_screen.tscn"
+
+func change_scene_to_death():
+	get_tree().change_scene_to_file("uid://drn5v72bxkeoa") #"res://Scenes/Screens/death_screen.tscn"
+
+func change_scene_to_win():
+	get_tree().change_scene_to_file("uid://cubygmhh5ssn0") #"res://Scenes/Screens/Win_screen.tscn"

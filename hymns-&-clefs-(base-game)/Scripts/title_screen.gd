@@ -3,7 +3,8 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	#background_setup()
+	pass
 
 
 
@@ -18,3 +19,13 @@ func _on_load_game_pressed() -> void:
 func _on_new_game_pressed() -> void:
 	SaveManager._new_save()
 	SignalManager.change_scene_to_map()
+
+
+
+func background_setup():
+	var scale = Globals.center_screen_y*2 / $Background.texture.get_height()
+	
+	$Background.position.x = Globals.center_screen_x 
+	$Background.position.y = Globals.center_screen_y
+	
+	$Background.scale = Vector2(scale,scale)

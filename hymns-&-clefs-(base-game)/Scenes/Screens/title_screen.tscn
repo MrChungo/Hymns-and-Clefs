@@ -16,6 +16,10 @@ offset_right = 96.0
 offset_bottom = 62.0
 text = "Load Game"
 
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -20
+position = Vector2(257, 130)
+
 [connection signal="pressed" from="New_Game" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="New_Game" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Load_Game" to="." method="_on_load_game_pressed"]

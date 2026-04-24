@@ -23,6 +23,8 @@ func _ready() -> void:
 	
 	#LOAD ICON FROM SAvE FILE, LOAD CURRENT BATTLE FROM FILE
 	load_from_save()
+	
+	background_setup()
 
 
 func load_from_save():
@@ -99,4 +101,18 @@ func new_icon(_type):
 	node_icons.append(node)
 	
 		
+
+
+func background_setup():
+	var texture_scale = Globals.center_screen_y*2 / $Background.texture.get_height()
+	
+	$Background.position.x = Globals.center_screen_x 
+	$Background.position.y = Globals.center_screen_y
+	
+	$Background.scale = Vector2(texture_scale,texture_scale)
+	
+	
+	
+
+
 	

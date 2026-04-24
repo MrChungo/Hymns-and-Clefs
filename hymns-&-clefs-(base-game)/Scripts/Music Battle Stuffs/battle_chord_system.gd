@@ -157,7 +157,7 @@ func spawn_note_labels():
 		if SaveManager.save_file_data.world_difficulty == 1:
 			chord_text = $ChordManager.get_chord_name(target_chords[chord])  + "[br]" + $ChordManager.get_string_chord_notes(target_chords[chord])
 		elif SaveManager.save_file_data.world_difficulty == 2:
-			if $ChordManager.get_chord_type(target_chords[chord]) in ["major", "minor"]:
+			if $ChordManager.identify_chord_type(target_chords[chord]) in ["major", "minor"]:
 				chord_text = $ChordManager.get_chord_name(target_chords[chord])
 			else:
 				chord_text = $ChordManager.get_chord_name(target_chords[chord]) + "[br]" + $ChordManager.get_string_chord_notes(target_chords[chord])
