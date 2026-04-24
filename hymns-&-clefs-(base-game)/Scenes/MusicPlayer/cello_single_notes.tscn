@@ -1,3 +1,7 @@
 [gd_scene format=3 uid="uid://k0rbllmkhdd1"]
 
 [node name="CelloSingleNotes" type="Node"]
+
+[node name="G#5 flute" type="AudioStreamPlayer" parent="."]
+volume_db = 20.0
+bus = &"SFX"
