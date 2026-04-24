@@ -1,6 +1,7 @@
 extends Node2D
 
 signal start_note_drag(note)
+signal play_note_sound(note)
 
 signal left_mouse_button_clicked
 signal left_mouse_button_released
@@ -97,6 +98,7 @@ func raycast_at_cursor(mouse_click):
 					if object_found and (object_found is NoteClass):
 						if object_found.line_note_is_in:
 							object_found.shift_note_type()
+							play_note_sound.emit(object_found)
 							
 
 func get_usable_results(list):

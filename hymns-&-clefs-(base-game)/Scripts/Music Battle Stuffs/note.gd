@@ -10,6 +10,7 @@ var position_in_hand
 var measure:int
 var line_note_is_in
 var type: String
+var pitch: String
 
 func _ready() -> void:
 	get_parent().connect_note_signals(self)
@@ -42,11 +43,14 @@ func shift_note_type():
 		type = "natural"
 
 func get_note_name_with_type() -> String:
+	var wrong_name
 	if type == "sharp":
-		return note + "#"
+		wrong_name = note + "#"
 	elif type == "flat":
-		return note + "b"
-	return note
+		wrong_name = note + "b"
+	else:
+		wrong_name = note
+	return ChordManager.get_correct_note_name(wrong_name)
 
 
 

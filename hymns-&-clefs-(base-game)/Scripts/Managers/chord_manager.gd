@@ -1,5 +1,5 @@
 extends Node
-class_name ChordManager
+class_name ChordManagerClass
 
 '''
 https://www.musictheory.net/lessons/40
@@ -205,6 +205,29 @@ func find_scale_from_chord(chord):
 			return NOTES_WITH_FLATS
 	return NOTES_WITH_SHARPS
 
+func get_correct_note_name(wrong_name):
+	var scale = find_scale_from_chord([wrong_name])
+	var base_note_index = get_chord_scale_index([wrong_name[0]])[0]
+	var right_name
+	
+	if "#" in wrong_name:
+		if scale == NOTES_WITH_SHARPS:
+			if base_note_index + 1 < len(NOTES_WITH_SHARPS): 
+				right_name = NOTES_WITH_SHARPS[base_note_index + 1]
+			else:
+				right_name = NOTES_WITH_SHARPS[base_note_index + 1 - 12]
+	elif "b" in wrong_name:
+		if scale == NOTES_WITH_FLATS:
+			if base_note_index - 1 > 0: 
+				right_name = NOTES_WITH_FLATS[base_note_index - 1]
+			else:
+				right_name = NOTES_WITH_FLATS[base_note_index - 1 + 12]
+	else:
+		right_name = wrong_name
+	
+	return right_name
+
+
 
 
 func swap_flats_and_sharps(chord):
@@ -216,6 +239,16 @@ func swap_flats_and_sharps(chord):
 		for index in get_chord_scale_index(chord).duplicate(true):
 			new_chord.append(NOTES_WITH_SHARPS[index])
 	return new_chord
+
+func swap_note_flats_and_sharps(note):
+	var new_note: String
+	if find_scale_from_chord([note]) == NOTES_WITH_SHARPS:
+		for index in get_chord_scale_index([note]).duplicate(true):
+			new_note = NOTES_WITH_FLATS[index]
+	else:
+		for index in get_chord_scale_index([note]).duplicate(true):
+			new_note = NOTES_WITH_SHARPS[index]
+	return new_note
 
 
 

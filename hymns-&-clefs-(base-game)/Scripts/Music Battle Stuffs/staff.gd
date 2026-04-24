@@ -6,7 +6,7 @@ const END_MEASURE_VER_LINE_REFERENCE = preload("uid://bktwnnt44k6br")#"res://Sce
 const G_CLEF_NOTES = ["G","F","E","D","C","B","A","G","F","E","D"]
 const G_CLEF_PITCH = ["5","5","5","5","5","4","4","4","4","4","4"]
 const F_CLEF_NOTES = ["B","A","G","F","E","D","C","B","A","G","F"]
-const F_CLEF_PITCH = []
+const F_CLEF_PITCH = ["4","4","4","4","4","4","4","3","3","3","3"]
 
 const MEASURE_WIDTH_SEGMENTS = 18
 const CLEFF_START_SEGMENTS = 10
@@ -15,13 +15,14 @@ const END_LINE_END_SEGMENTS = 2
 
 
 var clef
+var pitches
 
 var lines := []
 var measure_separators := []
 var end_line
 var measure_segments : int
 
-
+var current_chords:Array = []
 
 var vertical_spacing: float
 
@@ -50,14 +51,17 @@ func load_staff(segments):
 func load_clef_from_memory():
 	if SaveManager.save_file_data.cleff_type == 0:
 		clef = G_CLEF_NOTES
+		pitches = G_CLEF_PITCH
 		$TrebleClef.visible = true
 		$BassClef.visible = false
 	elif SaveManager.save_file_data.cleff_type == 1:
 		clef = F_CLEF_NOTES
+		pitches = F_CLEF_PITCH
 		$TrebleClef.visible = false
 		$BassClef.visible = true
 	else:
 		clef = G_CLEF_NOTES
+		pitches = G_CLEF_PITCH
 		$TrebleClef.visible = true
 		$BassClef.visible = false
 
@@ -157,6 +161,7 @@ func assign_notes_to_lines():
 	for s in range(len(lines)):
 		for n in range(len(lines[s])):
 			lines[s][n].line_defined_note = clef[n]
+			lines[s][n].line_defined_pitch = pitches[n]
 	
 	#for s in lines:
 		#for n in s:
@@ -211,3 +216,14 @@ func align_label(labels):
 			else:
 				labels[measure].global_position.x = lines[measure][0].global_position.x - (labels[measure].size.x * labels[measure].scale.x) / 2.0
 				labels[measure].global_position.y = fixed_y_position
+
+
+func get_notes_from_current_chords():
+	current_chords.clear()
+	for measure in lines:
+		var chords = []
+		for line in measure:
+			for note in line.notes_being_held:
+				chords.append(note)
+		current_chords.append(chords)
+	return current_chords

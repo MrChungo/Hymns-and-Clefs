@@ -23,6 +23,9 @@ func _ready() -> void:
 	$NoteManager.note_used.connect(update_staff)
 	$NoteManager.remove_from_old_array.connect(remove_note_from_line)
 	$NoteManager.add_note_to_hand.connect(add_note_to_hand)
+	$NoteManager.play_note_sound.connect(play_note_sound)
+	$"../InputManager".play_note_sound.connect(play_note_sound)
+	
 
 func load_battle_chord_system(chords):
 	set_up_staff(chords)
@@ -52,6 +55,7 @@ func spawn_notes():
 	for chord in target_chords:
 		for note in chord:
 			note = NOTE_SCENE.instantiate()
+			note.type = "natural"
 			note.position.x = Globals.center_screen_x
 			note.position.y = Globals.center_screen_y + Globals.center_screen_y/4
 			note.scale = Vector2(overall_scale,overall_scale)
@@ -109,6 +113,9 @@ func update_staff():
 
 
 func _on_submit_chords_pressed() -> void:
+	for chord in staff.get_notes_from_current_chords():
+		await play_chord_sound(chord)
+	
 	var are_chords_true = false
 	
 	var played_notes = []
@@ -135,6 +142,7 @@ func _on_submit_chords_pressed() -> void:
 			
 
 	last_chord_check = are_chords_true
+	
 	
 	
 	chord_checked.emit()
@@ -187,7 +195,42 @@ func spawn_note_labels():
 		
 		
 
+func play_note_sound(note):
+	var pitch = note.pitch
+	print(note.note, " ", note.type)
+	var sound_note_name = note.get_note_name_with_type()
+	
+	if note.type == "flat":
+		if note.note == "C":
+			pitch = str(int(note.pitch) - 1)
+		sound_note_name = %ChordManager.swap_note_flats_and_sharps(sound_note_name)
+	elif note.type == "sharp":
+		if note.note == "B":
+			pitch = str(int(note.pitch) + 1)
+		
+	print(sound_note_name)
+	SoundManager.play_note(sound_note_name, pitch)
 
+
+func play_chord_sound(chord):
+	var pitches: Array
+	var note_names: Array
+	for note in chord:
+		var pitch = note.pitch
+		print(note.note, " ", note.type)
+		var sound_note_name = note.get_note_name_with_type()
+		
+		if note.type == "flat":
+			if note.note == "C":
+				pitch = str(int(note.pitch) - 1)
+			sound_note_name = %ChordManager.swap_note_flats_and_sharps(sound_note_name)
+		elif note.type == "sharp":
+			if note.note == "B":
+				pitch = str(int(note.pitch) + 1)
+			
+		pitches.append(pitch)
+		note_names.append(sound_note_name)
+	await SoundManager.play_chord(note_names,pitches)
 
 
 
