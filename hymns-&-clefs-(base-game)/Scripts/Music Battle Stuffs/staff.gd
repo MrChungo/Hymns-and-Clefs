@@ -6,7 +6,7 @@ const END_MEASURE_VER_LINE_REFERENCE = preload("uid://bktwnnt44k6br")#"res://Sce
 const G_CLEF_NOTES = ["G","F","E","D","C","B","A","G","F","E","D"]
 const G_CLEF_PITCH = ["5","5","5","5","5","4","4","4","4","4","4"]
 const F_CLEF_NOTES = ["B","A","G","F","E","D","C","B","A","G","F"]
-const F_CLEF_PITCH = []
+const F_CLEF_PITCH = ["4","4","4","4","4","4","4","3","3","3","3"]
 
 const MEASURE_WIDTH_SEGMENTS = 18
 const CLEFF_START_SEGMENTS = 10

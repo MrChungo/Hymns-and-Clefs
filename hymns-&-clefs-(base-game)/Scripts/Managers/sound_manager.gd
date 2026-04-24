@@ -1,7 +1,7 @@
 extends Node
 
 const FLUTE_NOTES_PATH = preload("uid://civcgmid4g4fj") #"res://Scenes/MusicPlayer/flute_single_notes.tscn"
-
+const CELLO_NOTES_PATH = preload("uid://k0rbllmkhdd1") #"res://Scenes/MusicPlayer/cello_single_notes.tscn"
 var instrument: String
 
 
@@ -15,6 +15,9 @@ func load_instrument(string):
 	instrument = string
 	if string == "flute":
 		var instrument_sounds = FLUTE_NOTES_PATH.instantiate()
+		$".".add_child(instrument_sounds)
+	elif string == "cello":
+		var instrument_sounds = CELLO_NOTES_PATH.instantiate()
 		$".".add_child(instrument_sounds)
 
 func play_note(note, pitch, wait = false):
