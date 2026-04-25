@@ -23,9 +23,9 @@ func _on_new_game_pressed() -> void:
 
 
 func background_setup():
-	var scale = Globals.center_screen_y*2 / $Background.texture.get_height()
+	var texture_scale = Globals.center_screen_y*2 / $Background.texture.get_height()
 	
 	$Background.position.x = Globals.center_screen_x 
 	$Background.position.y = Globals.center_screen_y
 	
-	$Background.scale = Vector2(scale,scale)
+	$Background.scale = Vector2(texture_scale,texture_scale)

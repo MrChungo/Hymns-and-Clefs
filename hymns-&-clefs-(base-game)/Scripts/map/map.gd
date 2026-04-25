@@ -25,6 +25,8 @@ func _ready() -> void:
 	load_from_save()
 	
 	background_setup()
+	
+	
 
 
 func load_from_save():
@@ -60,7 +62,7 @@ func gen_map():
 	
 	for n in range(node_length):
 		var _type = ""
-		if n == node_length:
+		if n == node_length - 1:
 			_type = "boss_battle"
 		else:
 			_type = "normal_battle"
@@ -79,13 +81,47 @@ func update_map_icon_pos():
 		node_icons[icon].scale = Vector2(icon_scale,icon_scale)
 		
 		@warning_ignore("integer_division")
-		node_icons[icon].position.x = icon*(screen_width/len(node_icons))+90 #HARDCODED NUMBER
+		
+		#node_icons[icon].position.x = icon*(screen_width/len(node_icons)) + node_icons[-1].get_node("BattleIcon").texture.get_width()  #HARDCODED NUMBER
+		
 		@warning_ignore("integer_division")
 		node_icons[icon].position.y = screen_height/2
 		if icon == current_icon:
 			node_icons[icon].enterable = true
 		else:
 			node_icons[icon].enterable = false
+	await get_tree().process_frame
+	setup_map_icon_textures()
+	order_icons_x_pos()
+
+
+func order_icons_x_pos():
+	
+	var total_icon_width = 0.0
+	for icon in node_icons:
+		total_icon_width += icon.get_icon_lenght()
+	
+	var padding = Globals.center_screen_x / 12
+	var usable_width = screen_width - (padding * 2)
+	# Calculate spacing (using a fixed width, e.g., screen width)
+	var spacing_length = usable_width - total_icon_width
+	var singular_spacing = spacing_length / (node_icons.size() + 1)
+
+	# Calculate the total width of the entire 'row' (icons + gaps)
+	var total_row_width = total_icon_width + (singular_spacing * (node_icons.size() - 1))
+
+	# Start at negative half of the row width so the middle of the row sits at Manager's (0,0)
+	var current_x = -total_row_width / 2
+
+	for icon in node_icons:
+		var icon_w = icon.get_icon_lenght()
+		# Position icon relative to the row start
+		icon.position.x = current_x + (icon_w / 2)
+		# Advance current_x by icon width + spacing
+		current_x += icon_w + singular_spacing
+
+	# Place the manager in the middle of the screen
+	$IconManager.position.x = Globals.center_screen_x
 
 func gen_map_icon_node(_type):
 	new_icon(_type)
@@ -114,5 +150,10 @@ func background_setup():
 	
 	
 
-
+func setup_map_icon_textures():
+	for icon in range(len(node_icons)):
+		if icon < current_icon:
+			node_icons[icon].setup_texture(true)
+		else:
+			node_icons[icon].setup_texture(false)
 	
