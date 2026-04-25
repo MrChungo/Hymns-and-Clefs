@@ -35,7 +35,7 @@ script = ExtResource("1_kbr7l")
 
 [node name="BackgroundWorldOne" type="Sprite2D" parent="."]
 visible = false
-self_modulate = Color(0.74558026, 0.7455802, 0.7455802, 1)
+self_modulate = Color(0.64602876, 0.64602906, 0.646029, 1)
 z_index = -20
 position = Vector2(257, 130)
 texture = ExtResource("8_80xfc")
