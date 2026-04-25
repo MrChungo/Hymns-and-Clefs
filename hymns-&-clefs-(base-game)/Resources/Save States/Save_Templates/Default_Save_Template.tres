@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("2_r661m")
 world_difficulty = 1
+cleff_type = 1
 current_player_hp = 20
 max_player_hp = 20
 deck = ExtResource("1_g1an5")
