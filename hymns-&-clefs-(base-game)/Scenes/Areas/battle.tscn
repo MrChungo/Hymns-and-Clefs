@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c47usf0t2d3pb" path="res://Scenes/Managers/enemy_manager.tscn" id="4_80xfc"]
 [ext_resource type="Texture2D" uid="uid://b3r2ax0agqae5" path="res://Assets/Sprites/Worlds/World_1_long.png" id="8_80xfc"]
 [ext_resource type="Texture2D" uid="uid://cil07ih0th5q5" path="res://Assets/Sprites/Worlds/World_2_long.png" id="9_vu3jq"]
-[ext_resource type="Texture2D" uid="uid://bym317dm4qlpn" path="res://Assets/Sprites/Worlds/World_3.png" id="10_7jssd"]
+[ext_resource type="Texture2D" uid="uid://bwfn2byg87plp" path="res://Assets/Sprites/Worlds/World_3_long.png" id="10_80xfc"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_of1b8")
@@ -52,6 +52,6 @@ visible = false
 self_modulate = Color(0.74509805, 0.74509805, 0.74509805, 1)
 z_index = -20
 position = Vector2(771, 390)
-texture = ExtResource("10_7jssd")
+texture = ExtResource("10_80xfc")
 
 [connection signal="card_used" from="BattleManager" to="Deck" method="_on_battle_manager_card_used"]

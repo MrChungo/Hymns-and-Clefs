@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d0rl3l0gpkw2j"
+path="res://.godot/imported/G5 Cello.mp3-14fcc307bb99d4b1ec84654547647c53.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/Note Sfx/G5 Cello.mp3"
+dest_files=["res://.godot/imported/G5 Cello.mp3-14fcc307bb99d4b1ec84654547647c53.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,5 +1,7 @@
 extends Node2D
-	
+func change_scene_to_character_select():
+	SaveManager._save()
+	get_tree().change_scene_to_file("uid://ct7uccre3bnlr") #res://Scenes/Screens/clef_selection.tscn
 
 func change_scene_to_map():
 	SaveManager._save()
