@@ -20,3 +20,7 @@ func change_scene_to_death():
 
 func change_scene_to_win():
 	get_tree().change_scene_to_file("uid://cubygmhh5ssn0") #"res://Scenes/Screens/Win_screen.tscn"
+
+
+func quit_game():
+	get_tree().quit()

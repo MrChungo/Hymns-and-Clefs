@@ -1,27 +1,78 @@
-[gd_scene load_steps=3 format=3 uid="uid://djm6a0kyrnuod"]
+[gd_scene load_steps=5 format=3 uid="uid://djm6a0kyrnuod"]
 
 [ext_resource type="Script" uid="uid://dsg5ouh5dvxah" path="res://Scripts/title_screen.gd" id="1_k40ys"]
 [ext_resource type="Texture2D" uid="uid://jgouod0bfrr1" path="res://Assets/Sprites/screens/start_screen.png" id="2_w5mys"]
+[ext_resource type="Texture2D" uid="uid://doh6vcv2nvjpy" path="res://Assets/Sprites/Buttons/up_health_button.png" id="3_ed76m"]
+[ext_resource type="Script" uid="uid://m5hk8i7qy3r2" path="res://Scenes/Misc/texture_button.gd" id="3_wk421"]
 
 [node name="Title_Screen" type="Node2D"]
 script = ExtResource("1_k40ys")
 
 [node name="New_Game" type="Button" parent="."]
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = 356.0
+offset_top = 440.0
+offset_right = 449.0
+offset_bottom = 471.0
 text = "New Game"
 
 [node name="Load_Game" type="Button" parent="."]
-offset_top = 31.0
-offset_right = 96.0
-offset_bottom = 62.0
+offset_left = 764.0
+offset_top = 432.0
+offset_right = 860.0
+offset_bottom = 463.0
 text = "Load Game"
 
+[node name="Quit" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -15.5
+offset_right = 48.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+
+[node name="gameTitle" type="RichTextLabel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -184.5
+offset_top = -33.5
+offset_right = 184.5
+offset_bottom = 33.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
+theme_override_font_sizes/bold_italics_font_size = 48
+theme_override_font_sizes/italics_font_size = 48
+theme_override_font_sizes/mono_font_size = 48
+bbcode_enabled = true
+text = "HYMNS & CLEFS"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Background" type="Sprite2D" parent="."]
+self_modulate = Color(0.74558026, 0.7455802, 0.7455802, 1)
 z_index = -20
-position = Vector2(257, 130)
 texture = ExtResource("2_w5mys")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("3_ed76m")
+script = ExtResource("3_wk421")
 
 [connection signal="pressed" from="New_Game" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="New_Game" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="Load_Game" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
