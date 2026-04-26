@@ -13,6 +13,8 @@ signal right_mouse_button_released
 const COLLISION_MASK_CARD := 1
 const COLLISION_MASK_DECK := 4
 
+const COLLISION_MASK_ENEMY = 2
+
 const COLLISION_MASK_NOTE := 8
 const COLLISION_MASK_LINE:= 16
 
@@ -68,7 +70,7 @@ func raycast_at_cursor(mouse_click):
 		if mouse_click == "left":
 			var result_collision_mask
 			for n in result:
-				if n.collider.collision_mask != COLLISION_MASK_LINE:
+				if n.collider.collision_mask != COLLISION_MASK_LINE and n.collider.collision_mask != COLLISION_MASK_ENEMY:
 					result_collision_mask = n.collider.collision_mask
 			
 			if result_collision_mask == COLLISION_MASK_CARD:
@@ -89,7 +91,7 @@ func raycast_at_cursor(mouse_click):
 		elif mouse_click == "right":
 			var result_collision_mask
 			for n in result:
-				if n.collider.collision_mask != COLLISION_MASK_LINE:
+				if n.collider.collision_mask != COLLISION_MASK_LINE and n.collider.collision_mask != COLLISION_MASK_ENEMY:
 					result_collision_mask = n.collider.collision_mask
 			
 			if result_collision_mask == COLLISION_MASK_NOTE:
