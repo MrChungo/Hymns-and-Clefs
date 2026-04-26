@@ -19,7 +19,7 @@ func _ready() -> void:
 	self.position.x = deck_x_position
 	self.position.y = deck_y_position
 
-	var deck_scale = round(Globals.center_screen_x / 250)
+	var deck_scale = Globals.card_scale_factor
 	self.scale = Vector2(deck_scale, deck_scale)
 	%RichTextLabel.visible = false
 	
@@ -59,7 +59,7 @@ func draw_card():
 		new_card.move_card_to_deck()
 		%card_manager.add_child(new_card)
 		
-		var card_scale = round(Globals.center_screen_x/250)
+		var card_scale = Globals.card_scale_factor
 		new_card.scale = Vector2(card_scale,card_scale)
 		new_card.stats = card_drawn
 		new_card.name = card_drawn.card_name

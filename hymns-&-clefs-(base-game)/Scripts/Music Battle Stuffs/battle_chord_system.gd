@@ -28,15 +28,32 @@ func _ready() -> void:
 	
 
 func load_battle_chord_system(chords):
+	setup_button()
 	set_up_staff(chords)
 	get_chords(chords)
 	spawn_notes()
 	update_note_hand_positions()
 	spawn_note_labels()
 	staff.align_label(labels)
+	
+
+
+func setup_button():
+	$Control/SubmitChords.visible = true
+	
+	var center_screen_x = Globals.center_screen_x
+	var center_screen_y = Globals.center_screen_y
+	$Control/SubmitChords.position.x = center_screen_x * 2  - center_screen_x / 10 - $Control/SubmitChords.pivot_offset.x 
+	$Control/SubmitChords.position.y = Globals.center_screen_y + Globals.center_screen_y / 1.5  - $Control/SubmitChords.pivot_offset.y
+	
+	for button in $Control.get_children():
+		if button is TexturedButton:
+			button.button_scale = Globals.card_scale_factor
+			button.scale = Vector2(button.button_scale, button.button_scale)
+	
 
 func set_up_staff(segments):
-	$SubmitChords.visible = true
+	
 	
 	staff = STAFF_SCENE.instantiate()
 	staff.load_staff(segments)
@@ -113,8 +130,6 @@ func update_staff():
 
 
 func _on_submit_chords_pressed() -> void:
-	for chord in staff.get_notes_from_current_chords():
-		await play_chord_sound(chord)
 	
 	var are_chords_true = false
 	
@@ -143,7 +158,8 @@ func _on_submit_chords_pressed() -> void:
 
 	last_chord_check = are_chords_true
 	
-	
+	for chord in staff.get_notes_from_current_chords():
+		await play_chord_sound(chord)
 	
 	chord_checked.emit()
 
