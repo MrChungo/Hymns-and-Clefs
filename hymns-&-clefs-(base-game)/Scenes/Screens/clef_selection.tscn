@@ -195,9 +195,9 @@ grow_vertical = 2
 script = ExtResource("4_pykep")
 
 [node name="PlayerTrebleAnimation" type="AnimatedSprite2D" parent="Control/TrebleClef"]
-position = Vector2(22, 24)
+position = Vector2(21, 24.5)
 sprite_frames = SubResource("SpriteFrames_wiclm")
-animation = &"hover_animation"
+animation = &"idle_animation"
 
 [connection signal="pressed" from="Control/BassClef" to="." method="_on_bass_clef_pressed"]
 [connection signal="pressed" from="Control/TrebleClef" to="." method="_on_treble_clef_pressed"]

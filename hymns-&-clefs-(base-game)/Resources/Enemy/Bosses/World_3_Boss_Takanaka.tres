@@ -1,12 +1,47 @@
-[gd_resource type="Resource" script_class="enemy_resource" load_steps=3 format=3 uid="uid://cglaardyp0ede"]
+[gd_resource type="Resource" script_class="enemy_resource" load_steps=8 format=3 uid="uid://cglaardyp0ede"]
 
 [ext_resource type="Script" uid="uid://d30o7gn70rkta" path="res://Scripts/Resource_scripts/enemy_resource.gd" id="1_lydfj"]
 [ext_resource type="Texture2D" uid="uid://8d8muftpgl1n" path="res://Assets/Sprites/enemy sprite/Takanaka.png" id="2_0dlnp"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lydfj"]
+atlas = ExtResource("2_0dlnp")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0dlnp"]
+atlas = ExtResource("2_0dlnp")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nt20i"]
+atlas = ExtResource("2_0dlnp")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0s44"]
+atlas = ExtResource("2_0dlnp")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6e20t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lydfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0dlnp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nt20i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0s44")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [resource]
 script = ExtResource("1_lydfj")
-texture = ExtResource("2_0dlnp")
-texture_frames = 4
+enemy_animation = SubResource("SpriteFrames_6e20t")
 is_boss_enemy = true
 base_enemy_attack = 10
 base_enemy_shield_attack = 20

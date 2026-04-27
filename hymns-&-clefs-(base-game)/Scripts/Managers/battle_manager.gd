@@ -51,7 +51,7 @@ func battle_setup():
 	
 	#spawns player
 	spawn_player()
-	player.update_label()
+	player.emit_signal("healthChanged")
 	
 	#loads data
 	await load_from_save()
@@ -99,6 +99,9 @@ func spawn_player():
 	player.global_position.y = (screen_height/2)
 	@warning_ignore("integer_division")
 	player.global_position.x = (screen_width/4)
+	
+	var player_scale_factor = Globals.card_scale_factor*2
+	player.scale = Vector2(player_scale_factor,player_scale_factor)
 
 func player_turn():
 	draw_cards_to_hand()
@@ -113,7 +116,7 @@ func player_turn():
 	
 	
 	
-	player.update_label()
+	player.emit_signal("healthChanged")
 	update_enemy_labels()
 	is_player_turn = false
 	
@@ -189,37 +192,69 @@ func unload_battle_chord_system():
 
 #enemy functions
 func spawn_enemies(_enemy_quantity):
-	#print("spawned ", _enemy_quantity, " enemies")
 	for n in range(_enemy_quantity):
 		var new_enemy = ENEMY_SCENE.instantiate()
 		$"../EnemyManager".add_child(new_enemy)
 		new_enemy.name = "enemy"
 		var stats = load(Random.get_random_enemy_resource(false))
-		
+		new_enemy.max_hp = stats.base_enemy_hp
 		await new_enemy.update_enemy_stats(stats)
 		new_enemy.enemy_next_action = enemy_choose_action(new_enemy)
 		enemies.append(new_enemy)
 		
+	await get_tree().process_frame
 	
 	update_enemy_positions()
 
 func update_enemy_positions():
-	for n in range(len(enemies)):
-		@warning_ignore("integer_division")
-		var row = int(n / 4)
-		var column = n % 4
-		@warning_ignore("integer_division")
-		enemies[n].global_position.y = (screen_height/2) - (row * VERTICAL_ENEMY_SPACING) + VERTICAL_ENEMY_SPACING/2
-		@warning_ignore("integer_division")
-		enemies[n].global_position.x = (screen_width/2) + (column * HORIZONTAL_ENEMY_SPACING) + 200 # WORK OUT THIS LATER
+	var center_screen_y = Globals.center_screen_y
+	
+	for enemy in enemies:
+		enemy.position.y = center_screen_y
+	
 
+	for enemy in enemies:
+		enemy.enemy_scale = Globals.card_scale_factor * 1.5
+		enemy.scale = Vector2(enemy.enemy_scale, enemy.enemy_scale)
+	
+	order_enemies_x_pos()
+
+
+func order_enemies_x_pos():
+	var total_enemy_width = 0.0
+	for enemy in enemies:
+		total_enemy_width += enemy.texture_size.x * enemy.enemy_scale
+	
+	var padding = Globals.center_screen_x / 12
+	var usable_width = screen_width / 2.0 - (padding * 2)
+	# Calculate spacing (using a fixed width, e.g., screen width)
+	var spacing_length = usable_width - total_enemy_width
+	var singular_spacing = spacing_length / (enemies.size() + 1)
+
+	# Calculate the total width of the entire 'row' (icons + gaps)
+	var total_row_width = total_enemy_width + (singular_spacing * (enemies.size() - 1))
+
+
+	var starting_position = screen_width / 2.0
+	
+	for enemy in enemies:
+		var enemy_w = enemy.texture_size.x * enemy.enemy_scale
+		# Position icon relative to the row start
+		enemy.position.x = starting_position + (enemy_w / 2) - enemy.texture_size.x / 2
+		print(enemy.global_position)
+		# Advance current_x by icon width + spacing
+		starting_position += enemy_w + singular_spacing
+	
+	
+	
 func spawn_boss_enemy():
 	var new_enemy = ENEMY_SCENE.instantiate()
 	$"../EnemyManager".add_child(new_enemy)
 	new_enemy.name = "BOSS_ENEMY"
 	var stats = load(Random.get_random_enemy_resource(true))
-	
+	new_enemy.max_hp = stats.base_enemy_hp
 	await new_enemy.update_enemy_stats(stats)
+	
 	new_enemy.enemy_next_action = enemy_choose_action(new_enemy)
 	enemies.append(new_enemy)
 	
@@ -227,7 +262,7 @@ func spawn_boss_enemy():
 
 func update_enemy_labels():
 	for n in enemies:
-		n.update_label()
+		n.emit_signal("healthChanged")
 
 func enemy_turn():
 	#loops through enemies
@@ -236,7 +271,8 @@ func enemy_turn():
 		await enemy_action(_enemy,_enemy.enemy_next_action)
 		_enemy.enemy_next_action = enemy_choose_action(_enemy)
 	
-	player.update_label()
+	player.emit_signal("healthChanged")
+	await get_tree().process_frame
 	update_enemy_labels()
 	is_player_turn = true
 
@@ -257,6 +293,7 @@ func enemy_action(_enemy, action):
 			await attack(player,_enemy.attack)
 		elif action == "defend":
 			await add_shield(_enemy, _enemy.shield_attack)
+			_enemy.emit_signal("healthChanged")
 
 func enemy_death(target):
 	enemies.erase(target)
@@ -306,7 +343,6 @@ func battle_loop():
 				await player_turn()
 			else:
 				await enemy_turn()
-				#print("player hp", player.hp)
 		else:
 			battle_ends()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cri5a32uv57us"]
+[gd_scene load_steps=12 format=3 uid="uid://cri5a32uv57us"]
 
 [ext_resource type="PackedScene" uid="uid://ct2tgcgnfh01i" path="res://Scenes/Managers/input_manager.tscn" id="1_6jolc"]
 [ext_resource type="PackedScene" uid="uid://dul2fujevqvbb" path="res://Scenes/card_stuffs/deck.tscn" id="1_h8jgs"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://dvk6y22swrk51" path="res://Scripts/Managers/particle_manager.gd" id="8_e4bls"]
 [ext_resource type="Texture2D" uid="uid://cil07ih0th5q5" path="res://Assets/Sprites/Worlds/World_2_long.png" id="9_vu3jq"]
 [ext_resource type="Texture2D" uid="uid://bwfn2byg87plp" path="res://Assets/Sprites/Worlds/World_3_long.png" id="10_80xfc"]
-[ext_resource type="Script" uid="uid://c2vtqpj7e5isx" path="res://Scripts/Managers/battle_label_control_manager.gd" id="11_vu3jq"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_of1b8")
@@ -58,12 +57,5 @@ self_modulate = Color(0.74509805, 0.74509805, 0.74509805, 1)
 z_index = -20
 position = Vector2(771, 390)
 texture = ExtResource("10_80xfc")
-
-[node name="BattleLabelControlManager" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("11_vu3jq")
 
 [connection signal="card_used" from="BattleManager" to="Deck" method="_on_battle_manager_card_used"]
