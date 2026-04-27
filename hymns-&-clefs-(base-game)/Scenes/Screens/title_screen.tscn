@@ -1,9 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://djm6a0kyrnuod"]
+[gd_scene load_steps=13 format=3 uid="uid://djm6a0kyrnuod"]
 
 [ext_resource type="Script" uid="uid://dsg5ouh5dvxah" path="res://Scripts/title_screen.gd" id="1_k40ys"]
+[ext_resource type="Texture2D" uid="uid://c3sew5jn82ben" path="res://Assets/Sprites/Text/Text_Spritesheet.png" id="2_ogsbk"]
 [ext_resource type="Texture2D" uid="uid://jgouod0bfrr1" path="res://Assets/Sprites/screens/start_screen.png" id="2_w5mys"]
 [ext_resource type="Texture2D" uid="uid://36oug8rc6hv1" path="res://Assets/Sprites/Buttons/Buttons.png" id="3_ed76m"]
 [ext_resource type="Script" uid="uid://m5hk8i7qy3r2" path="res://Scenes/Misc/texture_button.gd" id="3_wk421"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_737wf"]
+atlas = ExtResource("2_ogsbk")
+region = Rect2(6, 6, 386, 57)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ogsbk"]
 atlas = ExtResource("3_ed76m")
@@ -32,8 +37,11 @@ region = Rect2(53, 210, 46, 66)
 [node name="Title_Screen" type="Node2D"]
 script = ExtResource("1_k40ys")
 
+[node name="Hymns&Clefs" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_737wf")
+
 [node name="Background" type="Sprite2D" parent="."]
-self_modulate = Color(0.74558026, 0.7455802, 0.7455802, 1)
+self_modulate = Color(0.57700807, 0.5770085, 0.57700837, 1)
 z_index = -20
 texture = ExtResource("2_w5mys")
 
@@ -44,32 +52,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="gameTitle" type="RichTextLabel" parent="Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -184.5
-offset_top = -33.5
-offset_right = 184.5
-offset_bottom = 33.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 48
-theme_override_font_sizes/bold_font_size = 48
-theme_override_font_sizes/bold_italics_font_size = 48
-theme_override_font_sizes/italics_font_size = 48
-theme_override_font_sizes/mono_font_size = 48
-bbcode_enabled = true
-text = "HYMNS & CLEFS"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="New_Game" type="TextureButton" parent="Control"]
 layout_mode = 1

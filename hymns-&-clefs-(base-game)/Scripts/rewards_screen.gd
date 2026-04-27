@@ -16,24 +16,57 @@ func _ready() -> void:
 	
 
 func button_pos_setup():
-	
-	
-	var center_screen_x = Globals.center_screen_x
 	var center_screen_y = Globals.center_screen_y
-	
-	var upper_location = center_screen_y - center_screen_y / 4
-	var lower_location = center_screen_y + center_screen_y / 4
-	var leftmost_location = center_screen_x - center_screen_x / 4
-	var rightmost_location = center_screen_x + center_screen_x / 4
 
-	$Control/new_card.position = Vector2(leftmost_location - ($Control/new_card.pivot_offset.x), upper_location - ($Control/new_card.pivot_offset.y))
-	$Control/remove_card.position = Vector2(rightmost_location - ($Control/remove_card.pivot_offset.x), upper_location - ($Control/remove_card.pivot_offset.y))
-	$Control/heal.position = Vector2(leftmost_location - ($Control/heal.pivot_offset.x), lower_location - ($Control/heal.pivot_offset.y))
-	$Control/"max_hp+".position = Vector2(rightmost_location - ($Control/"max_hp+".pivot_offset.x), lower_location - ($Control/"max_hp+".pivot_offset.y))
+	
+	$Control/new_card.position.y = center_screen_y  - ($Control/heal.pivot_offset.y)
+	$Control/remove_card.position.y = center_screen_y  - ($Control/heal.pivot_offset.y)
+	$Control/heal.position.y = center_screen_y  - ($Control/heal.pivot_offset.y)
+	$Control/"max_hp+".position.y = center_screen_y  - ($Control/heal.pivot_offset.y)
+	
+	
 	
 	for button in $Control.get_children():
-		button.button_scale = Globals.card_scale_factor
+		button.button_scale = Globals.card_scale_factor*2
 		button.scale = Vector2(button.button_scale, button.button_scale)
+	order_icons_x_pos()
+
+
+
+func order_icons_x_pos():
+	var screen_width = Globals.center_screen_x*2
+	var total_buttons_width = 0.0
+	for button in $Control.get_children():
+		total_buttons_width += button.texture_normal.region.size.x * button.button_scale
+	
+	var padding = Globals.center_screen_x / 12
+	var usable_width = screen_width - (padding * 2)
+	# Calculate spacing (using a fixed width, e.g., screen width)
+	var spacing_length = usable_width - total_buttons_width
+	var singular_spacing = spacing_length / ($Control.get_child_count() + 1)
+
+	# Calculate the total width of the entire 'row' (icons + gaps)
+	var total_row_width = total_buttons_width + (singular_spacing * ($Control.get_child_count() - 1))
+
+	# Start at negative half of the row width so the middle of the row sits at Manager's (0,0)
+	var current_x = -total_row_width / 2
+	
+	for button in $Control.get_children():
+		var button_w = button.texture_normal.region.size.x * button.button_scale
+		# Position icon relative to the row start
+		button.position.x = current_x + (button_w / 2) - button.pivot_offset.x
+		# Advance current_x by icon width + spacing
+		current_x += button_w + singular_spacing
+
+	# Place the manager in the middle of the screen
+	$Control.position.x = Globals.center_screen_x
+
+
+
+
+
+
+
 
 func show_buttons():
 	%Deck.visible = false
