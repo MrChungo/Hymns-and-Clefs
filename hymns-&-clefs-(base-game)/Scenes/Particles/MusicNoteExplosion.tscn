@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://bm7e5uq18w0vl"]
+
+[ext_resource type="Texture2D" uid="uid://td4oi3rtvivu" path="res://Assets/Sprites/Particles/red_notes_spritesheet.png" id="1_0hcpv"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_i2g4s"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_asogj"]
+_data = [Vector2(0.008888885, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.52808994), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="ParticleMusicNoteExplosion" type="Node2D"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_i2g4s")
+emitting = false
+amount = 50
+texture = ExtResource("1_0hcpv")
+lifetime = 0.55
+one_shot = true
+explosiveness = 0.7
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 150.0
+angular_velocity_min = -200.0
+angular_velocity_max = 200.0
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_asogj")
+anim_offset_max = 1.0

@@ -14,7 +14,7 @@ var labels = []
 var text_size = round(Globals.center_screen_x / 15)
 
 @onready var overall_scale = Globals.center_screen_x/280
-@onready var note_y_position = Globals.center_screen_y + Globals.center_screen_y / 1.5
+@onready var note_y_position = Globals.center_screen_y + Globals.center_screen_y / 1.25
 
 var last_chord_check = false
 
@@ -142,9 +142,7 @@ func _on_submit_chords_pressed() -> void:
 		for line in measure:
 			for note in line.notes_being_held:
 				played_notes.append(note.get_note_name_with_type())
-	print(played_notes)
 	for chord in range(len(target_chords)):
-		print(target_chords[chord])
 		var remaining_notes = target_chords[chord].duplicate(true)
 		var swapped_notes =  $ChordManager.swap_flats_and_sharps(target_chords[chord].duplicate(true))
 		for note in played_notes:

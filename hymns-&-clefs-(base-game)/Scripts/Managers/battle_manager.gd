@@ -130,16 +130,17 @@ func select_target():
 
 func use_card(target, card):
 	empty_hand()
+	card.visible = false
 	
 	await load_battle_chord_system(card)
-	
+	battle_chord_system.visible = false
 	if battle_chord_system.last_chord_check:
 		if card.stats.attack_points > 0:
-			attack(target, card.stats.attack_points)
+			await attack(target, card.stats.attack_points)
 		if card.stats.shield_points > 0:
-			add_shield(player, card.stats.shield_points)
+			await add_shield(player, card.stats.shield_points)
 		if card.stats.health_gain > 0:
-			heal(player, card.stats.health_gain)
+			await heal(player, card.stats.health_gain)
 	
 	unload_battle_chord_system()
 	emit_signal("card_used", target)
@@ -232,7 +233,7 @@ func enemy_turn():
 	#loops through enemies
 	
 	for _enemy in enemies:
-		enemy_action(_enemy,_enemy.enemy_next_action)
+		await enemy_action(_enemy,_enemy.enemy_next_action)
 		_enemy.enemy_next_action = enemy_choose_action(_enemy)
 	
 	player.update_label()
@@ -253,9 +254,9 @@ func enemy_choose_action(_enemy):
 func enemy_action(_enemy, action):
 	if action != "doNothing":
 		if action == "attack":
-			attack(player,_enemy.attack)
+			await attack(player,_enemy.attack)
 		elif action == "defend":
-			add_shield(_enemy, _enemy.shield_attack)
+			await add_shield(_enemy, _enemy.shield_attack)
 
 func enemy_death(target):
 	enemies.erase(target)
@@ -265,6 +266,7 @@ func enemy_death(target):
 
 #general functions (used for both enemies and players)
 func attack(target, damage):
+	
 	if target.shield > 0:
 		target.shield -= damage
 		if target.shield < 0:
@@ -272,7 +274,9 @@ func attack(target, damage):
 	else:
 		target.shield = 0
 		target.hp -= damage
-	
+		
+	$"../ParticleManager".play_particle_MusicNoteExplosion(target.position)
+	await get_tree().create_timer(1.0).timeout
 	if target.hp <= 0:
 		if target is enemy_class:
 			enemy_death(target)

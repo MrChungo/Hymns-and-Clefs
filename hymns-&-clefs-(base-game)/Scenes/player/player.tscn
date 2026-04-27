@@ -1,16 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://bys0uidt8s34i"]
+[gd_scene load_steps=4 format=3 uid="uid://bys0uidt8s34i"]
 
 [ext_resource type="Script" uid="uid://ptccxnqtivcl" path="res://Scripts/player scripts/player.gd" id="1_8p05u"]
-[ext_resource type="Texture2D" uid="uid://dgw4jqwg301qu" path="res://Assets/Sprites/player sprites/wizard.png" id="2_eo61r"]
+[ext_resource type="Texture2D" uid="uid://ch5ye5g210vrh" path="res://Assets/Sprites/player sprites/Cello_wizard.png" id="2_mxepk"]
+[ext_resource type="Texture2D" uid="uid://bjkvu6huphlib" path="res://Assets/Sprites/player sprites/flute_wizard.png" id="3_mxepk"]
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_8p05u")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(5, 5)
-texture = ExtResource("2_eo61r")
-hframes = 2
+[node name="CelloWizardTexture" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_mxepk")
+hframes = 4
+
+[node name="FluteWizardTexture" type="Sprite2D" parent="."]
+texture = ExtResource("3_mxepk")
+hframes = 4
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
