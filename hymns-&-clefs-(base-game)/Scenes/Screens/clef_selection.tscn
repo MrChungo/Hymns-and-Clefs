@@ -1,29 +1,203 @@
-[gd_scene load_steps=3 format=3 uid="uid://ct7uccre3bnlr"]
+[gd_scene load_steps=24 format=3 uid="uid://ct7uccre3bnlr"]
 
 [ext_resource type="Script" uid="uid://chy7g5u4ep3ee" path="res://Scripts/Screens/clef_selection.gd" id="1_e6xh7"]
 [ext_resource type="Texture2D" uid="uid://bbe3dmun2dou5" path="res://Assets/Sprites/screens/PINK.png" id="2_y4css"]
+[ext_resource type="Texture2D" uid="uid://bjkvu6huphlib" path="res://Assets/Sprites/player sprites/flute_wizard.png" id="4_0drki"]
+[ext_resource type="Script" uid="uid://b1oa0ob65yjvv" path="res://Scripts/Misc/Buttons/Animated_button.gd" id="4_pykep"]
+[ext_resource type="Texture2D" uid="uid://ch5ye5g210vrh" path="res://Assets/Sprites/player sprites/Cello_wizard.png" id="5_0drki"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0drki"]
+atlas = ExtResource("5_0drki")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spepy"]
+atlas = ExtResource("5_0drki")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5x2lh"]
+atlas = ExtResource("5_0drki")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wiclm"]
+atlas = ExtResource("5_0drki")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxn8m"]
+atlas = ExtResource("5_0drki")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_418ei"]
+atlas = ExtResource("5_0drki")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5w3ow"]
+atlas = ExtResource("5_0drki")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7wm0y"]
+atlas = ExtResource("5_0drki")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pykep"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0drki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spepy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5x2lh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wiclm")
+}],
+"loop": true,
+"name": &"hover_animation",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxn8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_418ei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5w3ow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7wm0y")
+}],
+"loop": true,
+"name": &"idle_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojghq"]
+atlas = ExtResource("4_0drki")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rjhp"]
+atlas = ExtResource("4_0drki")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hls1c"]
+atlas = ExtResource("4_0drki")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqt3u"]
+atlas = ExtResource("4_0drki")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clxa4"]
+atlas = ExtResource("4_0drki")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlr3n"]
+atlas = ExtResource("4_0drki")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfwlj"]
+atlas = ExtResource("4_0drki")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jveqe"]
+atlas = ExtResource("4_0drki")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wiclm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojghq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rjhp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hls1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqt3u")
+}],
+"loop": true,
+"name": &"hover_animation",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clxa4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tlr3n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfwlj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jveqe")
+}],
+"loop": true,
+"name": &"idle_animation",
+"speed": 5.0
+}]
 
 [node name="ClefSelectionScreen" type="Node2D"]
 script = ExtResource("1_e6xh7")
-
-[node name="Treble Clef" type="Button" parent="."]
-offset_left = 378.0
-offset_top = 324.0
-offset_right = 471.0
-offset_bottom = 355.0
-text = "Treble"
-
-[node name="Bass Clef" type="Button" parent="."]
-offset_left = 742.0
-offset_top = 321.0
-offset_right = 835.0
-offset_bottom = 352.0
-text = "Bass"
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -20
 texture = ExtResource("2_y4css")
 
-[connection signal="pressed" from="Treble Clef" to="." method="_on_treble_clef_pressed"]
-[connection signal="pressed" from="Bass Clef" to="." method="_on_new_game_pressed"]
-[connection signal="pressed" from="Bass Clef" to="." method="_on_bass_clef_pressed"]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BassClef" type="TextureButton" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_pykep")
+
+[node name="PlayerBassAnimation" type="AnimatedSprite2D" parent="Control/BassClef"]
+position = Vector2(22, 24)
+sprite_frames = SubResource("SpriteFrames_pykep")
+animation = &"idle_animation"
+
+[node name="TrebleClef" type="TextureButton" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -24.5
+offset_right = 25.0
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_pykep")
+
+[node name="PlayerTrebleAnimation" type="AnimatedSprite2D" parent="Control/TrebleClef"]
+position = Vector2(22, 24)
+sprite_frames = SubResource("SpriteFrames_wiclm")
+animation = &"hover_animation"
+
+[connection signal="pressed" from="Control/BassClef" to="." method="_on_bass_clef_pressed"]
+[connection signal="pressed" from="Control/TrebleClef" to="." method="_on_treble_clef_pressed"]

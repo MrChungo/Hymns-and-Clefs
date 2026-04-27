@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ct2tgcgnfh01i" path="res://Scenes/Managers/input_manager.tscn" id="5_uxop4"]
 [ext_resource type="Texture2D" uid="uid://wuj5h2eunc3r" path="res://Assets/Sprites/screens/GREEN.png" id="6_jxeob"]
 [ext_resource type="Texture2D" uid="uid://36oug8rc6hv1" path="res://Assets/Sprites/Buttons/Buttons.png" id="7_puw7q"]
-[ext_resource type="Script" uid="uid://m5hk8i7qy3r2" path="res://Scenes/Misc/texture_button.gd" id="8_puw7q"]
+[ext_resource type="Script" uid="uid://m5hk8i7qy3r2" path="res://Scripts/Misc/Buttons/texture_button.gd" id="8_puw7q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lbea3"]
 atlas = ExtResource("7_puw7q")

@@ -33,9 +33,9 @@ func background_setup():
 	var center_screen_y = Globals.center_screen_y
 	
 	
-	$GameOver.position.x = center_screen_x
-	$GameOver.position.y = center_screen_y - center_screen_y / 3
-	$GameOver.scale = Vector2(title_scale_factor,title_scale_factor)
+	$YouWon.position.x = center_screen_x
+	$YouWon.position.y = center_screen_y - center_screen_y / 3.25
+	$YouWon.scale = Vector2(title_scale_factor,title_scale_factor)
 	
 	
 	

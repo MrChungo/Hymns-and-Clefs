@@ -1,20 +1,82 @@
-[gd_scene load_steps=3 format=3 uid="uid://drn5v72bxkeoa"]
+[gd_scene load_steps=11 format=3 uid="uid://drn5v72bxkeoa"]
 
 [ext_resource type="Script" uid="uid://bfos2mkihhi31" path="res://Scripts/Screens/death_screen.gd" id="1_swhjb"]
 [ext_resource type="Texture2D" uid="uid://bkpy58uj54yya" path="res://Assets/Sprites/screens/RED.png" id="2_ltcsj"]
+[ext_resource type="Texture2D" uid="uid://c3sew5jn82ben" path="res://Assets/Sprites/Text/Text_Spritesheet.png" id="2_lxgmg"]
+[ext_resource type="Texture2D" uid="uid://36oug8rc6hv1" path="res://Assets/Sprites/Buttons/Buttons.png" id="4_ar8uu"]
+[ext_resource type="Script" uid="uid://m5hk8i7qy3r2" path="res://Scripts/Misc/Buttons/texture_button.gd" id="5_foqcb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rvt1"]
+atlas = ExtResource("2_lxgmg")
+region = Rect2(11, 74, 287, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omqh5"]
+atlas = ExtResource("4_ar8uu")
+region = Rect2(3, 140, 46, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lit70"]
+atlas = ExtResource("4_ar8uu")
+region = Rect2(54, 141, 46, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ar8uu"]
+atlas = ExtResource("4_ar8uu")
+region = Rect2(3, 210, 46, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_foqcb"]
+atlas = ExtResource("4_ar8uu")
+region = Rect2(53, 210, 46, 66)
 
 [node name="DeathScreen" type="Node2D"]
 script = ExtResource("1_swhjb")
 
-[node name="NewGame" type="Button" parent="."]
-offset_left = 559.0
-offset_top = 304.0
-offset_right = 652.0
-offset_bottom = 335.0
-text = "New Game"
+[node name="GameOver" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_6rvt1")
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -20
 texture = ExtResource("2_ltcsj")
 
-[connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="New_Game" type="TextureButton" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -33.0
+offset_right = 23.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_omqh5")
+texture_hover = SubResource("AtlasTexture_lit70")
+script = ExtResource("5_foqcb")
+
+[node name="Quit" type="TextureButton" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -33.0
+offset_right = 23.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_ar8uu")
+texture_hover = SubResource("AtlasTexture_foqcb")
+script = ExtResource("5_foqcb")
+
+[connection signal="pressed" from="Control/New_Game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Control/Quit" to="." method="_on_quit_pressed"]

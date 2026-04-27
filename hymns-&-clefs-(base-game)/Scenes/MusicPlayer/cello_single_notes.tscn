@@ -26,105 +26,105 @@
 
 [node name="C5 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_cur63")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="B4 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_g3who")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="A#4 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_0notv")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="A4 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_14y4a")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="G#4 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_6jdfi")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="G4 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_g7317")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="F#4 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_khh7c")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="F4 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_a1hci")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="E4 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_u7f0o")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="D#4 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_ktqpi")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="D4 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_ty7vk")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="C#4 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_x7i8x")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="C4 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_iqokw")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="B3 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_ji2pg")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="A#3 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_xceal")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="A3 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_ejqa4")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="G#3 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17_5sgyq")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="G3 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_g8iy0")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="F#3 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("19_vkgn3")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="F3 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("20_bn03b")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
 
 [node name="E3 cello" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_qb6mh")
-volume_db = 20.0
+volume_db = 10.0
 bus = &"SFX"
