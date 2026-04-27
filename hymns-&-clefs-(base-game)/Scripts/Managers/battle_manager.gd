@@ -260,6 +260,7 @@ func enemy_action(_enemy, action):
 
 func enemy_death(target):
 	enemies.erase(target)
+	await card_used
 	await target.death()
 
 

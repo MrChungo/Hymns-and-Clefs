@@ -10,6 +10,10 @@ var shield: int
 
 func load_player_stats():
 	#SaveManager.save_file_data
+	if SaveManager.save_file_data.cleff_type == 0:
+		$AnimatedSprite2D.play("IdleFluteWizard")
+	elif SaveManager.save_file_data.cleff_type == 1:
+		$AnimatedSprite2D.play("IdleCelloWizard")
 	hp = SaveManager.save_file_data.current_player_hp
 	max_hp = SaveManager.save_file_data.max_player_hp
 	
