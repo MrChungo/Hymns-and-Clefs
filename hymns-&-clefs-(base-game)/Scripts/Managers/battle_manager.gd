@@ -285,10 +285,14 @@ func attack(target, damage):
 
 
 func add_shield(target, shield_added):
+	$"../ParticleManager".play_particle_shieldUp(target.position)
+	await get_tree().create_timer(1.0).timeout
 	target.shield += shield_added
 
 func heal(target, health):
 	target.hp += health
+	$"../ParticleManager".play_particle_healUp(target.position)
+	await get_tree().create_timer(1.0).timeout
 	if target is player_class:
 		if target.hp > target.max_hp:
 			target.hp = target.max_hp
