@@ -67,7 +67,6 @@ func set_up_staff(segments):
 func get_chords(chords):
 	for n in range(chords):
 		target_chords.append($ChordManager.gen_chord())
-	#print(target_chords)
 
 
 func spawn_notes():
@@ -157,6 +156,7 @@ func _on_submit_chords_pressed() -> void:
 	
 	if chord_check.size() == target_chords.size():
 		are_chords_true = true
+	print(chord_check.size() == target_chords.size())
 	print(chord_check)
 	
 	last_chord_check = are_chords_true
@@ -172,7 +172,7 @@ func _on_submit_chords_pressed() -> void:
 		await play_chord_sound(current_notes[note])
 	
 	
-	chord_checked.emit()
+	emit_signal("chord_checked")
 
 func spawn_note_labels():
 	for chord in len(target_chords):

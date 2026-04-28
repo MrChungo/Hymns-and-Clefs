@@ -178,13 +178,16 @@ func load_battle_chord_system(card):
 		measures = 4
 	else:
 		measures = 1
+		
 	battle_chord_system = BATTLE_CHORD_SYSTEM_SCENE.instantiate()
 	battle_chord_system.name = "BattleChordSystem"
 	$"..".add_child(battle_chord_system)
+	
 	await get_tree().process_frame
 	battle_chord_system.load_battle_chord_system(measures)
 	%InputManager.refresh_conections()
 	await battle_chord_system.chord_checked
+	print("chord checked")
 
 func unload_battle_chord_system():
 	battle_chord_system.queue_free()
@@ -237,6 +240,7 @@ func order_enemies_x_pos():
 	var singular_spacing = spacing_length / (enemies.size() + 1)
 
 	# Calculate the total width of the entire 'row' (icons + gaps)
+	@warning_ignore("unused_variable")
 	var total_row_width = total_enemy_width + (singular_spacing * (enemies.size() - 1))
 
 
