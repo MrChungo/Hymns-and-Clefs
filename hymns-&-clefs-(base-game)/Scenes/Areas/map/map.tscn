@@ -1,9 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbiowlor3xmxe"]
+[gd_scene load_steps=9 format=3 uid="uid://cbiowlor3xmxe"]
 
 [ext_resource type="Script" uid="uid://5obs1wjlqmho" path="res://Scripts/map/map.gd" id="1_kdptv"]
 [ext_resource type="Script" uid="uid://bmhuvtqhx3ol6" path="res://Scripts/Managers/icon_manager.gd" id="2_kdptv"]
 [ext_resource type="PackedScene" uid="uid://ct2tgcgnfh01i" path="res://Scenes/Managers/input_manager.tscn" id="2_wd3yk"]
 [ext_resource type="Texture2D" uid="uid://vo0m5mxy1tti" path="res://Assets/Sprites/screens/BLUE.png" id="4_unrqr"]
+[ext_resource type="Texture2D" uid="uid://36oug8rc6hv1" path="res://Assets/Sprites/Buttons/Buttons.png" id="5_aa63h"]
+[ext_resource type="Script" uid="uid://m5hk8i7qy3r2" path="res://Scripts/Misc/Buttons/texture_button.gd" id="6_mk4je"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1ias"]
+atlas = ExtResource("5_aa63h")
+region = Rect2(3, 210, 46, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jocsh"]
+atlas = ExtResource("5_aa63h")
+region = Rect2(53, 210, 46, 66)
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_kdptv")
@@ -17,4 +27,30 @@ script = ExtResource("2_kdptv")
 z_index = -20
 texture = ExtResource("4_unrqr")
 
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Quit" type="TextureButton" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -33.0
+offset_right = 23.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_q1ias")
+texture_hover = SubResource("AtlasTexture_jocsh")
+script = ExtResource("6_mk4je")
+
 [connection signal="left_mouse_button_released" from="InputManager" to="IconManager" method="_on_input_manager_left_mouse_button_released"]
+[connection signal="pressed" from="Control/Quit" to="." method="_on_quit_pressed"]

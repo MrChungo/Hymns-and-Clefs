@@ -142,6 +142,15 @@ func new_icon(_type):
 func background_setup():
 	var texture_scale = Globals.center_screen_y*2 / $Background.texture.get_height()
 	
+	$Control/Quit.position.x = Globals.center_screen_x / 8 - $Control/Quit.pivot_offset.x 
+	$Control/Quit.position.y = Globals.center_screen_y + Globals.center_screen_y / 1.5  - $Control/Quit.pivot_offset.y
+	for button in $Control.get_children():
+		if button is TexturedButton:
+			button.button_scale = Globals.card_scale_factor
+			button.scale = Vector2(button.button_scale, button.button_scale)
+	
+	
+	
 	$Background.position.x = Globals.center_screen_x 
 	$Background.position.y = Globals.center_screen_y
 	
@@ -157,3 +166,8 @@ func setup_map_icon_textures():
 		else:
 			node_icons[icon].setup_texture(false)
 	
+
+
+func _on_quit_pressed() -> void:
+	SaveManager._save()
+	SignalManager.change_scene_to_title()

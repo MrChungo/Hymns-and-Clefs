@@ -45,7 +45,7 @@ func setup_button():
 	
 	var center_screen_x = Globals.center_screen_x
 	var center_screen_y = Globals.center_screen_y
-	$Control/SubmitChords.position.x = center_screen_x * 2  - center_screen_x / 10 - $Control/SubmitChords.pivot_offset.x 
+	$Control/SubmitChords.position.x = center_screen_x * 2  - center_screen_x / 8 - $Control/SubmitChords.pivot_offset.x 
 	$Control/SubmitChords.position.y = Globals.center_screen_y + Globals.center_screen_y / 1.5  - $Control/SubmitChords.pivot_offset.y
 	
 	for button in $Control.get_children():
@@ -131,7 +131,7 @@ func update_staff():
 
 
 func _on_submit_chords_pressed() -> void:
-
+	$Control/SubmitChords.disabled = true
 	var are_chords_true = false
 	var chord_check = []
 	
