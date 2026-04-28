@@ -72,6 +72,8 @@ func battle_setup():
 	
 	battle = true
 	battle_round = 0
+	
+	await get_tree().process_frame
 	battle_loop()
 
 
@@ -201,6 +203,9 @@ func spawn_enemies(_enemy_quantity):
 		await new_enemy.update_enemy_stats(stats)
 		new_enemy.enemy_next_action = enemy_choose_action(new_enemy)
 		enemies.append(new_enemy)
+		await get_tree().process_frame
+		new_enemy.update_next_action_texture()
+		
 		
 	await get_tree().process_frame
 	
@@ -241,7 +246,6 @@ func order_enemies_x_pos():
 		var enemy_w = enemy.texture_size.x * enemy.enemy_scale
 		# Position icon relative to the row start
 		enemy.position.x = starting_position + (enemy_w / 2) - enemy.texture_size.x / 2
-		print(enemy.global_position)
 		# Advance current_x by icon width + spacing
 		starting_position += enemy_w + singular_spacing
 	
@@ -258,6 +262,7 @@ func spawn_boss_enemy():
 	new_enemy.enemy_next_action = enemy_choose_action(new_enemy)
 	enemies.append(new_enemy)
 	
+	new_enemy.update_next_action_texture()
 	update_enemy_positions()
 
 func update_enemy_labels():
@@ -270,6 +275,8 @@ func enemy_turn():
 	for _enemy in enemies:
 		await enemy_action(_enemy,_enemy.enemy_next_action)
 		_enemy.enemy_next_action = enemy_choose_action(_enemy)
+		print(_enemy.enemy_next_action)
+		_enemy.update_next_action_texture()
 	
 	player.emit_signal("healthChanged")
 	await get_tree().process_frame
@@ -285,6 +292,7 @@ func enemy_choose_action(_enemy):
 		action = Random.get_weighted_rarity(global_rarities.enemy_attacker_attack_rarity)
 	elif enemy_action_type == 2: #defender
 		action = Random.get_weighted_rarity(global_rarities.enemy_defender_attack_rarity)
+	
 	return action
 
 func enemy_action(_enemy, action):

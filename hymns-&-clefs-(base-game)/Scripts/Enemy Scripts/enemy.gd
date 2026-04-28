@@ -19,6 +19,9 @@ var card_in_slot: Node2D
 var enemy_scale:int
 var texture_size:Vector2
 
+func _ready() -> void:
+	
+	update_next_action_position()
 
 func update_enemy_stats(loaded_stats):
 	stats = loaded_stats
@@ -47,10 +50,30 @@ func update_progress_bars_positioning():
 	
 	var health_bar_position_y = -texture_size.y / 2
 	var shield_bar_position_y = -texture_size.y / 2 - $AnimatedSprite2D/HealthBar.size.y * 1.5
-
+	
 	
 	$AnimatedSprite2D/HealthBar.update_positioning(Vector2(health_bar_position_x,health_bar_position_y))
 	$AnimatedSprite2D/ShieldBar.update_positioning(Vector2(shield_bar_position_x,shield_bar_position_y))
+	
+
+
+func update_next_action_texture():
+	var atlas_height = $AnimatedSprite2D/NextActionSprite.texture.region.size.y
+	
+	if enemy_next_action == "nothing":
+		$AnimatedSprite2D/NextActionSprite.visible = false
+	elif enemy_next_action == "attack":
+		$AnimatedSprite2D/NextActionSprite.visible = true
+		$AnimatedSprite2D/NextActionSprite.texture.region = Rect2(0,0,atlas_height,atlas_height)
+	elif enemy_next_action == "defend":
+		$AnimatedSprite2D/NextActionSprite.visible = true
+		$AnimatedSprite2D/NextActionSprite.texture.region = Rect2(32,0,atlas_height,atlas_height)
+
+func update_next_action_position():
+	var atlas_height = $AnimatedSprite2D/NextActionSprite.texture.region.size.y
+	$AnimatedSprite2D/NextActionSprite.position.y = - atlas_height * 2
+
+
 
 
 func death():
