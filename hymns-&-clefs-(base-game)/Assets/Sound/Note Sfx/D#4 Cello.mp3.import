@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cn6123u1ukyk6"
+path="res://.godot/imported/D#4 Cello.mp3-d7888eaf8591c85caf8b03596fe407f3.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/Note Sfx/D#4 Cello.mp3"
+dest_files=["res://.godot/imported/D#4 Cello.mp3-d7888eaf8591c85caf8b03596fe407f3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

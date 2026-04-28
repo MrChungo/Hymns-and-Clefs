@@ -13,6 +13,7 @@ config_version=5
 config/name="Hymns & Clefs (base game)"
 run/main_scene="uid://djm6a0kyrnuod"
 config/features=PackedStringArray("4.5", "Forward Plus")
+run/max_fps=120
 config/icon="res://icon.svg"
 
 [autoload]
@@ -46,6 +47,10 @@ folder_colors={
 "res://Scripts/": "purple",
 "res://addons/": "gray"
 }
+
+[gui]
+
+common/snap_controls_to_pixels=false
 
 [rendering]
 

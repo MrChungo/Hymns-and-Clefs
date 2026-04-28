@@ -1,19 +1,128 @@
-[gd_scene load_steps=5 format=3 uid="uid://448b5kjxjtf5"]
+[gd_scene load_steps=19 format=3 uid="uid://448b5kjxjtf5"]
 
 [ext_resource type="Script" uid="uid://phjudrxbb67p" path="res://Scripts/Enemy Scripts/enemy.gd" id="1_slefu"]
 [ext_resource type="Resource" uid="uid://c4wyd05w5s88l" path="res://Resources/Enemy/_debug_enemy.tres" id="2_cpjt6"]
-[ext_resource type="Texture2D" uid="uid://c40r7bsxjwk31" path="res://Assets/Sprites/enemy sprite/enemy_triangle.png" id="3_cpjt6"]
+[ext_resource type="Texture2D" uid="uid://8d8muftpgl1n" path="res://Assets/Sprites/enemy sprite/Takanaka.png" id="3_cpjt6"]
+[ext_resource type="Texture2D" uid="uid://cavbv2085q3jf" path="res://Assets/Sprites/Progress Bars/HealthBarSpritesheet.png" id="4_slefu"]
+[ext_resource type="Script" uid="uid://b0sko5grqdhu0" path="res://Scripts/GUI/TexturedProgressBar.gd" id="5_5d1s0"]
+[ext_resource type="Texture2D" uid="uid://do08u6m011xkj" path="res://Assets/Sprites/Next_actions/Next_action_spritesheet.png" id="6_5d1s0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we58l"]
+atlas = ExtResource("3_cpjt6")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slefu"]
+atlas = ExtResource("3_cpjt6")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5d1s0"]
+atlas = ExtResource("3_cpjt6")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hyw8s"]
+atlas = ExtResource("3_cpjt6")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_slefu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_we58l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slefu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5d1s0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hyw8s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tm0ch"]
+atlas = ExtResource("4_slefu")
+region = Rect2(3, 23, 60, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ulvqc"]
+atlas = ExtResource("4_slefu")
+region = Rect2(2, 1, 60, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psabu"]
+atlas = ExtResource("4_slefu")
+region = Rect2(2, 9, 60, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c14y3"]
+atlas = ExtResource("4_slefu")
+region = Rect2(66, 1, 60, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdx6i"]
+atlas = ExtResource("4_slefu")
+region = Rect2(66, 9, 60, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gb413"]
+resource_local_to_scene = true
+atlas = ExtResource("6_5d1s0")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpjt6"]
-size = Vector2(33.5, 33.5)
+size = Vector2(45.5, 51.8125)
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_slefu")
 stats = ExtResource("2_cpjt6")
 
-[node name="EnemyTexture" type="Sprite2D" parent="."]
-texture = ExtResource("3_cpjt6")
-hframes = 4
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_slefu")
+frame_progress = 0.06942842
+
+[node name="ShieldBar" type="TextureProgressBar" parent="AnimatedSprite2D" node_paths=PackedStringArray("target")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 28.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+rounded = true
+texture_under = SubResource("AtlasTexture_tm0ch")
+texture_over = SubResource("AtlasTexture_ulvqc")
+texture_progress = SubResource("AtlasTexture_psabu")
+script = ExtResource("5_5d1s0")
+target = NodePath("../..")
+being_displayed = 1
+
+[node name="HealthBar" type="TextureProgressBar" parent="AnimatedSprite2D" node_paths=PackedStringArray("target")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 28.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+rounded = true
+texture_under = SubResource("AtlasTexture_tm0ch")
+texture_over = SubResource("AtlasTexture_c14y3")
+texture_progress = SubResource("AtlasTexture_wdx6i")
+script = ExtResource("5_5d1s0")
+target = NodePath("../..")
+
+[node name="NextActionSprite" type="Sprite2D" parent="AnimatedSprite2D"]
+texture = SubResource("AtlasTexture_gb413")
+region_rect = Rect2(21, 12, 12, 3)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
@@ -21,54 +130,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_cpjt6")
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-
-[node name="Health" type="RichTextLabel" parent="Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -106.0
-offset_top = 20.0
-offset_right = 107.0
-offset_bottom = 43.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "test test"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-
-[node name="NextAction" type="RichTextLabel" parent="Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -106.0
-offset_top = -66.0
-offset_right = 107.0
-offset_bottom = -43.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "test test"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

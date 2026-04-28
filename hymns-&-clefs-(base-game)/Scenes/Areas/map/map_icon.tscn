@@ -1,26 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqj5ku8jkvvup"]
+[gd_scene load_steps=8 format=3 uid="uid://dqj5ku8jkvvup"]
 
 [ext_resource type="Script" uid="uid://c87jletbuqs82" path="res://Scripts/map/map_icon.gd" id="1_fgk4s"]
-[ext_resource type="Texture2D" uid="uid://bas3q4vedaci5" path="res://Assets/Sprites/Map stuff/seal_battle.png" id="2_fgk4s"]
-[ext_resource type="Texture2D" uid="uid://bxue1hwhh1l14" path="res://Assets/Sprites/Map stuff/seal_boss.png" id="3_o3jgr"]
+[ext_resource type="Texture2D" uid="uid://ocd25jlmh6dk" path="res://Assets/Sprites/Map stuff/seal_fight.png" id="2_ipt5y"]
+[ext_resource type="Texture2D" uid="uid://cqm0jg14t4bre" path="res://Assets/Sprites/Map stuff/seal_not_now_boss_fight.png" id="3_8lu1n"]
+[ext_resource type="Texture2D" uid="uid://vrg81g4pio3y" path="res://Assets/Sprites/Map stuff/seal_not_now_fight.png" id="3_ge61n"]
+[ext_resource type="Texture2D" uid="uid://3vf4rn2s13my" path="res://Assets/Sprites/Map stuff/seal_boss_fight.png" id="4_ge61n"]
+[ext_resource type="Texture2D" uid="uid://ncnl1bor8jfd" path="res://Assets/Sprites/Map stuff/seal_broken.png" id="5_kp401"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lnm4v"]
-size = Vector2(40.75, 40)
+size = Vector2(41, 43.875)
 
 [node name="MAP_ICON" type="Node2D"]
 script = ExtResource("1_fgk4s")
 
 [node name="BattleIcon" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(2, 0)
-texture = ExtResource("2_fgk4s")
+texture = ExtResource("2_ipt5y")
+offset = Vector2(-1, -1)
+
+[node name="BattleIcon_NotNow" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_ge61n")
+offset = Vector2(-1, -1)
 
 [node name="BossIcon" type="Sprite2D" parent="."]
-position = Vector2(-2, 0)
-texture = ExtResource("3_o3jgr")
-
-[node name="NonEnterableIcon" type="Sprite2D" parent="."]
 visible = false
+texture = ExtResource("4_ge61n")
+offset = Vector2(-1, -1)
+
+[node name="BossIcon_NotNow" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_8lu1n")
+offset = Vector2(-1, -1)
+
+[node name="BrokenIcon" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("5_kp401")
+offset = Vector2(0, -1)
 
 [node name="Area2D" type="Area2D" parent="."]
 

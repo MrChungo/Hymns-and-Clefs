@@ -1,7 +1,130 @@
-[gd_scene format=3 uid="uid://k0rbllmkhdd1"]
+[gd_scene load_steps=22 format=3 uid="uid://k0rbllmkhdd1"]
+
+[ext_resource type="AudioStream" uid="uid://d2fivp46slo4b" path="res://Assets/Sound/Note Sfx/C5 Cello.mp3" id="1_cur63"]
+[ext_resource type="AudioStream" uid="uid://cs6a2mlnw75fr" path="res://Assets/Sound/Note Sfx/B4 Cello.mp3" id="2_g3who"]
+[ext_resource type="AudioStream" uid="uid://bffmubgkk0h8t" path="res://Assets/Sound/Note Sfx/A#4 Cello.mp3" id="3_0notv"]
+[ext_resource type="AudioStream" uid="uid://4quhvemnecje" path="res://Assets/Sound/Note Sfx/A4 Cello.mp3" id="4_14y4a"]
+[ext_resource type="AudioStream" uid="uid://ct6pjp6akvvcm" path="res://Assets/Sound/Note Sfx/G#4 Cello.mp3" id="5_6jdfi"]
+[ext_resource type="AudioStream" uid="uid://c2e63ekhalu5i" path="res://Assets/Sound/Note Sfx/G4 Cello.mp3" id="6_g7317"]
+[ext_resource type="AudioStream" uid="uid://co801q4ciel7i" path="res://Assets/Sound/Note Sfx/F#4 Cello.mp3" id="7_khh7c"]
+[ext_resource type="AudioStream" uid="uid://cgtgr5a1btcd7" path="res://Assets/Sound/Note Sfx/F4 Cello.mp3" id="8_a1hci"]
+[ext_resource type="AudioStream" uid="uid://dwjf32dn0gyax" path="res://Assets/Sound/Note Sfx/E4 Cello.mp3" id="9_u7f0o"]
+[ext_resource type="AudioStream" uid="uid://cn6123u1ukyk6" path="res://Assets/Sound/Note Sfx/D#4 Cello.mp3" id="10_ktqpi"]
+[ext_resource type="AudioStream" uid="uid://wjq4gi6xovas" path="res://Assets/Sound/Note Sfx/D4 Cello.mp3" id="11_ty7vk"]
+[ext_resource type="AudioStream" uid="uid://d2mb6x36x1583" path="res://Assets/Sound/Note Sfx/C#4 Cello.mp3" id="12_x7i8x"]
+[ext_resource type="AudioStream" uid="uid://dlkp3pieglrt" path="res://Assets/Sound/Note Sfx/C4 Cello.mp3" id="13_iqokw"]
+[ext_resource type="AudioStream" uid="uid://c407bpjfgccxx" path="res://Assets/Sound/Note Sfx/B3 Cello.mp3" id="14_ji2pg"]
+[ext_resource type="AudioStream" uid="uid://dfovlag5saq8v" path="res://Assets/Sound/Note Sfx/A#3 Cello.mp3" id="15_xceal"]
+[ext_resource type="AudioStream" uid="uid://euhac0rs66j" path="res://Assets/Sound/Note Sfx/A3 Cello.mp3" id="16_ejqa4"]
+[ext_resource type="AudioStream" uid="uid://b5cvyhgxlas3b" path="res://Assets/Sound/Note Sfx/G#3 Cello.mp3" id="17_5sgyq"]
+[ext_resource type="AudioStream" uid="uid://cmjkhiroet47p" path="res://Assets/Sound/Note Sfx/G3 Cello.mp3" id="18_g8iy0"]
+[ext_resource type="AudioStream" uid="uid://c75w2qqegpoo6" path="res://Assets/Sound/Note Sfx/F#3 Cello.mp3" id="19_vkgn3"]
+[ext_resource type="AudioStream" uid="uid://lxb372crba6l" path="res://Assets/Sound/Note Sfx/F3 Cello.mp3" id="20_bn03b"]
+[ext_resource type="AudioStream" uid="uid://b0skm1smfcbdm" path="res://Assets/Sound/Note Sfx/E3 Cello.mp3" id="21_qb6mh"]
 
 [node name="CelloSingleNotes" type="Node"]
 
-[node name="G#5 flute" type="AudioStreamPlayer" parent="."]
-volume_db = 20.0
+[node name="C5 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_cur63")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="B4 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_g3who")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="A#4 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_0notv")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="A4 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_14y4a")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="G#4 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_6jdfi")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="G4 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_g7317")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="F#4 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_khh7c")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="F4 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_a1hci")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="E4 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_u7f0o")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="D#4 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_ktqpi")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="D4 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_ty7vk")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="C#4 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_x7i8x")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="C4 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_iqokw")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="B3 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_ji2pg")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="A#3 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_xceal")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="A3 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_ejqa4")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="G#3 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_5sgyq")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="G3 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_g8iy0")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="F#3 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_vkgn3")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="F3 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_bn03b")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="E3 cello" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_qb6mh")
+volume_db = 10.0
 bus = &"SFX"

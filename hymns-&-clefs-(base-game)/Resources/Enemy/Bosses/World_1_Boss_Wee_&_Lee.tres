@@ -1,12 +1,47 @@
-[gd_resource type="Resource" script_class="enemy_resource" load_steps=3 format=3 uid="uid://chyjxqrh01rtl"]
+[gd_resource type="Resource" script_class="enemy_resource" load_steps=8 format=3 uid="uid://chyjxqrh01rtl"]
 
 [ext_resource type="Script" uid="uid://d30o7gn70rkta" path="res://Scripts/Resource_scripts/enemy_resource.gd" id="1_m2mpq"]
 [ext_resource type="Texture2D" uid="uid://ciogwbftjun8m" path="res://Assets/Sprites/enemy sprite/weeee_and_leeee.png" id="2_thfnr"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0yoe"]
+atlas = ExtResource("2_thfnr")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kxsqa"]
+atlas = ExtResource("2_thfnr")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ec5rx"]
+atlas = ExtResource("2_thfnr")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0la8"]
+atlas = ExtResource("2_thfnr")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dltqy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0yoe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kxsqa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ec5rx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0la8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [resource]
 script = ExtResource("1_m2mpq")
-texture = ExtResource("2_thfnr")
-texture_frames = 4
+enemy_animation = SubResource("SpriteFrames_dltqy")
 is_boss_enemy = true
 base_enemy_attack = 4
 base_enemy_shield_attack = 2

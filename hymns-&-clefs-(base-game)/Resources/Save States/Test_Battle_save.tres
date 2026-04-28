@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_q87i3")
-world_difficulty = 1
+world_difficulty = 2
 current_player_hp = 11
 max_player_hp = 20
 metadata/_custom_type_script = "uid://vu1ok1sil6qg"

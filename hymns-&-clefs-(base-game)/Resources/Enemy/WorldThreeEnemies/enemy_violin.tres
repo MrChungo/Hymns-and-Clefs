@@ -1,12 +1,47 @@
-[gd_resource type="Resource" script_class="enemy_resource" load_steps=3 format=3 uid="uid://dnywwiq5nlnph"]
+[gd_resource type="Resource" script_class="enemy_resource" load_steps=8 format=3 uid="uid://dnywwiq5nlnph"]
 
 [ext_resource type="Script" uid="uid://d30o7gn70rkta" path="res://Scripts/Resource_scripts/enemy_resource.gd" id="1_ule5y"]
 [ext_resource type="Texture2D" uid="uid://clcds50w1ar0i" path="res://Assets/Sprites/enemy sprite/enemy_violin.png" id="2_8d2ju"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d2ju"]
+atlas = ExtResource("2_8d2ju")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhb7x"]
+atlas = ExtResource("2_8d2ju")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3o5un"]
+atlas = ExtResource("2_8d2ju")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lyv1"]
+atlas = ExtResource("2_8d2ju")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_csloj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d2ju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhb7x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3o5un")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lyv1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [resource]
 script = ExtResource("1_ule5y")
-texture = ExtResource("2_8d2ju")
-texture_frames = 4
+enemy_animation = SubResource("SpriteFrames_csloj")
 base_enemy_attack = 4
 base_enemy_shield_attack = 2
 base_enemy_hp = 4

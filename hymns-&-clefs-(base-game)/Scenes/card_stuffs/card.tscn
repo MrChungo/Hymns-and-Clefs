@@ -11,7 +11,7 @@ texture = ExtResource("3_i1u7g")
 metadata/_custom_type_script = "uid://sgfc57h1wefs"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uvj44"]
-size = Vector2(64, 64)
+size = Vector2(50.5, 68)
 
 [sub_resource type="Animation" id="Animation_3q7r1"]
 length = 0.001

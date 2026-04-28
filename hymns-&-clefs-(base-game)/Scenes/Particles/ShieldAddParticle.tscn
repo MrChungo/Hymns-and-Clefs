@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://h1h4bbramp3e"]
+
+[ext_resource type="Texture2D" uid="uid://dm1wwpv7povi3" path="res://Assets/Sprites/Particles/Shield_Up_particles_spritesheet.png" id="1_vdkt0"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gr8tx"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_vdkt0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gr8tx"]
+curve = SubResource("Curve_vdkt0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kn6ch"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 100.0
+emission_ring_inner_radius = 100.0
+emission_ring_cone_angle = 90.0
+direction = Vector3(0, 0, 0)
+spread = 0.0
+orbit_velocity_min = -0.19999991
+orbit_velocity_max = 0.2000001
+radial_velocity_min = -50.000023
+radial_velocity_max = -50.000023
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -200.0
+radial_accel_max = -200.0
+damping_min = 100.00001
+damping_max = 100.00001
+scale_min = 2.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_gr8tx")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="ShieldAddParticle" type="Node2D"]
+
+[node name="CPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_gr8tx")
+emitting = false
+amount = 50
+texture = ExtResource("1_vdkt0")
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 0
+draw_order = 0
+process_material = SubResource("ParticleProcessMaterial_kn6ch")

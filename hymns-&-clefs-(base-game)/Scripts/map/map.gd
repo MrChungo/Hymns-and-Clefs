@@ -23,6 +23,10 @@ func _ready() -> void:
 	
 	#LOAD ICON FROM SAvE FILE, LOAD CURRENT BATTLE FROM FILE
 	load_from_save()
+	
+	background_setup()
+	
+	
 
 
 func load_from_save():
@@ -58,7 +62,7 @@ func gen_map():
 	
 	for n in range(node_length):
 		var _type = ""
-		if n == node_length:
+		if n == node_length - 1:
 			_type = "boss_battle"
 		else:
 			_type = "normal_battle"
@@ -77,13 +81,47 @@ func update_map_icon_pos():
 		node_icons[icon].scale = Vector2(icon_scale,icon_scale)
 		
 		@warning_ignore("integer_division")
-		node_icons[icon].position.x = icon*(screen_width/len(node_icons))+90 #HARDCODED NUMBER
+		
+		#node_icons[icon].position.x = icon*(screen_width/len(node_icons)) + node_icons[-1].get_node("BattleIcon").texture.get_width()  #HARDCODED NUMBER
+		
 		@warning_ignore("integer_division")
 		node_icons[icon].position.y = screen_height/2
 		if icon == current_icon:
 			node_icons[icon].enterable = true
 		else:
 			node_icons[icon].enterable = false
+	await get_tree().process_frame
+	setup_map_icon_textures()
+	order_icons_x_pos()
+
+
+func order_icons_x_pos():
+	
+	var total_icon_width = 0.0
+	for icon in node_icons:
+		total_icon_width += icon.get_icon_lenght()
+	
+	var padding = Globals.center_screen_x / 12
+	var usable_width = screen_width - (padding * 2)
+	# Calculate spacing (using a fixed width, e.g., screen width)
+	var spacing_length = usable_width - total_icon_width
+	var singular_spacing = spacing_length / (node_icons.size() + 1)
+
+	# Calculate the total width of the entire 'row' (icons + gaps)
+	var total_row_width = total_icon_width + (singular_spacing * (node_icons.size() - 1))
+
+	# Start at negative half of the row width so the middle of the row sits at Manager's (0,0)
+	var current_x = -total_row_width / 2
+
+	for icon in node_icons:
+		var icon_w = icon.get_icon_lenght()
+		# Position icon relative to the row start
+		icon.position.x = current_x + (icon_w / 2)
+		# Advance current_x by icon width + spacing
+		current_x += icon_w + singular_spacing
+
+	# Place the manager in the middle of the screen
+	$IconManager.position.x = Globals.center_screen_x
 
 func gen_map_icon_node(_type):
 	new_icon(_type)
@@ -99,4 +137,37 @@ func new_icon(_type):
 	node_icons.append(node)
 	
 		
+
+
+func background_setup():
+	var texture_scale = Globals.center_screen_y*2 / $Background.texture.get_height()
 	
+	$Control/Quit.position.x = Globals.center_screen_x / 8 - $Control/Quit.pivot_offset.x 
+	$Control/Quit.position.y = Globals.center_screen_y + Globals.center_screen_y / 1.5  - $Control/Quit.pivot_offset.y
+	for button in $Control.get_children():
+		if button is TexturedButton:
+			button.button_scale = Globals.card_scale_factor
+			button.scale = Vector2(button.button_scale, button.button_scale)
+	
+	
+	
+	$Background.position.x = Globals.center_screen_x 
+	$Background.position.y = Globals.center_screen_y
+	
+	$Background.scale = Vector2(texture_scale,texture_scale)
+	
+	
+	
+
+func setup_map_icon_textures():
+	for icon in range(len(node_icons)):
+		if icon < current_icon:
+			node_icons[icon].setup_texture(true)
+		else:
+			node_icons[icon].setup_texture(false)
+	
+
+
+func _on_quit_pressed() -> void:
+	SaveManager._save()
+	SignalManager.change_scene_to_title()

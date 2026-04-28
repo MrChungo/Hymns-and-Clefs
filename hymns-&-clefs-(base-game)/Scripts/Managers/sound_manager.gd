@@ -2,29 +2,39 @@ extends Node
 
 const FLUTE_NOTES_PATH = preload("uid://civcgmid4g4fj") #"res://Scenes/MusicPlayer/flute_single_notes.tscn"
 const CELLO_NOTES_PATH = preload("uid://k0rbllmkhdd1") #"res://Scenes/MusicPlayer/cello_single_notes.tscn"
-var instrument: String
+var chosen_instrument: String
 
+var instrument_sounds
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	load_instrument("flute")
 
 
+
+func load_from_savefile():
+	for child in get_children():
+		child.queue_free()
+	
+	if SaveManager.save_file_data.cleff_type == 0:
+		load_instrument("flute")
+	elif SaveManager.save_file_data.cleff_type == 1:
+		load_instrument("cello")
+	else:
+		load_instrument("flute")
 
 func load_instrument(string):
-	instrument = string
+	chosen_instrument = string
 	if string == "flute":
-		var instrument_sounds = FLUTE_NOTES_PATH.instantiate()
+		instrument_sounds = FLUTE_NOTES_PATH.instantiate()
 		$".".add_child(instrument_sounds)
 	elif string == "cello":
-		var instrument_sounds = CELLO_NOTES_PATH.instantiate()
+		instrument_sounds = CELLO_NOTES_PATH.instantiate()
 		$".".add_child(instrument_sounds)
 
 func play_note(note, pitch, wait = false):
 		
-	var node_name = note + pitch + " " + instrument
+	var node_name = note + pitch + " " + chosen_instrument
 	# Store the specific note node in a variable
-	var note_node = $FluteSingleNotes.get_node(node_name)
+	var note_node = instrument_sounds.get_node(node_name)
 	
 	note_node.play()
 	

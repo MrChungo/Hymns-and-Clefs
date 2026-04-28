@@ -1,0 +1,82 @@
+[gd_scene load_steps=11 format=3 uid="uid://cubygmhh5ssn0"]
+
+[ext_resource type="Script" uid="uid://cejlkg3i8yaih" path="res://Scripts/Screens/win_screen.gd" id="1_ij4qe"]
+[ext_resource type="Texture2D" uid="uid://c73msk2ehkhe8" path="res://Assets/Sprites/screens/YELLOW.png" id="2_yi58f"]
+[ext_resource type="Texture2D" uid="uid://c3sew5jn82ben" path="res://Assets/Sprites/Text/Text_Spritesheet.png" id="3_ij4qe"]
+[ext_resource type="Texture2D" uid="uid://36oug8rc6hv1" path="res://Assets/Sprites/Buttons/Buttons.png" id="4_le28w"]
+[ext_resource type="Script" uid="uid://m5hk8i7qy3r2" path="res://Scripts/Misc/Buttons/texture_button.gd" id="5_5gk1p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7okm"]
+atlas = ExtResource("3_ij4qe")
+region = Rect2(11, 136, 292, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gw3jc"]
+atlas = ExtResource("4_le28w")
+region = Rect2(3, 140, 46, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mw0o"]
+atlas = ExtResource("4_le28w")
+region = Rect2(54, 141, 46, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5712"]
+atlas = ExtResource("4_le28w")
+region = Rect2(3, 210, 46, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spseh"]
+atlas = ExtResource("4_le28w")
+region = Rect2(53, 210, 46, 66)
+
+[node name="WinScreen" type="Node2D"]
+script = ExtResource("1_ij4qe")
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -20
+texture = ExtResource("2_yi58f")
+
+[node name="YouWon" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_c7okm")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="New_Game" type="TextureButton" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -33.0
+offset_right = 23.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_gw3jc")
+texture_hover = SubResource("AtlasTexture_4mw0o")
+script = ExtResource("5_5gk1p")
+
+[node name="Quit" type="TextureButton" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -33.0
+offset_right = 23.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_l5712")
+texture_hover = SubResource("AtlasTexture_spseh")
+script = ExtResource("5_5gk1p")
+
+[connection signal="pressed" from="Control/New_Game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Control/Quit" to="." method="_on_quit_pressed"]

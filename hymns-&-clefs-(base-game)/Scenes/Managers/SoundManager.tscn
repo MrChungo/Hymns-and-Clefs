@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bovjro60gcbwh"]
+[gd_scene load_steps=2 format=3 uid="uid://bovjro60gcbwh"]
 
 [ext_resource type="Script" uid="uid://o5i2k05w1qxu" path="res://Scripts/Managers/sound_manager.gd" id="1_6mkid"]
-[ext_resource type="PackedScene" uid="uid://k0rbllmkhdd1" path="res://Scenes/MusicPlayer/cello_single_notes.tscn" id="2_6mkid"]
 
 [node name="SoundManager" type="Node"]
 script = ExtResource("1_6mkid")
-
-[node name="CelloSingleNotes" parent="." instance=ExtResource("2_6mkid")]
