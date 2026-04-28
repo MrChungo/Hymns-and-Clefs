@@ -59,17 +59,18 @@ func battle_setup():
 	
 
 	#ENEMY STUFF!!!!!!!!!!!!!!
-	max_possible_enemies = difficulty + 10
-	min_possible_enemies = difficulty + 5
+	max_possible_enemies = difficulty + 2
+	min_possible_enemies = difficulty
 	enemy_quantity = randi_range(min_possible_enemies,max_possible_enemies)
 	
 	#spawns enemies & player
 	
-	spawn_enemies(enemy_quantity)
+	await spawn_enemies(enemy_quantity)
 	
 	if (len(SaveManager.save_file_data.map_icons) - 1) == SaveManager.save_file_data.current_icon:
 		spawn_boss_enemy()
 	await get_tree().process_frame
+	alternate_update_enemy_positions()
 	
 	update_enemy_labels()
 	battle = true
@@ -208,11 +209,10 @@ func spawn_enemies(_enemy_quantity):
 		enemies.append(new_enemy)
 		await get_tree().process_frame
 		new_enemy.update_next_action_texture()
-		
 		if not new_enemy.is_node_ready():
 			await new_enemy.ready
 		
-	await get_tree().process_frame
+		await get_tree().process_frame
 
 func spawn_boss_enemy():
 	var new_enemy = ENEMY_SCENE.instantiate()
@@ -241,19 +241,19 @@ func alternate_update_enemy_positions() -> void:
 		enemy.enemy_scale = Globals.card_scale_factor
 		enemy.scale = Vector2(enemy.enemy_scale, enemy.enemy_scale)
 	
-	var row: int = 1
+	var row: int = 0
 	var column: int = 0
 	
 	for enemy in enemies:
-		if starting_enemy_x_position + enemy.texture_size.x * column < center_screen_x*2:
-			enemy.position.y = starting_enemy_y_position * row
+		if starting_enemy_x_position + enemy.texture_size.x * enemy.scale.x * column < center_screen_x*2:
+			enemy.position.y = starting_enemy_y_position - (enemy.texture_size.y * enemy.scale.y) * row
 			enemy.position.x = starting_enemy_x_position + enemy.texture_size.x * enemy.scale.x * column
 			column += 1
 		else:
 			column = 0
 			row += 1
 			enemy.position.x = starting_enemy_x_position + enemy.texture_size.x * enemy.scale.x * column
-			enemy.position.y = starting_enemy_y_position * row
+			enemy.position.y = starting_enemy_y_position - (enemy.texture_size.y * enemy.scale.y) * row
 	await get_tree().process_frame
 	
 	
@@ -310,15 +310,17 @@ func enemy_turn():
 	#loops through enemies
 
 	for _enemy in enemies:
-																				#check if player is inside tree!
-		await enemy_action(_enemy,_enemy.enemy_next_action)
-		_enemy.enemy_next_action = enemy_choose_action(_enemy)
-		print(_enemy.enemy_next_action)
-		_enemy.update_next_action_texture()
+		
+		if is_instance_valid(player) and is_inside_tree():
+			await enemy_action(_enemy,_enemy.enemy_next_action)
+			_enemy.enemy_next_action = enemy_choose_action(_enemy)
+			print(_enemy.enemy_next_action)
+			_enemy.update_next_action_texture()
 	
-	player.emit_signal("healthChanged")
-	await get_tree().process_frame
-	update_enemy_labels()
+	if is_instance_valid(player) and is_inside_tree():
+		player.emit_signal("healthChanged")
+		await get_tree().process_frame
+		update_enemy_labels()
 	is_player_turn = true
 
 func enemy_choose_action(_enemy):
