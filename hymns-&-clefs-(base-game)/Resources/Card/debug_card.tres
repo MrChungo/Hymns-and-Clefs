@@ -7,4 +7,7 @@
 script = ExtResource("1_lrq1a")
 card_name = "Debug_Card"
 texture = ExtResource("2_bsa8d")
+shield_points = 100
+attack_points = 100
+health_gain = 100
 metadata/_custom_type_script = "uid://sgfc57h1wefs"

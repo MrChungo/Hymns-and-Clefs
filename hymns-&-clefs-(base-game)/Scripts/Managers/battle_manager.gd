@@ -241,7 +241,11 @@ func alternate_update_enemy_positions() -> void:
 	#change scale of enemies
 	for enemy in enemies:
 		enemy.enemy_scale = Globals.card_scale_factor
+		if enemy.stats.is_boss_enemy:
+			enemy.enemy_scale *= 1.25
 		enemy.scale = Vector2(enemy.enemy_scale, enemy.enemy_scale)
+		
+		
 	
 	var row: int = 0
 	var column: int = 0
@@ -405,6 +409,7 @@ func battle_ends():
 	battle = false
 	if SaveManager.save_file_data.current_icon == 5:
 		SaveManager.save_file_data.current_icon = 0
+		SaveManager.save_file_data.world_difficulty += 1
 	else:
 		SaveManager.save_file_data.current_icon += 1
 		

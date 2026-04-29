@@ -1,13 +1,11 @@
-[gd_resource type="Resource" script_class="starting_deck_resource" load_steps=7 format=3 uid="uid://dkyqtj8rhxifi"]
+[gd_resource type="Resource" script_class="starting_deck_resource" load_steps=5 format=3 uid="uid://dkyqtj8rhxifi"]
 
 [ext_resource type="Script" uid="uid://sgfc57h1wefs" path="res://Scripts/Resource_scripts/card_resource.gd" id="1_xgdwj"]
 [ext_resource type="Script" uid="uid://628vrwyq0xlo" path="res://Scripts/Resource_scripts/starting_deck_resource.gd" id="2_g0iny"]
-[ext_resource type="Resource" uid="uid://63u2h2psqqc4" path="res://Resources/Card/Common_Rarity/common_wooden_sword.tres" id="3_jn4lb"]
-[ext_resource type="Resource" uid="uid://b4faquoeu0y2f" path="res://Resources/Card/Rare_Rarity/rare_health_potion.tres" id="5_c61dl"]
-[ext_resource type="Resource" uid="uid://v4rbf6bvjcbi" path="res://Resources/Card/Rare_Rarity/rare_golden_sword.tres" id="5_rhypj"]
-[ext_resource type="Resource" uid="uid://djrgrg27ty8di" path="res://Resources/Card/Rare_Rarity/rare_golden_shield.tres" id="6_jn4lb"]
+[ext_resource type="Resource" uid="uid://cb1o8d57os8al" path="res://Resources/Card/Common_Rarity/common_health_vial.tres" id="3_4838k"]
+[ext_resource type="Resource" uid="uid://cqvfkdiyjddmd" path="res://Resources/Card/debug_card.tres" id="4_ik3tf"]
 
 [resource]
 script = ExtResource("2_g0iny")
-deck_resource = Array[ExtResource("1_xgdwj")]([ExtResource("6_jn4lb"), ExtResource("5_rhypj"), ExtResource("3_jn4lb"), ExtResource("5_c61dl")])
+deck_resource = Array[ExtResource("1_xgdwj")]([ExtResource("4_ik3tf"), ExtResource("4_ik3tf"), ExtResource("4_ik3tf"), ExtResource("3_4838k")])
 metadata/_custom_type_script = "uid://628vrwyq0xlo"
