@@ -415,7 +415,7 @@ func battle_ends():
 		
 	await save_to_savefile()
 	
-	if SaveManager.save_file_data.world_difficulty == 3:
+	if SaveManager.save_file_data.world_difficulty == 4:
 		SignalManager.change_scene_to_win()
 	else:
 		SignalManager.change_scene_to_rewards()
