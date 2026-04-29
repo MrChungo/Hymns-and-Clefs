@@ -79,18 +79,22 @@ func battle_setup():
 	battle_round = 0
 	
 	await get_tree().process_frame
+	if SaveManager.save_file_data.deck.deck_resource.size() < 1:
+		battle = false
+		player_death(player)
 	battle_loop()
 
 
 func load_from_save():
-	#SaveManager._new_save() #used for debug (it resetst the save file) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	
+
 	await SaveManager._load()
 	await player.load_player_stats()
 	#player.hp = 6666666666666
 	await %Deck.load_from_save()
 	difficulty = SaveManager.save_file_data.world_difficulty
 	hand_size = SaveManager.save_file_data.hand_size
+	
+	
 
 func save_to_savefile():
 	await player.save_player_stats()
