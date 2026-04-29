@@ -59,16 +59,18 @@ func battle_setup():
 	
 
 	#ENEMY STUFF!!!!!!!!!!!!!!
-	max_possible_enemies = difficulty + 2
+	max_possible_enemies = difficulty + 1
 	min_possible_enemies = difficulty
-	enemy_quantity = randi_range(min_possible_enemies,max_possible_enemies)
+	enemy_quantity = Random.get_random_int(min_possible_enemies,max_possible_enemies)
 	
+	print("min enemies: " + str(min_possible_enemies),"max enemies: " + str(max_possible_enemies), "enemy quant: " + str(enemy_quantity))
 	#spawns enemies & player
 	
 	await spawn_enemies(enemy_quantity)
 	
 	if (len(SaveManager.save_file_data.map_icons) - 1) == SaveManager.save_file_data.current_icon:
 		spawn_boss_enemy()
+	
 	await get_tree().process_frame
 	alternate_update_enemy_positions()
 	

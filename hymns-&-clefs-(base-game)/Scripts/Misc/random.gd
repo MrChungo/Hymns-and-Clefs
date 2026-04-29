@@ -104,17 +104,23 @@ func get_random_card_resource(card_rarity):
 func dir_contents(path):
 	var files = []
 	var dir = DirAccess.open(path)
+	
 	if dir:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
+		
 		while file_name != "":
-			if dir.current_is_dir():
-				#print("Found directory: " + file_name)
-				pass
-			else:
-				#print("Found file: " + file_name)
-				files.append(file_name)
+			if !dir.current_is_dir():
+				# Remove .remap and .import suffixes added during export
+				var clean_name = file_name.replace(".remap", "").replace(".import", "")
+				
+				# Add to list only if it's a unique resource we want
+				if !files.has(clean_name):
+					files.append(clean_name)
+			
 			file_name = dir.get_next()
+		dir.list_dir_end()
 	else:
-		print("An error occurred when trying to access the path.")
-	return files.duplicate()
+		print("An error occurred when trying to access the path: ", path)
+		
+	return files
