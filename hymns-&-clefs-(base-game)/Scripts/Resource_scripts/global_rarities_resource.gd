@@ -16,7 +16,7 @@ class_name global_rarities_resource
 #enemy attack weights
 @export var enemy_balanced_attack_rarity := {"attack" : 10,
 											"defend": 5,
-											"nothing" : 2
+											"nothing" : 3
 											}
 
 @export var enemy_attacker_attack_rarity := {"attack" : 15,
