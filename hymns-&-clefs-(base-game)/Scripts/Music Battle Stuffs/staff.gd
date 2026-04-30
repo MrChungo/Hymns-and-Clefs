@@ -68,7 +68,6 @@ func load_clef_from_memory():
 
 func set_spacing_variables():
 	vertical_spacing = lines[-1][-1].get_node("mid_line_texture").texture.get_height() * 2
-	#print(vertical_spacing)
 
 func spawn_measures():
 
