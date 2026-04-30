@@ -1,8 +1,10 @@
 extends Resource
 class_name enemy_resource
 
+# enemy sprite animation
 @export var enemy_animation:SpriteFrames
 
+#enemy stats & modifiers
 @export var is_boss_enemy : bool
 @export var base_enemy_attack: int
 @export var base_enemy_shield_attack: int

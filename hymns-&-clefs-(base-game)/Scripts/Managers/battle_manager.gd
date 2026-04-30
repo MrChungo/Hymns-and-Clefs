@@ -265,50 +265,7 @@ func alternate_update_enemy_positions() -> void:
 			enemy.position.x = starting_enemy_x_position + enemy.texture_size.x * enemy.scale.x * column
 			enemy.position.y = starting_enemy_y_position - (enemy.texture_size.y * enemy.scale.y) * row
 	await get_tree().process_frame
-	
-	
 
-
-func update_enemy_positions() -> void:
-	var center_screen_y = Globals.center_screen_y
-	
-	for enemy in enemies:
-		enemy.position.y = center_screen_y
-	
-
-	for enemy in enemies:
-		enemy.enemy_scale = Globals.card_scale_factor * 1.5
-		enemy.scale = Vector2(enemy.enemy_scale, enemy.enemy_scale)
-	
-	order_enemies_x_pos()
-
-
-func order_enemies_x_pos():
-	var total_enemy_width = 0.0
-	for enemy in enemies:
-		total_enemy_width += enemy.texture_size.x * enemy.enemy_scale
-	
-	var padding = Globals.center_screen_x / 12
-	var usable_width = screen_width / 2.0 - (padding * 2)
-	# Calculate spacing (using a fixed width, e.g., screen width)
-	var spacing_length = usable_width - total_enemy_width
-	var singular_spacing = spacing_length / (enemies.size() + 1)
-
-	# Calculate the total width of the entire 'row' (icons + gaps)
-	@warning_ignore("unused_variable")
-	var total_row_width = total_enemy_width + (singular_spacing * (enemies.size() - 1))
-
-
-	var starting_position = screen_width / 2.0
-	
-	for enemy in enemies:
-		var enemy_w = enemy.texture_size.x * enemy.enemy_scale
-		# Position icon relative to the row start
-		enemy.position.x = starting_position + (enemy_w / 2) - enemy.texture_size.x / 2
-		# Advance current_x by icon width + spacing
-		starting_position += enemy_w + singular_spacing
-	
-	
 	
 
 

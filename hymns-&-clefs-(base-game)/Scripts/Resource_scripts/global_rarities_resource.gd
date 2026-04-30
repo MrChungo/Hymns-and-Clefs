@@ -1,19 +1,21 @@
 extends Resource
 class_name global_rarities_resource
 
-#card stuff
+
+
+#card rarity weights (by difficulty/world)
 @export var card_type_rarities := {"common" : [100,100,100],
 									"uncommon": [50,60,75],
 									"rare" : [10,15,20]
 									}
 
-#enemy stuff
+#enemy rarity weights
 @export var enemy_type_rarities := {"common" : 10,
 									"uncomon": 5,
 									"rare" : 2
 									}
 
-#enemy attack weights
+#enemy attack pattern rarity weights
 @export var enemy_balanced_attack_rarity := {"attack" : 10,
 											"defend": 5,
 											"nothing" : 3
@@ -30,6 +32,7 @@ class_name global_rarities_resource
 											}
 					
 
+#chord rarity weights (by difficulty/world)
 @export var chord_type_rarity := {
 									"major": [10,8,5],
 									"minor": [10,8,5],

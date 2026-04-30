@@ -1,40 +1,40 @@
 extends Node2D
-
+# constants used to instanciate parts of the staff
 const STAFF_LINE_REFERENCE = preload("uid://l7qvyru1rdq6") #"res://Scenes/Music Battle System Stuffs/Staff Stuff/staff_line.tscn"
 const MEASURE_VER_LINE_REFERENCE = preload("uid://rahc3qlfgf7x") #"res://Scenes/Music Battle System Stuffs/Staff Stuff/measure_vertical_lines.tscn"
 const END_MEASURE_VER_LINE_REFERENCE = preload("uid://bktwnnt44k6br")#"res://Scenes/Music Battle System Stuffs/Staff Stuff/end_measure_vertical_lines.tscn"
+
+# constants used for logic, game loop, checks, and Sound.
 const G_CLEF_NOTES = ["G","F","E","D","C","B","A","G","F","E","D"]
 const G_CLEF_PITCH = ["5","5","5","5","5","4","4","4","4","4","4"]
 const F_CLEF_NOTES = ["B","A","G","F","E","D","C","B","A","G","F"]
 const F_CLEF_PITCH = ["4","4","4","4","4","4","4","3","3","3","3"]
 
+#constants used for sizing
 const MEASURE_WIDTH_SEGMENTS = 18
 const CLEFF_START_SEGMENTS = 10
 const END_LINE_END_SEGMENTS = 2
 
 
+# loads constant into variable useful for chord checker logic 
+#(only needs to check one as only one clef can be selected per savefile)
+var clef: Array
+var pitches: Array
 
-var clef
-var pitches
-
-var lines := []
-var measure_separators := []
-var end_line
+#variables for staff spawning
+var lines: Array = []
+var measure_separators: Array= []
 var measure_segments : int
-
-var current_chords:Array = []
-
 var vertical_spacing: float
 
+#What chords are there in the staff right now
+var current_chords:Array = []
 
 
 func load_staff(segments):
 	load_clef_from_memory()
 	
 	measure_segments = segments
-	#var staff_scale = Globals.center_screen_x/280
-	#self.scale = Vector2(staff_scale,staff_scale)
-	#self.position = Vector2(Globals.center_screen_x,Globals.center_screen_y)
 	
 	spawn_measures()
 	set_spacing_variables()
