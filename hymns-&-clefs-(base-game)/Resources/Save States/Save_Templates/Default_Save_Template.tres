@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="save_resource" load_steps=3 format=3 uid="uid://dbeyhpubeidew"]
 
-[ext_resource type="Resource" uid="uid://dkyqtj8rhxifi" path="res://Resources/Deck/Deck Presets/debug_deck.tres" id="1_g1an5"]
+[ext_resource type="Resource" uid="uid://dwy4naoeiapha" path="res://Resources/Deck/Deck Presets/OP_Deck_Preset.tres" id="1_g1an5"]
 [ext_resource type="Script" uid="uid://vu1ok1sil6qg" path="res://Scripts/Resource_scripts/save_resource.gd" id="2_r661m"]
 
 [resource]

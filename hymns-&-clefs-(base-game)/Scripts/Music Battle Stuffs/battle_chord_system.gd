@@ -181,17 +181,13 @@ func spawn_note_labels():
 		
 		var chord_text: String
 		
-		if SaveManager.save_file_data.world_difficulty == 1:
-			chord_text = $ChordManager.get_chord_name(target_chords[chord])  + "[br]" + $ChordManager.get_string_chord_notes(target_chords[chord])
-		elif SaveManager.save_file_data.world_difficulty == 2:
-			if $ChordManager.identify_chord_type(target_chords[chord]) in ["major", "minor"]:
-				chord_text = $ChordManager.get_chord_name(target_chords[chord])
-			else:
-				chord_text = $ChordManager.get_chord_name(target_chords[chord]) + "[br]" + $ChordManager.get_string_chord_notes(target_chords[chord])
-		elif SaveManager.save_file_data.world_difficulty == 3:
-			chord_text = $ChordManager.get_chord_name(target_chords[chord])
-		else:
-			chord_text = $ChordManager.get_chord_name(target_chords[chord])
+		if SaveManager.save_file_data.chord_difficulty == save_resource.chord_label_difficulty.SHOW_ALL:
+			chord_text = get_chord_label_text_in_show_all_difficulty(chord)
+		elif SaveManager.save_file_data.chord_difficulty == save_resource.chord_label_difficulty.PROGRESSIVE:
+			chord_text = get_chord_label_text_in_progressive_difficulty(chord)
+		elif SaveManager.save_file_data.chord_difficulty == save_resource.chord_label_difficulty.SHOW_NONE:
+			chord_text = get_chord_label_text_in_show_none_difficulty(chord)
+			
 		
 		new_chord_label.text = "[font_size=%d]%s[/font_size]" % [text_size, chord_text]
 		
@@ -218,7 +214,29 @@ func spawn_note_labels():
 		
 		
 		labels.append(new_chord_label)
-		
+
+func get_chord_label_text_in_progressive_difficulty(chord):
+	var chord_text: String
+	if SaveManager.save_file_data.world_difficulty == 1:
+		chord_text = $ChordManager.get_chord_name(target_chords[chord])  + "[br]" + $ChordManager.get_string_chord_notes(target_chords[chord])
+	elif SaveManager.save_file_data.world_difficulty == 2:
+		if $ChordManager.identify_chord_type(target_chords[chord]) in ["major", "minor"]:
+			chord_text = $ChordManager.get_chord_name(target_chords[chord])
+		else:
+			chord_text = $ChordManager.get_chord_name(target_chords[chord]) + "[br]" + $ChordManager.get_string_chord_notes(target_chords[chord])
+	elif SaveManager.save_file_data.world_difficulty == 3:
+		chord_text = $ChordManager.get_chord_name(target_chords[chord])
+	else:
+		chord_text = $ChordManager.get_chord_name(target_chords[chord])
+	return chord_text
+
+func get_chord_label_text_in_show_all_difficulty(chord):
+	return $ChordManager.get_chord_name(target_chords[chord])  + "[br]" + $ChordManager.get_string_chord_notes(target_chords[chord])
+
+func get_chord_label_text_in_show_none_difficulty(chord):
+	return $ChordManager.get_chord_name(target_chords[chord])
+
+
 func display_if_chord_was_correct(chord_to_check, current_index):
 	var sorted_chord_to_check = []
 	for note in chord_to_check:

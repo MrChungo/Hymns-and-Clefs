@@ -2,6 +2,8 @@ extends Resource
 class_name save_resource
 
 #general variables
+enum chord_label_difficulty {SHOW_ALL,PROGRESSIVE,SHOW_NONE} # 1, 2, 3
+@export var chord_difficulty: chord_label_difficulty
 @export var world_difficulty: int # must start at 1!!!
 
 enum clefs {G, F} # 0 is G clef(Treble Clef), 1 is F clef(Bass clef)
