@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="starting_deck_resource" load_steps=6 format=3 uid="uid://dwy4naoeiapha"]
+
+[ext_resource type="Script" uid="uid://sgfc57h1wefs" path="res://Scripts/Resource_scripts/card_resource.gd" id="1_1rs0w"]
+[ext_resource type="Script" uid="uid://628vrwyq0xlo" path="res://Scripts/Resource_scripts/starting_deck_resource.gd" id="2_bjyra"]
+[ext_resource type="Resource" uid="uid://bria7s5t0muns" path="res://Resources/Card/Rare_Rarity/rare_golden_protecting_sword.tres" id="2_ennbj"]
+[ext_resource type="Resource" uid="uid://v4rbf6bvjcbi" path="res://Resources/Card/Rare_Rarity/rare_golden_sword.tres" id="3_onjh6"]
+[ext_resource type="Resource" uid="uid://qyigto484k5q" path="res://Resources/Card/uncommon_Rarity/uncommon_steel_sword.tres" id="4_e2lpw"]
+
+[resource]
+script = ExtResource("2_bjyra")
+deck_resource = Array[ExtResource("1_1rs0w")]([ExtResource("2_ennbj"), ExtResource("3_onjh6"), ExtResource("4_e2lpw")])
+metadata/_custom_type_script = "uid://628vrwyq0xlo"

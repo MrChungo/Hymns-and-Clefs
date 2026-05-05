@@ -15,8 +15,8 @@ var global_rarities = load("uid://dxut7bry6abc") #RANDOM_REFERENCE.get_weighted_
 
 func gen_chord() -> Array:
 	var chord: Array
-	var scale = get_scale()
 	var chord_type = get_chord_type()
+	var scale = get_scale(chord_type)
 	var root = get_random_index_from_scale(scale)
 	var third: int
 	var fifth: int
@@ -83,12 +83,24 @@ func gen_chord() -> Array:
 	return chord
 	
 	
-func get_scale():
-	var scale_chosen = Random.get_random_int(0,1)
-	if scale_chosen == 0:
+func get_scale(chord_type):
+	if chord_type == "major":
 		return NOTES_WITH_SHARPS
-	elif scale_chosen == 1:
+	elif chord_type == "minor":
 		return NOTES_WITH_FLATS
+	elif chord_type == "augmented":
+		return NOTES_WITH_SHARPS
+	elif chord_type == "diminished":
+		return NOTES_WITH_FLATS
+	else:
+		return NOTES_WITH_SHARPS
+	
+	#var scale_chosen = Random.get_random_int(0,1)
+	#if scale_chosen == 0:
+		#return NOTES_WITH_SHARPS
+	#elif scale_chosen == 1:
+		#return NOTES_WITH_FLATS
+	
 
 func get_random_index_from_scale(scale):
 	return Random.get_random_int(0,len(scale)-1)

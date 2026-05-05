@@ -38,8 +38,6 @@ func load_from_save():
 	print(current_icon," ", len(map_icons))
 	if !check_if_existing_map() or (current_icon >= len(map_icons)):
 		map_icons.clear()
-		current_icon = 0
-		SaveManager.save_file_data.current_icon = 0
 		gen_map()
 	else:
 		load_map()

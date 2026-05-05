@@ -79,18 +79,22 @@ func battle_setup():
 	battle_round = 0
 	
 	await get_tree().process_frame
+	if SaveManager.save_file_data.deck.deck_resource.size() < 1:
+		battle = false
+		player_death(player)
 	battle_loop()
 
 
 func load_from_save():
-	#SaveManager._new_save() #used for debug (it resetst the save file) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	
+
 	await SaveManager._load()
 	await player.load_player_stats()
 	#player.hp = 6666666666666
 	await %Deck.load_from_save()
 	difficulty = SaveManager.save_file_data.world_difficulty
 	hand_size = SaveManager.save_file_data.hand_size
+	
+	
 
 func save_to_savefile():
 	await player.save_player_stats()
@@ -241,7 +245,11 @@ func alternate_update_enemy_positions() -> void:
 	#change scale of enemies
 	for enemy in enemies:
 		enemy.enemy_scale = Globals.card_scale_factor
+		if enemy.stats.is_boss_enemy:
+			enemy.enemy_scale *= 1.25
 		enemy.scale = Vector2(enemy.enemy_scale, enemy.enemy_scale)
+		
+		
 	
 	var row: int = 0
 	var column: int = 0
@@ -257,50 +265,7 @@ func alternate_update_enemy_positions() -> void:
 			enemy.position.x = starting_enemy_x_position + enemy.texture_size.x * enemy.scale.x * column
 			enemy.position.y = starting_enemy_y_position - (enemy.texture_size.y * enemy.scale.y) * row
 	await get_tree().process_frame
-	
-	
 
-
-func update_enemy_positions() -> void:
-	var center_screen_y = Globals.center_screen_y
-	
-	for enemy in enemies:
-		enemy.position.y = center_screen_y
-	
-
-	for enemy in enemies:
-		enemy.enemy_scale = Globals.card_scale_factor * 1.5
-		enemy.scale = Vector2(enemy.enemy_scale, enemy.enemy_scale)
-	
-	order_enemies_x_pos()
-
-
-func order_enemies_x_pos():
-	var total_enemy_width = 0.0
-	for enemy in enemies:
-		total_enemy_width += enemy.texture_size.x * enemy.enemy_scale
-	
-	var padding = Globals.center_screen_x / 12
-	var usable_width = screen_width / 2.0 - (padding * 2)
-	# Calculate spacing (using a fixed width, e.g., screen width)
-	var spacing_length = usable_width - total_enemy_width
-	var singular_spacing = spacing_length / (enemies.size() + 1)
-
-	# Calculate the total width of the entire 'row' (icons + gaps)
-	@warning_ignore("unused_variable")
-	var total_row_width = total_enemy_width + (singular_spacing * (enemies.size() - 1))
-
-
-	var starting_position = screen_width / 2.0
-	
-	for enemy in enemies:
-		var enemy_w = enemy.texture_size.x * enemy.enemy_scale
-		# Position icon relative to the row start
-		enemy.position.x = starting_position + (enemy_w / 2) - enemy.texture_size.x / 2
-		# Advance current_x by icon width + spacing
-		starting_position += enemy_w + singular_spacing
-	
-	
 	
 
 
@@ -401,10 +366,17 @@ func battle_loop():
 			battle_ends()
 
 func battle_ends():
-	SaveManager.save_file_data.current_icon += 1
-	await save_to_savefile()
+	
 	battle = false
-	if SaveManager.save_file_data.current_icon == 5 and SaveManager.save_file_data.world_difficulty == 3:
+	if SaveManager.save_file_data.current_icon == 5:
+		SaveManager.save_file_data.current_icon = 0
+		SaveManager.save_file_data.world_difficulty += 1
+	else:
+		SaveManager.save_file_data.current_icon += 1
+		
+	await save_to_savefile()
+	
+	if SaveManager.save_file_data.world_difficulty == 4:
 		SignalManager.change_scene_to_win()
 	else:
 		SignalManager.change_scene_to_rewards()
