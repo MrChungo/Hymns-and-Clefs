@@ -8,6 +8,8 @@ var global_rarities = preload("uid://dxut7bry6abc") #RANDOM_REFERENCE.get_weight
 var temp_rewards_deck:Array = []
 var card_slot
 
+@onready var add_or_remove_card_slot_scale = Globals.card_scale_factor*1.25
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	background_setup()
@@ -115,25 +117,34 @@ func create_card_slot() -> void:
 	$".".add_child(card_slot)
 	card_slot.name = "CardSlot"
 	card_slot.position = Vector2(Globals.center_screen_x,Globals.center_screen_y)
+	card_slot.scale = Vector2(add_or_remove_card_slot_scale,add_or_remove_card_slot_scale)
 
 ## makes deck position the center of the screen
 func center_deck_position() -> void:
 	%Deck.position = Vector2(Globals.center_screen_x,Globals.center_screen_y)
+	%Deck.scale = Vector2(add_or_remove_card_slot_scale,add_or_remove_card_slot_scale)
 
 ## When called, it sets up the scene to remove a card from deck,
 ## then waits for player to choose a card.[br]
 ## changes scene to map after completion
 func _on_remove_card_pressed() -> void:
-	hide_buttons()
-	create_card_slot()
 	
+	$Control/remove_card.position = Vector2(-$Control/remove_card.pivot_offset.x,Globals.center_screen_y - $Control/remove_card.pivot_offset.y)
+	$Control/remove_card.button_scale = add_or_remove_card_slot_scale
+	$Control/remove_card.scale = Vector2(add_or_remove_card_slot_scale,add_or_remove_card_slot_scale)
+	$Control/remove_card.disabled = true
+	hide_buttons()
+	$Control/remove_card.visible = true
+	create_card_slot()
 	%Deck.load_from_save()
-	center_deck_position()
+	#center_deck_position()
 	%Deck.visible = true
 	
 	draw_cards_to_hand()
 	
 	await %card_manager.card_used_on_enemy  #reusing enemy code for this XD
+	
+	$Control/remove_card.disabled = false
 	
 	empty_hand()
 	%Deck.renew_deck()
