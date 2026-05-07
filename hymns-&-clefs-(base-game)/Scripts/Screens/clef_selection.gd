@@ -13,9 +13,16 @@ func elements_setup():
 	var center_screen_x = Globals.center_screen_x
 	var center_screen_y = Globals.center_screen_y
 	
+	$Control/Quit.position.x = Globals.center_screen_x / 8 - $Control/Quit.pivot_offset.x 
+	$Control/Quit.position.y = Globals.center_screen_y + Globals.center_screen_y / 1.5  - $Control/Quit.pivot_offset.y
+	
+	
 	for button in $Control.get_children():
 		if button is AnimatedButton:
 			button.button_scale = Globals.card_scale_factor * 3
+			button.scale = Vector2(button.button_scale, button.button_scale)
+		elif button is TexturedButton:
+			button.button_scale = Globals.card_scale_factor
 			button.scale = Vector2(button.button_scale, button.button_scale)
 	
 	$Control/TrebleClef.position.x = center_screen_x  - center_screen_x / 4 - $Control/TrebleClef.pivot_offset.x
@@ -48,3 +55,7 @@ func _on_treble_clef_pressed() -> void:
 	SaveManager._save()
 	SoundManager.load_from_savefile()
 	SignalManager.change_scene_to_map()
+
+
+func _on_quit_pressed() -> void:
+	SignalManager.change_scene_to_title()

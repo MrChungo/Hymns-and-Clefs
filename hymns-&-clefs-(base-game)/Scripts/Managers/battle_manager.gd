@@ -279,6 +279,7 @@ func enemy_turn():
 	for _enemy in enemies:
 		
 		if is_instance_valid(player) and is_inside_tree():
+			player.emit_signal("healthChanged")
 			await enemy_action(_enemy,_enemy.enemy_next_action)
 			_enemy.enemy_next_action = enemy_choose_action(_enemy)
 			print(_enemy.enemy_next_action)
