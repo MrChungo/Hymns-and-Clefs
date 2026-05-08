@@ -1,8 +1,8 @@
 extends Resource
 class_name card_resource
 
+# Card variables
 @export var card_name :String
-
 
 @export var texture: Texture2D
 @export_range(0,3) var rarity: int

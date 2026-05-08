@@ -3,7 +3,7 @@ extends Node2D
 const USED_CARD_SLOT_REFERENCE = preload("uid://bc446000gge8c")
 const PLAYER_MAX_HEALTH_REWARD_QUANTITY = 10
 
-var global_rarities = preload("uid://dxut7bry6abc") #RANDOM_REFERENCE.get_weighted_rarity()
+var global_rarities = preload("uid://dsdqu3nm2dwxg") #RANDOM_REFERENCE.get_weighted_rarity()
 
 var temp_rewards_deck:Array = []
 var card_slot

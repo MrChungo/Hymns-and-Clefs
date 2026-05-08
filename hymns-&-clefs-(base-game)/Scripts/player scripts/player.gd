@@ -4,7 +4,7 @@ class_name player_class
 ## Updates Health & Shield bars when called
 signal healthChanged()
 
-
+#gets the animations ready whenever player node spawns
 @onready var current_animation = $AnimatedSprite2D.animation
 
 #player loaded stats
@@ -27,6 +27,7 @@ func load_player_stats() -> void:
 	
 	update_progress_bars_positioning()
 	
+	#updates local variables
 	hp = SaveManager.save_file_data.current_player_hp
 	max_hp = SaveManager.save_file_data.max_player_hp
 	

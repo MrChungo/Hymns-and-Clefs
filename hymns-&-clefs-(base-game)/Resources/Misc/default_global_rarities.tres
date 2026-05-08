@@ -1,10 +1,9 @@
-[gd_resource type="Resource" script_class="global_rarities_resource" load_steps=2 format=3 uid="uid://dxut7bry6abc"]
+[gd_resource type="Resource" script_class="global_rarities_resource" load_steps=2 format=3 uid="uid://dsdqu3nm2dwxg"]
 
 [ext_resource type="Script" uid="uid://cttx2t6n4t537" path="res://Scripts/Resource_scripts/global_rarities_resource.gd" id="1_fk0hb"]
 
 [resource]
 script = ExtResource("1_fk0hb")
-card_type_rarities = null
 enemy_type_rarities = null
 enemy_balanced_attack_rarity = null
 enemy_attacker_attack_rarity = null

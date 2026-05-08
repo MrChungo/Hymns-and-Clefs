@@ -8,7 +8,8 @@ func _ready() -> void:
 	elements_setup()
 
 
-## Sets up the position of buttons and their scale
+## Sets up the position of buttons and their scale [br]
+## Buttons are equdistantly placed using the center of the screen as their center
 func elements_setup():
 	var center_screen_x = Globals.center_screen_x
 	var center_screen_y = Globals.center_screen_y
@@ -56,6 +57,6 @@ func _on_treble_clef_pressed() -> void:
 	SoundManager.load_from_savefile()
 	SignalManager.change_scene_to_map()
 
-
+## Changes scene to title when button is pressed
 func _on_quit_pressed() -> void:
 	SignalManager.change_scene_to_title()

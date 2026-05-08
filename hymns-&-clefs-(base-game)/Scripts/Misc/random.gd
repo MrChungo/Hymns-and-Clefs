@@ -15,14 +15,22 @@ func get_random_int(min_int:int,max_int:int):
 func get_weighted_rarity(item_rarity):
 	var weighted_sum = 0
 	
+	# Add up all rarity weights
 	for n in item_rarity:
 		weighted_sum += item_rarity[n]
+	
+	# Pick a random number between 0 and the total weight
 	var rarity_chosen = rng.randi_range(0,weighted_sum)
 	
+	# Go through each rarity
 	for n in item_rarity:
+		# If the random number lands in this rarity's range,
+		# return that rarity
 		if rarity_chosen <= item_rarity[n]:
 			return n
 		else:
+			# Otherwise subtract this weight
+			# and continue checking
 			rarity_chosen -= item_rarity[n]
 
 

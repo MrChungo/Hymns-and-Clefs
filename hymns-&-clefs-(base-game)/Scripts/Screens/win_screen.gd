@@ -10,7 +10,8 @@ func _on_new_game_pressed() -> void:
 	SaveManager._new_save()
 	SignalManager.change_scene_to_character_select()
 
-## Sets up the position of buttons and their scale
+## Sets up the position of buttons and their scale [br]
+## Buttons are equdistantly placed using the center of the screen as their center
 func elements_setup():
 	var center_screen_x = Globals.center_screen_x
 	var center_screen_y = Globals.center_screen_y
