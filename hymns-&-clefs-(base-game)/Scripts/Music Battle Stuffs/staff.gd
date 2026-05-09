@@ -43,10 +43,10 @@ var measure_separators: Array= []
 var measure_segments : int
 var vertical_spacing: float
 
-#What chords are there in the staff right now
-var current_chords:Array = []
 
+var current_chords:Array = [] ## This 2D array holds all of the notes within each measure of the staff.
 
+## This function loads all of the requirements to get the staff set up and runinng.
 func load_staff(segments):
 	load_clef_from_memory()
 	
@@ -63,7 +63,7 @@ func load_staff(segments):
 	order_icons()
 	assign_notes_to_lines()
 
-## this function loads from SaveManager savefile data the required [br]
+## this function loads from [member SaveManager.save_file_data] the required [br]
 ## information and variables needed to set up the staff (mainly the cleff and [br]
 ## notes/pitches). In addition it also loads the texture for the clef.
 func load_clef_from_memory() -> void:
@@ -225,6 +225,7 @@ func align_notes() -> void:
 					note.global_position.x = line_ref.global_position.x + start_line_offset - end_line_offset
 					note.global_position.y = line_ref.global_position.y
 				else:
+					# handles special cases (measure being 1 measure long, or it being on the last or first measure)
 					if measure == 0:
 						note.global_position.x = line_ref.global_position.x + start_line_offset
 						note.global_position.y = line_ref.global_position.y
@@ -235,8 +236,11 @@ func align_notes() -> void:
 						note.global_position.x = line_ref.global_position.x
 						note.global_position.y = line_ref.global_position.y
 
-
-func align_label(labels) -> void:
+## This method aligns the chord labels from [BattleChordSystemClass] centered above each [br]
+## measure. It's expected that index 0 of the parameter (param labels) is the first [br]
+## measure of the staff, and the index -1 is the last measure of the staff.
+func align_label(labels:Array) -> void:
+	## The offset is the mid_line_texture of any [staffLineClass] Node.
 	var start_line_offset = CLEFF_START_SEGMENTS*lines[0][0].get_node("mid_line_texture").texture.get_width()
 	var end_line_offset = END_LINE_END_SEGMENTS*lines[0][0].get_node("mid_line_texture").texture.get_width()
 	var fixed_y_position:float = Globals.center_screen_y / 4.0
@@ -248,6 +252,7 @@ func align_label(labels) -> void:
 			labels[measure].global_position.x = lines[measure][0].global_position.x + start_line_offset - end_line_offset - (labels[measure].size.x * labels[measure].scale.x) / 2.0
 			labels[measure].global_position.y = fixed_y_position
 		else:
+			# handles special cases (measure being 1 measure long, or it being on the last or first measure)
 			if measure == 0:
 				labels[measure].global_position.x = lines[measure][0].global_position.x + start_line_offset - (labels[measure].size.x * labels[measure].scale.x) / 2.0
 				labels[measure].global_position.y = fixed_y_position
@@ -258,7 +263,7 @@ func align_label(labels) -> void:
 				labels[measure].global_position.x = lines[measure][0].global_position.x - (labels[measure].size.x * labels[measure].scale.x) / 2.0
 				labels[measure].global_position.y = fixed_y_position
 
-
+## This method gets all of the current chords within each measure.
 func get_notes_from_current_chords() -> Array:
 	current_chords.clear()
 	for measure in lines:

@@ -45,7 +45,7 @@ func _ready() -> void:
 	
 	battle_setup()
 
-
+#region Battle Loop Methods
 func battle_setup():
 	is_player_turn = true
 	
@@ -85,6 +85,38 @@ func battle_setup():
 	battle_loop()
 
 
+
+func battle_loop():
+	while battle:
+		if enemies.size() > 0:
+			await get_tree().process_frame
+			alternate_update_enemy_positions()
+			#update_enemy_positions()
+			if is_player_turn:
+				await player_turn()
+			else:
+				await enemy_turn()
+		else:
+			battle_ends()
+
+func battle_ends():
+	
+	battle = false
+	if SaveManager.save_file_data.current_icon == 5:
+		SaveManager.save_file_data.current_icon = 0
+		SaveManager.save_file_data.world_difficulty += 1
+	else:
+		SaveManager.save_file_data.current_icon += 1
+		
+	await save_to_savefile()
+	
+	if SaveManager.save_file_data.world_difficulty == 4:
+		SignalManager.change_scene_to_win()
+	else:
+		SignalManager.change_scene_to_rewards()
+#endregion
+
+#region Save related methods
 func load_from_save():
 
 	await SaveManager._load()
@@ -100,6 +132,9 @@ func save_to_savefile():
 	await player.save_player_stats()
 	await %Deck.save_to_savefile()
 	await SaveManager._save()
+#endregion
+
+#region Player Methods
 
 #player functions
 func spawn_player():
@@ -123,9 +158,7 @@ func player_turn():
 	var target = select_target()
 	
 	await use_card(target, target.card_in_slot)
-	
-	
-	
+
 	
 	player.emit_signal("healthChanged")
 	update_enemy_labels()
@@ -135,7 +168,9 @@ func player_death(target):
 	battle = false
 	target.death()
 	SignalManager.change_scene_to_death()
+#endregion
 
+#region Card logic
 #card logic
 func select_target():
 	for n in enemies:
@@ -174,9 +209,9 @@ func empty_hand():
 	for n in hand_ref.player_hand:
 		deck_ref.send_card_to_discard(n)
 	hand_ref.player_hand.clear()
+#endregion
 
-
-
+#region Battle Chord System methods
 func load_battle_chord_system(card):
 	var measures
 	if card.stats.rarity == 1:
@@ -201,8 +236,9 @@ func load_battle_chord_system(card):
 func unload_battle_chord_system():
 	battle_chord_system.queue_free()
 	battle_chord_system = null
+#endregion
 
-#enemy functions
+#region enemy methods
 func spawn_enemies(_enemy_quantity):
 	for n in range(_enemy_quantity):
 		var new_enemy = ENEMY_SCENE.instantiate()
@@ -315,10 +351,9 @@ func enemy_death(target):
 	enemies.erase(target)
 	await card_used
 	await target.death()
+#endregion
 
-
-
-#general functions (used for both enemies and players)
+#region Enemy and Player usable methods
 func attack(target, damage):
 	
 	if target.shield > 0:
@@ -351,36 +386,7 @@ func heal(target, health):
 	if target is player_class:
 		if target.hp > target.max_hp:
 			target.hp = target.max_hp
-	
-
-func battle_loop():
-	while battle:
-		if enemies.size() > 0:
-			await get_tree().process_frame
-			alternate_update_enemy_positions()
-			#update_enemy_positions()
-			if is_player_turn:
-				await player_turn()
-			else:
-				await enemy_turn()
-		else:
-			battle_ends()
-
-func battle_ends():
-	
-	battle = false
-	if SaveManager.save_file_data.current_icon == 5:
-		SaveManager.save_file_data.current_icon = 0
-		SaveManager.save_file_data.world_difficulty += 1
-	else:
-		SaveManager.save_file_data.current_icon += 1
-		
-	await save_to_savefile()
-	
-	if SaveManager.save_file_data.world_difficulty == 4:
-		SignalManager.change_scene_to_win()
-	else:
-		SignalManager.change_scene_to_rewards()
+#endregion
 
 
 
