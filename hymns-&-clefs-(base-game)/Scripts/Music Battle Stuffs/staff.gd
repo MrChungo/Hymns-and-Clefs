@@ -7,19 +7,33 @@ const MEASURE_VER_LINE_REFERENCE = preload("uid://rahc3qlfgf7x") #"res://Scenes/
 const END_MEASURE_VER_LINE_REFERENCE = preload("uid://bktwnnt44k6br")#"res://Scenes/Music Battle System Stuffs/Staff Stuff/end_measure_vertical_lines.tscn"
 
 # constants used for logic, game loop, checks, and Sound.
+## Notes of the staff organized from space above the highest line, to the [br]
+## space below the lowest line.
 const G_CLEF_NOTES = ["G","F","E","D","C","B","A","G","F","E","D"]
+## Pitches of the staff organized from space above the highest line, to the [br]
+## space below the lowest line.
 const G_CLEF_PITCH = ["5","5","5","5","5","4","4","4","4","4","4"]
+## Notes of the staff organized from space above the highest line, to the [br]
+## space below the lowest line.
 const F_CLEF_NOTES = ["B","A","G","F","E","D","C","B","A","G","F"]
+## Pitches of the staff organized from space above the highest line, to the [br]
+## space below the lowest line.
 const F_CLEF_PITCH = ["4","4","4","4","4","4","4","3","3","3","3"]
 
 #constants used for sizing
-const MEASURE_WIDTH_SEGMENTS = 18
-const CLEFF_START_SEGMENTS = 10
-const END_LINE_END_SEGMENTS = 2
+const MEASURE_WIDTH_SEGMENTS = 18 ## A "segment" is a middle texture of the "line" node.
+const CLEFF_START_SEGMENTS = 10 ## A "segment" is a middle texture of the "line" node.
+const END_LINE_END_SEGMENTS = 2 ## A "segment" is a middle texture of the "line" node.
+##Line heights from top line to bottom line (exclusive) (measured by pixels) [br]
+## default value should be 15. This value is measured like this: there are [br]
+## 5 lines on the staff, then there's 4 spaces on the staff (9), then you must count [br]
+## the padding spaces within each space and line (which in this case is one line height) [br]
+## this makes the amount of line widths from the top line to the bottom line 15
+const STAFF_HEIGHT: int = 15
 
 
 # loads constant into variable useful for chord checker logic 
-#(only needs to check one as only one clef can be selected per savefile)
+# (only needs to check one as only one clef can be selected per savefile)
 var clef: Array
 var pitches: Array
 
@@ -79,7 +93,7 @@ func set_spacing_variables() -> void:
 ## on the staff
 func spawn_measures() -> void:
 
-	var line_width
+	var line_width:int ##Each unit represents a pixel
 	for n in range(measure_segments):
 		if measure_segments == 1:
 			line_width = MEASURE_WIDTH_SEGMENTS + END_LINE_END_SEGMENTS + CLEFF_START_SEGMENTS
@@ -110,23 +124,31 @@ func spawn_line(line_width) -> void:
 	$line_manager.add_child(new_line)
 	lines[-1].append(new_line)
 
+## This method organizes all of the spawned horizontal lines into [br]
+## a staff.
 func order_lines() -> void:
 	var total_lenght = 0
+	
+	#calculates the lenght of the whole staff
 	for s in lines:
 		total_lenght += s[-1].get_line_lenght()
 
 	var start_lenght_position = -total_lenght/2.0
 	var x_offset = 0
 	
+	#starts organizing lines per measure
 	for s in range(len(lines)):
 		var measure:Array = lines[s]
 		var measure_width = measure[-1].get_line_lenght()
 		var middle_index = (len(lines[s]) - 1) / 2.0
-
+		
+		#organizes each line within the measure
 		for n in range(len(lines[s])):
 			measure[n].position.x = start_lenght_position + x_offset + measure_width/2.0
 			measure[n].position.y = (n - middle_index) * vertical_spacing
 			
+			#makes the "spaces" in the staff actually invisible
+			#the code recognizes these spaces just as other lines.
 			if n % 2 == 0:
 				var line:Node2D = measure[n]
 				line.get_node("mid_line_texture").visible = false
@@ -134,23 +156,28 @@ func order_lines() -> void:
 				line.get_node("end_line_texture_right").visible = false
 		x_offset += measure_width
 
-
+## This method spawns the bar lines (otherwise known as measure separators). [br]
+## Important to note that it doesn not spawn the final bar line (otherwise known as [br]
+## end line separators). That is handled by [method spawn_and_order_end_line]
 func spawn_measure_separators() -> void:
-	var line_height = 15 #15 line heights from top line to bottom line (exclusive)
+	var line_height: int = STAFF_HEIGHT 
 	for n in range(measure_segments):
 		var new_line:Node2D = MEASURE_VER_LINE_REFERENCE.instantiate()
 		new_line.transform_line_to_lenght(line_height)
 		$".".add_child(new_line)
 		measure_separators.append(new_line)
 
+## This method orders the measure separators (it moves to then to the begining [br]
+## of each measure.
 func order_measure_separators() -> void:
 	var middle_height_index = (len(lines[-1]) - 1) / 2.0
 	var m:Array = measure_separators
 	for n in range(len(lines)):
 		m[n].position.x = lines[n][middle_height_index].position.x - lines[n][middle_height_index].get_line_lenght() / 2.0 + m[n].get_node("mid_line_texture").texture.get_width()/2
 
+## This function spawns and organizes the final bar line at the end of the staff.
 func spawn_and_order_end_line() -> void:
-	var line_height = 15 #15 line heights from top line to bottom line (exclusive)
+	var line_height: int = STAFF_HEIGHT 
 	var middle_height_index = (len(lines[-1]) - 1) / 2.0
 	var new_line:Node2D = END_MEASURE_VER_LINE_REFERENCE.instantiate()
 	new_line.transform_line_to_lenght(line_height)
@@ -158,7 +185,7 @@ func spawn_and_order_end_line() -> void:
 	measure_separators.append(new_line)
 	new_line.position.x = lines[-1][middle_height_index].position.x + lines[-1][middle_height_index].get_line_lenght() / 2.0 - new_line.get_node("mid_line_texture").texture.get_width()/2
 
-
+## This function orders the position of the G and F clefs into place. 
 func order_icons() -> void:
 	var middle_height_index = (len(lines[-1]) - 1) / 2.
 	var clef_position = lines[0][middle_height_index].position.x - (lines[0][middle_height_index].get_line_lenght() / 4.0)
@@ -167,16 +194,22 @@ func order_icons() -> void:
 	$TrebleClef.position.x = clef_position
 	$BassClef.position.y = lines[0][middle_height_index].position.y
 	$BassClef.position.x = clef_position
-	
 
-
+## This function asigns all the lines in a measure their respective notes, and pitches. [br]
+## This is dependent on the cleff chosen at the start of the game, this is why [br]
+## the [method load_clef_from_memory] must always be called before usign this method.
+## The notes to be used will be from the [constant G_CLEF_NOTES], or [constant F_CLEF_NOTES] [br]
+## meanwhile the pitches will come from [constant G_CLEF_PITCHES], or [constant F_CLEF_PITCHES].
 func assign_notes_to_lines() -> void:
 	for s in range(len(lines)):
 		for n in range(len(lines[s])):
 			lines[s][n].line_defined_note = clef[n]
 			lines[s][n].line_defined_pitch = pitches[n]
 
-
+## This method organizes the positions of notes currently within the staff. [br]
+## It puts them centered on the line that they should be placed in. [br]
+## It uses property [member global_position] for the notes as they are not a child [br]
+## of [StaffClass], they are a child of [BattleChordSystemClass]
 func align_notes() -> void:
 	var start_line_offset = CLEFF_START_SEGMENTS*lines[0][0].get_node("mid_line_texture").texture.get_width()
 	var end_line_offset = END_LINE_END_SEGMENTS*lines[0][0].get_node("mid_line_texture").texture.get_width()

@@ -4,8 +4,4 @@
 
 [resource]
 script = ExtResource("1_fk0hb")
-enemy_type_rarities = null
-enemy_balanced_attack_rarity = null
-enemy_attacker_attack_rarity = null
-enemy_defender_attack_rarity = null
 metadata/_custom_type_script = "uid://cttx2t6n4t537"

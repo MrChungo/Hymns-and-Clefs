@@ -9,7 +9,7 @@ https://en.wikipedia.org/wiki/Chord_(music)
 const NOTES_WITH_SHARPS = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"]
 const NOTES_WITH_FLATS = ["A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"]
 
-var global_rarities = load("uid://dxut7bry6abc") #RANDOM_REFERENCE.get_weighted_rarity()
+var global_rarities = load("uid://dsdqu3nm2dwxg") #RANDOM_REFERENCE.get_weighted_rarity()
 
 
 

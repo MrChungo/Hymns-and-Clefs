@@ -11,7 +11,7 @@ const HORIZONTAL_ENEMY_SPACING := 100
 
 signal card_used(enemy)
 
-var global_rarities = load("uid://dxut7bry6abc") #RANDOM_REFERENCE.get_weighted_rarity()
+var global_rarities = load("uid://dsdqu3nm2dwxg") #"res://Resources/Misc/default_global_rarities.tres"
 var test_save = load("uid://chmnudsaqsjho") #"res://Resources/Save States/Test_Battle_save.tres"
 
 var save: save_resource
