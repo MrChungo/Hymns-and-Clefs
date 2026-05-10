@@ -26,7 +26,7 @@ func _on_mouse_clickeable_mouse_exited() -> void:
 	
 ## This function gets the lenght of the texture of the note. [br]
 ## Important to have in mind this is affected by [member scale].
-func get_note_lenght():
+func get_note_lenght() -> float:
 	var note_texture = $Sprite2D
 	return (note_texture.texture.get_width() * self.scale.x)
 	
@@ -34,7 +34,7 @@ func get_note_lenght():
 ## This method changes the note type to the next type. It follows this loop [br]
 ## [u] Natural -> Sharp -> Flat [/u]. In addition it also changes the texture [br]
 ## to match this change.
-func shift_note_type():
+func shift_note_type() -> void:
 	$Sharp.visible = false
 	$Flat.visible = false
 	if type == "natural":

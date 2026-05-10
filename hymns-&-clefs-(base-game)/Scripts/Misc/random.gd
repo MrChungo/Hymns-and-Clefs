@@ -1,18 +1,21 @@
 extends Node2D
+class_name RandomClass
 
-var rng = RandomNumberGenerator.new()
+var rng:RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
 	SaveManager._load()
 	rng.randomize()
-	
+
+## This method gets a random [int] from within an inclusive range.
 func get_random_int(min_int:int,max_int:int):
 	return rng.randi_range(min_int,max_int)
 	
-	
 
-func get_weighted_rarity(item_rarity):
+## This method gets a random rarity from within a [member global_rarities_resource.card_type_rarities].
+## Which is a weighted Dictionary.
+func get_weighted_rarity(item_rarity:Dictionary):
 	var weighted_sum = 0
 	
 	# Add up all rarity weights
@@ -33,7 +36,9 @@ func get_weighted_rarity(item_rarity):
 			# and continue checking
 			rarity_chosen -= item_rarity[n]
 
-
+## This method gets a random rarity from within a member within a [global_rarities_resource].
+## Which is a weighted Dictionary, but the valuies of the keys are lists, [br]
+## whose indexes are meant to be correlated to [member SaveManagerClass.save_file_data.world_difficulty]
 func get_weighted_rarity_by_world(item_rarity):
 	var weighted_sum = 0
 	var world_diff_index_ref: int

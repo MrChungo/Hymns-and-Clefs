@@ -1,4 +1,5 @@
 extends Node
+class_name SaveManagerClass
 
 const save_location = "user://SaveFile.tres"
 
