@@ -1,5 +1,7 @@
 extends Node2D
 class_name map_class
+
+
 const MAP_ICON_PATH = preload("uid://dqj5ku8jkvvup")#"res://Scenes/Areas/map/map_icon.tscn"
 
 var save: save_resource
@@ -28,11 +30,12 @@ func _ready() -> void:
 	
 	
 
-
-func load_from_save():
+## This method loads map depending on [member SaveManagerClass.save_file_data].
+## If there's no save, it loads map from the first icon, if there's a current saved [br]
+## location, it will load from there.
+func load_from_save() -> void:
 	node_icons.clear()
 	await SaveManager._load()
-	#SaveManager.save_file_data.map_icons.clear()
 	map_icons = SaveManager.save_file_data.map_icons.duplicate()
 	current_icon = SaveManager.save_file_data.current_icon
 	print(current_icon," ", len(map_icons))
@@ -42,12 +45,14 @@ func load_from_save():
 	else:
 		load_map()
 		
-	
-func save_to_savefile():
+
+##This method saves the game.
+func save_to_savefile() -> void:
 	SaveManager.save_file_data.map_icons = map_icons.duplicate()
 	SaveManager._save()
-	
-func check_if_existing_map():
+
+#This method checks if the map is already exisiting or not.
+func check_if_existing_map() -> bool:
 	if map_icons.size() > 0:
 		return true
 	else:
@@ -55,8 +60,8 @@ func check_if_existing_map():
 
 
 
-
-func gen_map():
+## This method generates a new map (spawns new icons)
+func gen_map() -> void:
 	
 	for n in range(node_length):
 		var _type = ""
@@ -67,13 +72,15 @@ func gen_map():
 			
 		gen_map_icon_node(_type)
 	update_map_icon_pos()
-	
-func load_map():
+
+## This method loads the map from [SaveManagerClass.save_file_data].
+func load_map() -> void:
 	for n in map_icons:
 		new_icon(n)
 	update_map_icon_pos()
 
-func update_map_icon_pos():
+## This method updates the position of map icons arranges them up into a line.
+func update_map_icon_pos() -> void:
 	for icon in range(len(node_icons)):
 		var icon_scale = Globals.center_screen_x/150
 		node_icons[icon].scale = Vector2(icon_scale,icon_scale)
@@ -83,7 +90,7 @@ func update_map_icon_pos():
 		#node_icons[icon].position.x = icon*(screen_width/len(node_icons)) + node_icons[-1].get_node("BattleIcon").texture.get_width()  #HARDCODED NUMBER
 		
 		@warning_ignore("integer_division")
-		node_icons[icon].position.y = screen_height/2
+		node_icons[icon].position.y = screen_height/2.0
 		if icon == current_icon:
 			node_icons[icon].enterable = true
 		else:
@@ -92,24 +99,24 @@ func update_map_icon_pos():
 	setup_map_icon_textures()
 	order_icons_x_pos()
 
-
-func order_icons_x_pos():
+## This method orders the icons' position in the x-axis.
+func order_icons_x_pos() -> void:
 	
-	var total_icon_width = 0.0
+	var total_icon_width:float = 0.0
 	for icon in node_icons:
 		total_icon_width += icon.get_icon_lenght()
 	
-	var padding = Globals.center_screen_x / 12
-	var usable_width = screen_width - (padding * 2)
+	var padding:float = Globals.center_screen_x / 12.0
+	var usable_width:float = screen_width - (padding * 2)
 	# Calculate spacing (using a fixed width, e.g., screen width)
-	var spacing_length = usable_width - total_icon_width
-	var singular_spacing = spacing_length / (node_icons.size() + 1)
+	var spacing_length:float = usable_width - total_icon_width
+	var singular_spacing:float = spacing_length / (node_icons.size() + 1)
 
 	# Calculate the total width of the entire 'row' (icons + gaps)
-	var total_row_width = total_icon_width + (singular_spacing * (node_icons.size() - 1))
+	var total_row_width:float = total_icon_width + (singular_spacing * (node_icons.size() - 1))
 
 	# Start at negative half of the row width so the middle of the row sits at Manager's (0,0)
-	var current_x = -total_row_width / 2
+	var current_x:float = -total_row_width / 2
 
 	for icon in node_icons:
 		var icon_w = icon.get_icon_lenght()
@@ -121,13 +128,14 @@ func order_icons_x_pos():
 	# Place the manager in the middle of the screen
 	$IconManager.position.x = Globals.center_screen_x
 
-func gen_map_icon_node(_type):
+## This method generates a new [MapIconNode], and appends it to [member map_icons]
+func gen_map_icon_node(_type) -> void:
 	new_icon(_type)
 	map_icons.append(_type)
 	
 
-
-func new_icon(_type):
+## This method Generates a new [MapIconNode], and appends it to [member node_icons]
+func new_icon(_type) -> void:
 	var node = MAP_ICON_PATH.instantiate()
 	node.name = "mapIcon"
 	node.icon_type = _type
@@ -136,8 +144,8 @@ func new_icon(_type):
 	
 		
 
-
-func background_setup():
+## Sets up background position and fits the texture to screen width
+func background_setup() -> void:
 	var texture_scale = Globals.center_screen_y*2 / $Background.texture.get_height()
 	
 	$Control/Quit.position.x = Globals.center_screen_x / 8 - $Control/Quit.pivot_offset.x 
@@ -157,7 +165,7 @@ func background_setup():
 	
 	
 
-func setup_map_icon_textures():
+func setup_map_icon_textures() -> void:
 	for icon in range(len(node_icons)):
 		if icon < current_icon:
 			node_icons[icon].setup_texture(true)
@@ -165,7 +173,7 @@ func setup_map_icon_textures():
 			node_icons[icon].setup_texture(false)
 	
 
-
+## Saves game and returns to Title Screen.
 func _on_quit_pressed() -> void:
 	SaveManager._save()
 	SignalManager.change_scene_to_title()

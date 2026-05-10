@@ -63,7 +63,7 @@ func load_staff(segments):
 	order_icons()
 	assign_notes_to_lines()
 
-## this function loads from [member SaveManager.save_file_data] the required [br]
+## this function loads from [member SaveManagerClass.save_file_data] the required [br]
 ## information and variables needed to set up the staff (mainly the cleff and [br]
 ## notes/pitches). In addition it also loads the texture for the clef.
 func load_clef_from_memory() -> void:

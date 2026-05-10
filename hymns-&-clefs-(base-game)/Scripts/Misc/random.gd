@@ -38,7 +38,7 @@ func get_weighted_rarity(item_rarity:Dictionary):
 
 ## This method gets a random rarity from within a member within a [global_rarities_resource].
 ## Which is a weighted Dictionary, but the valuies of the keys are lists, [br]
-## whose indexes are meant to be correlated to [member SaveManagerClass.save_file_data.world_difficulty]
+## whose indexes are meant to be correlated to [member SaveManagerClass.save_file_data.world_difficulty].
 func get_weighted_rarity_by_world(item_rarity):
 	var weighted_sum = 0
 	var world_diff_index_ref: int
@@ -60,6 +60,9 @@ func get_weighted_rarity_by_world(item_rarity):
 			rarity_chosen -= item_rarity[n][world_diff_index_ref] 
 			
 
+## This method gets a random [enemy_resource] from within the files of the [br]
+## project. What files are chosen deppend on [SaveManagerClass.save_file_data.world_difficulty], [br]
+## and [param is_boss].
 func get_random_enemy_resource(is_boss:bool):
 	var world_difficulty: int
 	
@@ -95,11 +98,13 @@ func get_random_enemy_resource(is_boss:bool):
 		
 		return path + enemies_in_folder[enemy_index]
 
-
-func get_random_card_resource(card_rarity):
+## This method gets a random [card_resource] from within the files of the [br]
+## project. What files are chosen deppend a randomly selected card rarity from [br]
+## [member global_rarities_resource.card_type_rarities].
+func get_random_card_resource(card_rarity:String) -> String:
 	
-	var path = "res://Resources/Card/"
-	var cards_in_folder = []
+	var path:String = "res://Resources/Card/"
+	var cards_in_folder:Array = []
 	
 
 	if card_rarity == "common":
@@ -114,9 +119,10 @@ func get_random_card_resource(card_rarity):
 		
 	return path + cards_in_folder[get_random_int(0,len(cards_in_folder)-1)]
 
-func dir_contents(path):
-	var files = []
-	var dir = DirAccess.open(path)
+## This method gets the contents from a folder within the files of the system.
+func dir_contents(path:String) -> Array:
+	var files:Array = []
+	var dir:DirAccess = DirAccess.open(path)
 	
 	if dir:
 		dir.list_dir_begin()

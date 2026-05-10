@@ -1,10 +1,11 @@
 extends Node2D
+class_name IconManagerClass
 
-const COLLISION_MASK_ICON := 1
+const COLLISION_MASK_ICON:int = 1
 
 var screen_size
 var is_hovering_on_icon:bool
-var entered = false
+var entered:bool = false
 
 
 
@@ -13,12 +14,13 @@ func _ready() -> void:
 	screen_size = get_viewport_rect().size
 #	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
 
+## Connects signals of map icons.
 func connect_icon_signals(icon):
 	icon.connect("icon_hovered", on_hovered_over_icon)
 	icon.connect("icon_hovered_off", on_hovered_off_icon)
 
 
-
+## This method makes it so that icons that are hover-over-able, and enterable scale up in size.
 func on_hovered_over_icon(icon):
 	entered = true
 	if !is_hovering_on_icon && icon.enterable:
@@ -26,6 +28,8 @@ func on_hovered_over_icon(icon):
 		highlight_icon(icon,true)
 	
 
+## this method makes it so that an icon scales back in size after it's done being [br]
+## hovered over.
 func on_hovered_off_icon(icon):
 	entered = false
 	if icon.enterable:
@@ -37,7 +41,8 @@ func on_hovered_off_icon(icon):
 		else:
 			is_hovering_on_icon = false
 				
-			
+
+## This method scales an icon in size.
 func highlight_icon(icon, hovered):
 	var icon_scale = Globals.center_screen_x/150
 	
@@ -48,7 +53,8 @@ func highlight_icon(icon, hovered):
 		icon.scale = Vector2(icon_scale,icon_scale)
 		icon.z_index = 1
 		
-		
+
+## This method cheks for icons below the mouse.
 func raycast_check_for_icon():
 	#checks if icon is below mouse position
 	var space_state = get_world_2d().direct_space_state
@@ -63,7 +69,7 @@ func raycast_check_for_icon():
 	else:
 		return null
 	
-	
+## This method returns the icon with the highest z-index within a set of icons.
 func get_icon_with_highest_z_index(icons):
 	#asume first icon passed has the highest z index
 	var highest_z_icon = icons[0].collider.get_parent()

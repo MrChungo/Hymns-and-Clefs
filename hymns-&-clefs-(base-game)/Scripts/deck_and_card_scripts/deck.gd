@@ -1,4 +1,5 @@
 extends Node
+class_name DeckClass
 
 const CARD_RESOURCES_PATH := "res://Resources/Card/"
 const CARD_SCENE_PATH := "res://Scenes/card_stuffs/card.tscn"

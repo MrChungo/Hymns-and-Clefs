@@ -1,22 +1,23 @@
 extends Node2D
+class_name InputManagerClass
 
-signal start_note_drag(note)
-signal play_note_sound(note)
+signal start_note_drag(note:NoteClass)
+signal play_note_sound(note:NoteClass)
 
-signal left_mouse_button_clicked
+signal left_mouse_button_clicked 
 signal left_mouse_button_released
 
 signal right_mouse_button_clicked
 signal right_mouse_button_released
 
 
-const COLLISION_MASK_CARD := 1
-const COLLISION_MASK_DECK := 4
+const COLLISION_MASK_CARD:int = 1
+const COLLISION_MASK_DECK:int = 4
 
-const COLLISION_MASK_ENEMY = 2
+const COLLISION_MASK_ENEMY:int  = 2
 
-const COLLISION_MASK_NOTE := 8
-const COLLISION_MASK_LINE:= 16
+const COLLISION_MASK_NOTE:int = 8
+const COLLISION_MASK_LINE:int = 16
 
 
 var card_manager_reference
@@ -27,8 +28,9 @@ var deck_reference
 func _ready() -> void:
 	refresh_conections()
 	
-
-func refresh_conections():
+## This method refreshes connections to [NodeManagerClass], [DeckClass], and [br]
+## [CardManagerClass], deppending on what is found in the tree at the time.
+func refresh_conections() -> void:
 	var current_scene = get_tree().current_scene
 	if current_scene.has_node("NoteManager"):
 		note_manager_reference = current_scene.get_node("NoteManager")
@@ -38,8 +40,9 @@ func refresh_conections():
 		card_manager_reference = $"../card_manager"
 	else:
 		card_manager_reference = null
-	
-func _input(event):
+
+## This method Checks for inputs and releases signals depending on these inputs.
+func _input(event) -> void:
 	#checks list of all events (key inputs)
 	#checks the type of event (use this for later reference)
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -56,8 +59,10 @@ func _input(event):
 			emit_signal("right_mouse_button_released")
 			
 
-
-func raycast_at_cursor(mouse_click):
+## This method checks if there's anything under the cursor. If the mouse clicks, [br]
+## and it's a left click, it will start dragging whatever [NoteClass], or [CardClass], underneath it. [br]
+## If it's a right click, it will cycle a [NoteClass]'s type.
+func raycast_at_cursor(mouse_click) -> void:
 	#checks if card is below mouse position
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
@@ -103,14 +108,16 @@ func raycast_at_cursor(mouse_click):
 							play_note_sound.emit(object_found)
 							
 
-func get_usable_results(list):
+## This method, returns items that are allowed to collide with the mouse.
+func get_usable_results(list) -> Array:
 	var new_list: Array
 	for element in list:
 			if is_object_able_to_collide_with_mouse(element):
 				new_list.append(element)
 	return new_list
 
-func is_object_able_to_collide_with_mouse(object):
+## This methodif an object is allowed to collide with the mouse.
+func is_object_able_to_collide_with_mouse(object)  -> bool:
 	if object.collider.collision_mask != COLLISION_MASK_LINE:
 		return true
 	else:

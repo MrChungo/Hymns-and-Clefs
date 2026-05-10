@@ -18,7 +18,7 @@ func _ready() -> void:
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 
-
+## This method sets the button's pivot to half it's size.
 func set_pivot() -> void:
 	pivot_offset = size/2
 

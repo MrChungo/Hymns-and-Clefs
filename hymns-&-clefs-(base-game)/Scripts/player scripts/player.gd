@@ -13,7 +13,7 @@ var max_hp: int
 var shield: int = 0
 
 
-## loads player stats from Savefile & copies them to local player variables. [br]
+## loads player stats from [SaveManagerClass.save_file_data] & copies them to local player variables. [br]
 ## Involves player hp & max hp [br]
 ## Loads and starts playing the texture animations (depending on cleff type) [br]
 ## Updates positioning of health/shielf bars & updates their values to match loaded variales.

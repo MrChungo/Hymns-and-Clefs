@@ -5,11 +5,11 @@ extends Node2D
 const BATTLE_CHORD_SYSTEM_SCENE = preload("uid://b6oxxvrroq6ke")#"res://Scenes/Music Battle System Stuffs/Battle_Chord_system.tscn"
 const PLAYER_SCENE = preload("uid://bys0uidt8s34i")#"res://Scenes/player/player.tscn"
 const ENEMY_SCENE :=  preload("uid://448b5kjxjtf5") #res://Scenes/enemies/enemy.tscn
-const MAX_ENEMIES_PER_ROW:= 4
-const VERTICAL_ENEMY_SPACING:= 125
-const HORIZONTAL_ENEMY_SPACING := 100
+const MAX_ENEMIES_PER_ROW:int = 4
+const VERTICAL_ENEMY_SPACING:int = 125
+const HORIZONTAL_ENEMY_SPACING:int = 100
 
-signal card_used(enemy)
+signal card_used(enemy:enemy_class) ##Signal is sent when a card is used on an enemy.
 
 var global_rarities = load("uid://dsdqu3nm2dwxg") #"res://Resources/Misc/default_global_rarities.tres"
 var test_save = load("uid://chmnudsaqsjho") #"res://Resources/Save States/Test_Battle_save.tres"
@@ -23,12 +23,12 @@ var waiting_for_action: bool
 var battle: bool
 
 #player spawning and stuffs
-var player: Node2D
+var player: player_class
 var hand_size: int
 var card_being_used: Node2D
 
 #battle runtime stuff
-var battle_chord_system
+var battle_chord_system: BattleChordSystemClass
 
 #enemy spawning
 var enemy_quantity :int
@@ -46,7 +46,10 @@ func _ready() -> void:
 	battle_setup()
 
 #region Battle Loop Methods
-func battle_setup():
+## This method sets up the battle by creating a [player_class], and enemies. [br]
+## In addition it sets up the enemy next action labels and also the enemy and player [br]
+## health/shield bars.
+func battle_setup() -> void:
 	is_player_turn = true
 	
 	#spawns player
@@ -63,7 +66,6 @@ func battle_setup():
 	min_possible_enemies = difficulty
 	enemy_quantity = Random.get_random_int(min_possible_enemies,max_possible_enemies)
 	
-	print("min enemies: " + str(min_possible_enemies),"max enemies: " + str(max_possible_enemies), "enemy quant: " + str(enemy_quantity))
 	#spawns enemies & player
 	
 	await spawn_enemies(enemy_quantity)
@@ -85,8 +87,9 @@ func battle_setup():
 	battle_loop()
 
 
-
-func battle_loop():
+## This method runs the turn based part of the battle. IT also updates enemy positions [br]
+## Every turn just in case the player kills any.
+func battle_loop() -> void:
 	while battle:
 		if enemies.size() > 0:
 			await get_tree().process_frame
@@ -99,7 +102,11 @@ func battle_loop():
 		else:
 			battle_ends()
 
-func battle_ends():
+##This method occurs when the battle ends and saves the game, and sends the player to [br]
+## either [RewardsScreenClass] or [WinScreenClass]. In addition it changes [SaveManagerClass.save_file_data.world_difficulty] when [br]
+## beating a boss, and changes [SaveManagerClass.save_file_data.current_icon] by one when just advancing [br]
+## to the next level.
+func battle_ends() -> void:
 	
 	battle = false
 	if SaveManager.save_file_data.current_icon == 5:
@@ -117,27 +124,29 @@ func battle_ends():
 #endregion
 
 #region Save related methods
-func load_from_save():
+## This method loads relevant player and world data from [SaveManagerClass.save_file_data] [br]
+## that is required for the battle to work.
+func load_from_save() -> void:
 
-	await SaveManager._load()
-	await player.load_player_stats()
+	SaveManager._load()
+	player.load_player_stats()
 	#player.hp = 6666666666666
 	await %Deck.load_from_save()
 	difficulty = SaveManager.save_file_data.world_difficulty
 	hand_size = SaveManager.save_file_data.hand_size
 	
 	
-
-func save_to_savefile():
-	await player.save_player_stats()
+## This method saves [player_class] and [DeckClass] data to permanent memory.
+func save_to_savefile() -> void:
+	player.save_player_stats()
 	await %Deck.save_to_savefile()
-	await SaveManager._save()
+	SaveManager._save()
 #endregion
 
 #region Player Methods
 
-#player functions
-func spawn_player():
+## This method spawns a [player_class] and sets it's position and scale.
+func spawn_player() -> void:
 	player = PLAYER_SCENE.instantiate()
 	$"..".add_child.call_deferred(player)
 	player.name = "player"
@@ -149,7 +158,11 @@ func spawn_player():
 	var player_scale_factor = Globals.card_scale_factor*2
 	player.scale = Vector2(player_scale_factor,player_scale_factor)
 
-func player_turn():
+## This function plays out the player turn algorythm. Here it draws cards from [br]
+## [DeckClass] to hand and then awaits for the player to use trhe card to an enemy. [Br]
+## Then, it loads [BattleChordSystemClass], and if the player does a successful chord check [br]
+## it makes the card actually act on the enemy.
+func player_turn() -> void:
 	draw_cards_to_hand()
 	
 	#checks if card is in slot
@@ -163,21 +176,23 @@ func player_turn():
 	player.emit_signal("healthChanged")
 	update_enemy_labels()
 	is_player_turn = false
-	
-func player_death(target):
+
+## This method kills the player and changes scene to [DeathSceneClass]
+func player_death(target:player_class) -> void:
 	battle = false
 	target.death()
 	SignalManager.change_scene_to_death()
 #endregion
 
 #region Card logic
-#card logic
+
+#This method returns an [enemy_class] who has a [card_class] on it's [member enemy_class.card_in_slot]
 func select_target():
 	for n in enemies:
 		if n.card_in_slot:
 			return n
 
-func use_card(target, card):
+func use_card(target, card:card_class) -> void:
 	empty_hand()
 	card.visible = false
 	
@@ -194,7 +209,8 @@ func use_card(target, card):
 	unload_battle_chord_system()
 	emit_signal("card_used", target)
 
-func draw_cards_to_hand():
+## This method draws cards to hand.
+func draw_cards_to_hand() -> void:
 	var deck_ref = %Deck
 	for n in range(hand_size):
 		deck_ref.draw_card()
@@ -202,7 +218,9 @@ func draw_cards_to_hand():
 		for n in range(hand_size - len(%Hand.player_hand)):
 			deck_ref.draw_card()
 
-func empty_hand():
+
+## This method empties the hand by sending all the cards to [member DeckClass.discard_pile]
+func empty_hand() -> void:
 	var hand_ref = %Hand
 	var deck_ref = %Deck
 	
@@ -212,7 +230,11 @@ func empty_hand():
 #endregion
 
 #region Battle Chord System methods
-func load_battle_chord_system(card):
+
+##This method loads a [BattleChordSystemClass] where the measures deppend on [br]
+##The card's rarity. Common cards = 1 measure, Uncommon cards = 2 measures, Rare cards = 4 measures. [br]
+## Then it awaits for the player to finish the chord check to contine.
+func load_battle_chord_system(card:card_class) -> void:
 	var measures
 	if card.stats.rarity == 1:
 		measures = 1
@@ -231,14 +253,17 @@ func load_battle_chord_system(card):
 	battle_chord_system.load_battle_chord_system(measures)
 	%InputManager.refresh_conections()
 	await battle_chord_system.chord_checked
-	print("chord checked")
+	#print("chord checked")
 
-func unload_battle_chord_system():
+## This method unloads the [BattleChordSystemClass]
+func unload_battle_chord_system() -> void:
 	battle_chord_system.queue_free()
 	battle_chord_system = null
 #endregion
 
 #region enemy methods
+
+##
 func spawn_enemies(_enemy_quantity):
 	for n in range(_enemy_quantity):
 		var new_enemy = ENEMY_SCENE.instantiate()

@@ -1,4 +1,5 @@
 extends Node2D
+class_name RewardsScreenClass
 
 const USED_CARD_SLOT_REFERENCE = preload("uid://bc446000gge8c")
 const PLAYER_MAX_HEALTH_REWARD_QUANTITY = 10
