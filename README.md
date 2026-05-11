@@ -23,3 +23,8 @@ Email: elchungo0518@gmail.com
 3. Under "Assets", download the version called "Source code (zip)."
 4. Go into your files and unzip the Hymns and Clefs file
 5. Open the top file and play the game.
+
+
+#Resources
+All resources that inspired parts of the code can be found within the code itself but also can be found
+in the document annexed [url] https://docs.google.com/document/d/10VVOBHd0FQ7cY99Jv4byKOSy8ZcpYyBjjbHX0G48f3k/edit?usp=sharing [/url]
