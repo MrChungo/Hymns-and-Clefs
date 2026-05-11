@@ -186,19 +186,22 @@ func player_death(target:player_class) -> void:
 
 #region Card logic
 
-#This method returns an [enemy_class] who has a [card_class] on it's [member enemy_class.card_in_slot]
+##This method returns an [enemy_class] who has a [card_class] on it's [member enemy_class.card_in_slot]
 func select_target():
 	for n in enemies:
 		if n.card_in_slot:
 			return n
 
+## This method uses a [card_class] inputted on [param card], and applies the card effects [br]
+## on a [param target]. In addition to this, it loads calls [method load_battle_chord_system], and [br]
+## once used, it calls [unload_battle_chord_system] and calls [signal card_used] on [param target].
 func use_card(target, card:card_class) -> void:
 	empty_hand()
 	card.visible = false
 	
 	await load_battle_chord_system(card)
 	battle_chord_system.visible = false
-	if battle_chord_system.last_chord_check:
+	if battle_chord_system.last_chord_check: #if all chords are correct it uses the card
 		if card.stats.attack_points > 0:
 			await attack(target, card.stats.attack_points)
 		if card.stats.shield_points > 0:
@@ -263,13 +266,15 @@ func unload_battle_chord_system() -> void:
 
 #region enemy methods
 
-##
-func spawn_enemies(_enemy_quantity):
+## This method spawns enemies according to [param _enemy_quantity]. The enemies spawned [br]
+## are given random enemy stats, given a next action and added to the tree, and [member enemies]. [br]
+## [b]Important to not that this DOES NOT SPAWN BOSSES, that is handled by [method spawn_boss_enemy] [/b]
+func spawn_enemies(_enemy_quantity:int) -> void:
 	for n in range(_enemy_quantity):
 		var new_enemy = ENEMY_SCENE.instantiate()
-		$"../EnemyManager".add_child(new_enemy)
+		$"../EnemyManager".add_child(new_enemy) #adds enemy to tree, used for rendering
 		new_enemy.name = "enemy"
-		var stats = load(Random.get_random_enemy_resource(false))
+		var stats = load(Random.get_random_enemy_resource(false)) #gets random enemy (based on world diff)
 		new_enemy.max_hp = stats.base_enemy_hp
 		await new_enemy.update_enemy_stats(stats)
 		new_enemy.enemy_next_action = enemy_choose_action(new_enemy)
@@ -281,6 +286,8 @@ func spawn_enemies(_enemy_quantity):
 		
 		await get_tree().process_frame
 
+## This method spawns a boss enemy according to the current world difficulty. Works [br]
+## similarly as [method spawn_enemies]
 func spawn_boss_enemy():
 	var new_enemy = ENEMY_SCENE.instantiate()
 	$"../EnemyManager".add_child(new_enemy)
@@ -295,7 +302,8 @@ func spawn_boss_enemy():
 	new_enemy.update_next_action_texture()
 
 
-
+## This method updates the enemy positions from [member enemies] to fit well within each other [br]
+## and within the screen size.
 func alternate_update_enemy_positions() -> void:
 	var center_screen_x = Globals.center_screen_x
 	var center_screen_y = Globals.center_screen_y
@@ -327,14 +335,16 @@ func alternate_update_enemy_positions() -> void:
 			enemy.position.y = starting_enemy_y_position - (enemy.texture_size.y * enemy.scale.y) * row
 	await get_tree().process_frame
 
-	
 
-
-func update_enemy_labels():
+## This method updates the health, and shield bars for all enemies in [member enemies].
+func update_enemy_labels() -> void:
 	for n in enemies:
 		n.emit_signal("healthChanged")
 
-func enemy_turn():
+## This method cycles through all of the enemies in [member enemies], and makes them [br]
+## use their [enemy_class.enemy_next_action], then it selects their next action [br]
+## updates their labels, and moves it to the player's turn.
+func enemy_turn() -> void:
 	#loops through enemies
 
 	for _enemy in enemies:
@@ -343,7 +353,6 @@ func enemy_turn():
 			player.emit_signal("healthChanged")
 			await enemy_action(_enemy,_enemy.enemy_next_action)
 			_enemy.enemy_next_action = enemy_choose_action(_enemy)
-			print(_enemy.enemy_next_action)
 			_enemy.update_next_action_texture()
 	
 	if is_instance_valid(player) and is_inside_tree():
@@ -352,9 +361,12 @@ func enemy_turn():
 		update_enemy_labels()
 	is_player_turn = true
 
-func enemy_choose_action(_enemy):
+## This method is used to choose the next action of an [enemy_class]. It reads their [br]
+## enemy type, and deppending on this it will get a random action from [global_rarities_resource] [br]
+## and set it for the enemie's next action.
+func enemy_choose_action(_enemy:enemy_class) -> String:
 	var enemy_action_type = _enemy.enemy_action_type
-	var action = "doNothing"
+	var action = "doNothing" 
 	if enemy_action_type == 0: #balanced
 		action = Random.get_weighted_rarity(global_rarities.enemy_balanced_attack_rarity)
 	elif enemy_action_type == 1: #attacker
@@ -364,7 +376,9 @@ func enemy_choose_action(_enemy):
 	
 	return action
 
-func enemy_action(_enemy, action):
+## This method makes an enemy do their next action. In addition to this,
+## it updates enemy labels if needed.
+func enemy_action(_enemy:enemy_class, action:String):
 	if action != "doNothing":
 		if action == "attack":
 			await attack(player,_enemy.attack)
@@ -372,6 +386,8 @@ func enemy_action(_enemy, action):
 			await add_shield(_enemy, _enemy.shield_attack)
 			_enemy.emit_signal("healthChanged")
 
+## This method is called when an [enemy_class] must die. If safely erases the [br]
+## enemy, and allows for card system to not explode due to missing reference issues.
 func enemy_death(target):
 	enemies.erase(target)
 	await card_used
@@ -379,9 +395,12 @@ func enemy_death(target):
 #endregion
 
 #region Enemy and Player usable methods
-func attack(target, damage):
+
+## This method performs an attack to a [param target], this can be either a [player_class], [br]
+## or an [enemy_class]. The value of the attack is found in the parameter [param damage].
+func attack(target:Node2D, damage:int) -> void:
 	
-	if target.shield > 0:
+	if target.shield > 0: ## this is the part of the code that makes damage not penetrate the shield.
 		target.shield -= damage
 		if target.shield < 0:
 			target.shield = 0
@@ -398,12 +417,16 @@ func attack(target, damage):
 		elif target is player_class:
 			player_death(target)
 
-
-func add_shield(target, shield_added):
+## This method adds shield to a [param target], this can be either a [player_class], [br]
+## or an [enemy_class]. The value of the attack is found in the parameter [param damage].
+func add_shield(target:Node2D, shield_added:int) -> void:
 	$"../ParticleManager".play_particle_shieldUp(target.position)
 	await get_tree().create_timer(1.0).timeout
 	target.shield += shield_added
 
+## This method heals a [param target], this can be either a [player_class], [br]
+## or an [enemy_class]. The value of the attack is found in the parameter [param damage]. [br]
+## Important: The health cannot exceed the [param target]'s max health.
 func heal(target, health):
 	target.hp += health
 	$"../ParticleManager".play_particle_healUp(target.position)

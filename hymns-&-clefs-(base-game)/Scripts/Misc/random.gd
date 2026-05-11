@@ -1,4 +1,6 @@
 extends Node2D
+## this whole random system was taken and based from: [br]
+## Gwizz on [url]https://www.youtube.com/watch?v=sHHIcDG7Um0&t=1s[/url]
 class_name RandomClass
 
 var rng:RandomNumberGenerator = RandomNumberGenerator.new()

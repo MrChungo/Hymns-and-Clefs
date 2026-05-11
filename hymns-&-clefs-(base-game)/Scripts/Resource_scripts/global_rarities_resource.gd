@@ -1,4 +1,6 @@
 extends Resource
+## this whole rarity was taken and based from: [br]
+## Gwizz on [url]https://www.youtube.com/watch?v=sHHIcDG7Um0&t=1s[/url]
 class_name global_rarities_resource
 
 

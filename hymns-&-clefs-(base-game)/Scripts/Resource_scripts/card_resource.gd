@@ -1,5 +1,10 @@
 extends Resource
-class_name card_resource
+## Used to create card presets
+## [br] [br]
+## learnt to use resources from: [br]
+## DevWorm on [url]https://www.youtube.com/watch?v=D0uGtnMhB-E[/url] [br]
+## Pefeper on [url]https://www.youtube.com/watch?v=vzRZjM9MTGw [/url]
+class_name card_resource 
 
 # Card variables
 @export var card_name :String

@@ -1,4 +1,6 @@
 extends Node2D
+## code here is based on the series Godot 4 CARD GAME from Barry's Dev Hell, on youtube [br]
+## find it on [url] https://youtube.com/playlist?list=PLNWIwxsLZ-LMYzxHlVb7v5Xo5KaUV7Tq1&si=W6UocyFLIWn6tzMn [/url]
 class_name CardManagerClass
 
 signal card_used_on_enemy(enemy_target:enemy_class) ## Signal sent when a card is used on an enemy
@@ -91,7 +93,7 @@ func highlight_card(card:card_class, hovered:bool) -> void:
 		card.scale = Vector2(card_scale,card_scale)
 		card.z_index = 1
 		
-## THis method checks if there is a slot where a [card_class] can be put into.
+## This method checks if there is a slot where a [card_class] can be put into.
 func raycast_check_for_card_slot():
 	#checks if card is below mouse position
 	var space_state = get_world_2d().direct_space_state

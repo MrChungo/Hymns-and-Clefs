@@ -6,7 +6,8 @@ class_name battle_class
 func _ready() -> void:
 	background_setup()
 
-func background_setup():
+## Sets up background position and fits the texture to screen width
+func background_setup() -> void:
 	var current_background 
 	hide_backgrounds()
 	
@@ -29,7 +30,8 @@ func background_setup():
 	
 	current_background.scale = Vector2(texture_scale,texture_scale)
 
-func hide_backgrounds():
+## This method hides all background textures.
+func hide_backgrounds() -> void:
 	$BackgroundWorldOne.visible = false
 	$BackgroundWorldTwo.visible = false
 	$BackgroundWorldThree.visible = false

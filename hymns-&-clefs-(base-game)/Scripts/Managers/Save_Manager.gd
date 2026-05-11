@@ -1,5 +1,9 @@
 extends Node
-class_name SaveManagerClass ## This class manages the saving and loading of game files.
+## This class manages the saving and loading of game files.
+##[br][br]
+## I took inspiration and learnt how to use save files from: [br]
+## Mostly Mad Productions on [url] https://www.youtube.com/watch?v=xG2GGniUa5o&t=266s [/url]
+class_name SaveManagerClass 
 
 const save_location:String = "user://SaveFile.tres"
 
