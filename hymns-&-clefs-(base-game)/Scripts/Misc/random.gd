@@ -1,31 +1,46 @@
 extends Node2D
+## this whole random system was taken and based from: [br]
+## Gwizz on [url]https://www.youtube.com/watch?v=sHHIcDG7Um0&t=1s[/url]
+class_name RandomClass
 
-var rng = RandomNumberGenerator.new()
+var rng:RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
 	SaveManager._load()
 	rng.randomize()
-	
+
+## This method gets a random [int] from within an inclusive range.
 func get_random_int(min_int:int,max_int:int):
 	return rng.randi_range(min_int,max_int)
 	
-	
 
-func get_weighted_rarity(item_rarity):
+## This method gets a random rarity from within a [member global_rarities_resource.card_type_rarities].
+## Which is a weighted Dictionary.
+func get_weighted_rarity(item_rarity:Dictionary):
 	var weighted_sum = 0
 	
+	# Add up all rarity weights
 	for n in item_rarity:
 		weighted_sum += item_rarity[n]
+	
+	# Pick a random number between 0 and the total weight
 	var rarity_chosen = rng.randi_range(0,weighted_sum)
 	
+	# Go through each rarity
 	for n in item_rarity:
+		# If the random number lands in this rarity's range,
+		# return that rarity
 		if rarity_chosen <= item_rarity[n]:
 			return n
 		else:
+			# Otherwise subtract this weight
+			# and continue checking
 			rarity_chosen -= item_rarity[n]
 
-
+## This method gets a random rarity from within a member within a [global_rarities_resource].
+## Which is a weighted Dictionary, but the valuies of the keys are lists, [br]
+## whose indexes are meant to be correlated to [member SaveManagerClass.save_file_data.world_difficulty].
 func get_weighted_rarity_by_world(item_rarity):
 	var weighted_sum = 0
 	var world_diff_index_ref: int
@@ -47,6 +62,9 @@ func get_weighted_rarity_by_world(item_rarity):
 			rarity_chosen -= item_rarity[n][world_diff_index_ref] 
 			
 
+## This method gets a random [enemy_resource] from within the files of the [br]
+## project. What files are chosen deppend on [SaveManagerClass.save_file_data.world_difficulty], [br]
+## and [param is_boss].
 func get_random_enemy_resource(is_boss:bool):
 	var world_difficulty: int
 	
@@ -82,11 +100,13 @@ func get_random_enemy_resource(is_boss:bool):
 		
 		return path + enemies_in_folder[enemy_index]
 
-
-func get_random_card_resource(card_rarity):
+## This method gets a random [card_resource] from within the files of the [br]
+## project. What files are chosen deppend a randomly selected card rarity from [br]
+## [member global_rarities_resource.card_type_rarities].
+func get_random_card_resource(card_rarity:String) -> String:
 	
-	var path = "res://Resources/Card/"
-	var cards_in_folder = []
+	var path:String = "res://Resources/Card/"
+	var cards_in_folder:Array = []
 	
 
 	if card_rarity == "common":
@@ -101,9 +121,10 @@ func get_random_card_resource(card_rarity):
 		
 	return path + cards_in_folder[get_random_int(0,len(cards_in_folder)-1)]
 
-func dir_contents(path):
-	var files = []
-	var dir = DirAccess.open(path)
+## This method gets the contents from a folder within the files of the system.
+func dir_contents(path:String) -> Array:
+	var files:Array = []
+	var dir:DirAccess = DirAccess.open(path)
 	
 	if dir:
 		dir.list_dir_begin()

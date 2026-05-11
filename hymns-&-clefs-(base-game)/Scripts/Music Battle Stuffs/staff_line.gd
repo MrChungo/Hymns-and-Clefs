@@ -7,7 +7,7 @@ var line_defined_pitch: String # example "4"
 
 var notes_being_held: Array = []
 
-var line_segments: int
+var line_segments: int ## A "segment" is a middle texture of the "line" node.
 
 
 ## Lenghtens line's texture and Area2D to be a certain amounf of segments long [br]

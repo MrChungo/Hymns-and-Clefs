@@ -1,4 +1,5 @@
 extends Node2D
+class_name WinScreenClass
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -10,7 +11,8 @@ func _on_new_game_pressed() -> void:
 	SaveManager._new_save()
 	SignalManager.change_scene_to_character_select()
 
-## Sets up the position of buttons and their scale
+## Sets up the position of buttons and their scale [br]
+## Buttons are equdistantly placed using the center of the screen as their center
 func elements_setup():
 	var center_screen_x = Globals.center_screen_x
 	var center_screen_y = Globals.center_screen_y

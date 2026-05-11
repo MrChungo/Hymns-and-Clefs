@@ -1,16 +1,19 @@
 extends Node2D
+## code here is based on the series Godot 4 CARD GAME from Barry's Dev Hell, on youtube [br]
+## find it on [url] https://youtube.com/playlist?list=PLNWIwxsLZ-LMYzxHlVb7v5Xo5KaUV7Tq1&si=W6UocyFLIWn6tzMn [/url]
+class_name CardManagerClass
 
-signal card_used_on_enemy(enemy_target)
+signal card_used_on_enemy(enemy_target:enemy_class) ## Signal sent when a card is used on an enemy
 
-const COLLISION_MASK_CARD := 1
-const COLLISION_MASK_CARD_SLOT := 2
+const COLLISION_MASK_CARD:int = 1
+const COLLISION_MASK_CARD_SLOT:int = 2
 
 var screen_size
-var card_being_dragged
-var is_hovering_on_card
+var card_being_dragged:card_class
+var is_hovering_on_card:bool
 var player_hand_reference
 
-@onready var card_scale = round(Globals.center_screen_x/250)
+@onready var card_scale:int = round(Globals.center_screen_x/250)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,12 +27,16 @@ func _process(_delta: float) -> void:
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x,0, screen_size.x),clamp(mouse_pos.y,0, screen_size.y))
 
-
-func start_drag(card):
+## This method scales down a card when it's starting to be dragged and adds it to [br]
+## [member card_being_dragged]
+func start_drag(card:card_class) -> void:
 	card_being_dragged = card
 	card_being_dragged.scale = Vector2(card_scale,card_scale)
 
-func finish_drag():
+## This method is called when a card is finished being dragged. If a card is on a [br]
+## [card_slot_class], it will place that card on the [card_slot_class]. If it's not over a [br]
+## [card_slot_class], it will return the [card_class] back to hand.
+func finish_drag() -> void:
 	card_being_dragged.scale = Vector2(card_scale+0.5,card_scale+0.5)
 	var card_slot_found = raycast_check_for_card_slot()
 	if card_slot_found and not card_slot_found.card_in_slot:
@@ -48,23 +55,24 @@ func finish_drag():
 	
 	
 
-
-func connect_card_signals(card):
+## This method connects the card signals
+func connect_card_signals(card:card_class) -> void:
 	card.connect("card_hovered", on_hovered_over_card)
 	card.connect("card_hovered_off", on_hovered_off_card)
 
-
-func on_left_click_released():
+## This method calls upon [method finish_drag] when a card is released by the mouse.
+func on_left_click_released() -> void:
 	if card_being_dragged:
 		finish_drag()
 
-
-func on_hovered_over_card(card):
+## This method will highlight a card if the mouse is hovering over it.
+func on_hovered_over_card(card:card_class) -> void:
 	if !is_hovering_on_card:
 		is_hovering_on_card = true
 		highlight_card(card,true)
 
-func on_hovered_off_card(card):
+## This method will return a card back to small when it's stopped being hovered.
+func on_hovered_off_card(card:card_class) -> void:
 	#check if card is NOT in a card slot and is NOT being dragged
 	if !card.card_slot_card_is_in && !card_being_dragged:
 		#if not dragging
@@ -76,8 +84,8 @@ func on_hovered_off_card(card):
 		else:
 			is_hovering_on_card = false
 
-
-func highlight_card(card, hovered):
+# This method scales up a card when it's being hovered. And scales down when it's being not.
+func highlight_card(card:card_class, hovered:bool) -> void:
 	if hovered:
 		card.scale = Vector2(card_scale+0.5,card_scale+0.5)
 		card.z_index = 2
@@ -85,7 +93,7 @@ func highlight_card(card, hovered):
 		card.scale = Vector2(card_scale,card_scale)
 		card.z_index = 1
 		
-
+## This method checks if there is a slot where a [card_class] can be put into.
 func raycast_check_for_card_slot():
 	#checks if card is below mouse position
 	var space_state = get_world_2d().direct_space_state
@@ -99,6 +107,7 @@ func raycast_check_for_card_slot():
 	else:
 		return null
 
+## This method checks if there's a [card_class] under the mouse cursor.
 func raycast_check_for_card():
 	#checks if card is below mouse position
 	var space_state = get_world_2d().direct_space_state
@@ -113,7 +122,7 @@ func raycast_check_for_card():
 	else:
 		return null
 
-
+##This method gets the highest z-index [card_class] from an [Array]
 func get_card_with_highest_z_index(cards):
 	#asume first card passed has the highest z index
 	var highest_z_card = cards[0].collider.get_parent()

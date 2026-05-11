@@ -1,4 +1,5 @@
 extends Node2D
+class_name MapIconNode
 
 signal icon_hovered
 signal icon_hovered_off

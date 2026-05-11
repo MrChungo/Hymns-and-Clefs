@@ -1,16 +1,17 @@
 extends Node2D
+class_name NoteManagerClass
 
-signal note_used()
-signal remove_from_old_array(note)
-signal add_note_to_hand(note)
-signal play_note_sound(note)
+signal note_used()## Signal used when note is used by player.
+signal remove_from_old_array(note:NoteClass) ## Signal used when note must be removed from an old [Array]
+signal add_note_to_hand(note:NoteClass) ## Signal used when note must be added to hand.
+signal play_note_sound(note:NoteClass) ## Signal used when a note should play a sound.
 
-const COLLISION_MASK_NOTE := 8
-const COLLISION_MASK_NOTE_SLOT := 16
+const COLLISION_MASK_NOTE:int = 8
+const COLLISION_MASK_NOTE_SLOT:int = 16
 
 var screen_size
-var note_being_dragged
-var is_hovering_on_note
+var note_being_dragged:NoteClass
+var is_hovering_on_note:bool
 var battle_chord_system_reference
 
 @onready var note_scale = Globals.center_screen_x/280
@@ -31,12 +32,16 @@ func _process(_delta: float) -> void:
 		var mouse_pos = get_global_mouse_position()
 		note_being_dragged.position = Vector2(clamp(mouse_pos.x,0, screen_size.x),clamp(mouse_pos.y,0, screen_size.y))
 
-
-func start_drag(note):
+## This method is called when a note is being starting to be dragged.
+func start_drag(note:NoteClass) -> void:
 	note_being_dragged = note
 	note_being_dragged.scale = Vector2(note_scale,note_scale)
 
-func finish_drag():
+## This method is called when a note is finished being dragged. If a note is on a [br]
+## [staffLineClass], it will place that note on the [staffLineClass], and play the sound
+## of the note. If it's not over a [staffLineClass], it will return the [NoteClass] [br]
+## Back to hand, and then change it's type to normal.
+func finish_drag() -> void:
 	note_being_dragged.scale = Vector2(note_scale+0.5,note_scale+0.5)
 	var note_slot_found = raycast_check_for_note_slot()
 	if note_slot_found and (note_slot_found is staffLineClass):
@@ -72,28 +77,29 @@ func finish_drag():
 	
 	
 
-
-func connect_note_signals(note):
+## This method connects the signals from a [Noteclass].
+func connect_note_signals(note:NoteClass) -> void:
 	note.connect("note_hovered", on_hovered_over_note)
 	note.connect("note_hovered_off", on_hovered_off_note)
 
 
-func on_left_click_released():
+func on_left_click_released() -> void:
 	if note_being_dragged:
 		finish_drag()
 
-func on_right_click_released():
+func on_right_click_released() -> void:
 	if note_being_dragged:
 		finish_drag()
 		#note_being_dragged.change_note_type()
 
-
-func on_hovered_over_note(note):
+## This method scales up a note if the mouse is hovering over it.
+func on_hovered_over_note(note:NoteClass) -> void:
 	if !is_hovering_on_note:
 		is_hovering_on_note = true
 		highlight_note(note,true)
 
-func on_hovered_off_note(note):
+## This method scales a note to normal if the mouse is finished hovering over it.
+func on_hovered_off_note(note:NoteClass) -> void:
 	#check if note is NOT in a note slot and is NOT being dragged
 	if !note_being_dragged:
 		#if not dragging
@@ -105,8 +111,8 @@ func on_hovered_off_note(note):
 		else:
 			is_hovering_on_note = false
 
-
-func highlight_note(note, hovered):
+## This method makes a hovered over [NoteClass] larger in scale.
+func highlight_note(note:NoteClass, hovered:bool) -> void:
 	if hovered:
 		note.scale = Vector2(note_scale+0.5,note_scale+0.5)
 		note.z_index = 2
@@ -115,6 +121,7 @@ func highlight_note(note, hovered):
 		note.z_index = 1
 		
 
+## THis method checks if there is a slot where a [NoteClass] can be put into.
 func raycast_check_for_note_slot():
 	#checks if note is below mouse position
 	var space_state = get_world_2d().direct_space_state
@@ -129,6 +136,7 @@ func raycast_check_for_note_slot():
 	else:
 		return null
 
+## This method checks if there's a [NoteClass] under the mouse cursor.
 func raycast_check_for_note():
 	#checks if note is below mouse position
 	var space_state = get_world_2d().direct_space_state
@@ -143,8 +151,8 @@ func raycast_check_for_note():
 	else:
 		return null
 
-
-func get_note_with_highest_z_index(notes):
+##This method gets the highest z-index [NoteClass] from an [Array]
+func get_note_with_highest_z_index(notes:Array):
 	#asume first note passed has the highest z index
 	var highest_z_note = notes[0].collider.get_parent()
 	var highest_z_index = highest_z_note.z_index

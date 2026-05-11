@@ -6,13 +6,15 @@ https://www.musictheory.net/lessons/40
 https://en.wikipedia.org/wiki/Chord_(music)
 '''
 
-const NOTES_WITH_SHARPS = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"]
-const NOTES_WITH_FLATS = ["A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"]
+const NOTES_WITH_SHARPS:Array = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"] ## Chromatic scale with sharps
+const NOTES_WITH_FLATS:Array = ["A","Bb","B","C","Db","D","Eb","E","F","Gb","G","Ab"] ## Chromatic scale with flats
 
-var global_rarities = load("uid://dxut7bry6abc") #RANDOM_REFERENCE.get_weighted_rarity()
+var global_rarities = load("uid://dsdqu3nm2dwxg") #RANDOM_REFERENCE.get_weighted_rarity()
 
 
-
+## This method generates an [Array] that contains the notes of a chord [br]:
+## These notes are in the format [root, third, fifth]. And it's possible chord [br]
+## options are: MAJOR, MINOR, AUGMENTED, DIMINISHED. 
 func gen_chord() -> Array:
 	var chord: Array
 	var chord_type = get_chord_type()
@@ -82,8 +84,9 @@ func gen_chord() -> Array:
 	
 	return chord
 	
-	
-func get_scale(chord_type):
+## This method returns a scale with either sharps or flats, deppending on [br]
+## a chord type.
+func get_scale(chord_type:String) -> Array:
 	if chord_type == "major":
 		return NOTES_WITH_SHARPS
 	elif chord_type == "minor":
@@ -95,21 +98,17 @@ func get_scale(chord_type):
 	else:
 		return NOTES_WITH_SHARPS
 	
-	#var scale_chosen = Random.get_random_int(0,1)
-	#if scale_chosen == 0:
-		#return NOTES_WITH_SHARPS
-	#elif scale_chosen == 1:
-		#return NOTES_WITH_FLATS
 	
-
-func get_random_index_from_scale(scale):
+## THis method returns a random index from within [constant NOTES_WITH_SHARPS], or [constant NOTES_WITH_FLATS]
+func get_random_index_from_scale(scale:Array):
 	return Random.get_random_int(0,len(scale)-1)
 
+##This function gets a random chord type using the method [RandomClass.get_weighted_rarity_by_world].
 func get_chord_type():
 	return Random.get_weighted_rarity_by_world(global_rarities.chord_type_rarity)
 	
-
-func identify_chord_type(chord):
+## This method identifies the type of chord that is inserted as it's parameter.
+func identify_chord_type(chord) -> String:
 	var chord_type: String
 	var chord_scale_index = get_chord_scale_index(chord)
 	var third = ""
@@ -147,7 +146,7 @@ func identify_chord_type(chord):
 		return "ERROR"
 	return chord_type
 
-	
+## THis method gets the name of a chord from an [Array] with 3 notes.
 func get_chord_name(chord:Array) -> String:
 	var chord_name: String
 	var chord_scale_index = get_chord_scale_index(chord)
@@ -186,7 +185,8 @@ func get_chord_name(chord:Array) -> String:
 		return "ERROR"
 	return chord_name
 
-func get_string_chord_notes(chord):
+## This method returns the notes from a chord [Array], as a [String]
+func get_string_chord_notes(chord) -> String:
 	var chord_name = ""
 	for n in range(len(chord)):
 		if n != len(chord)-1:
@@ -195,7 +195,8 @@ func get_string_chord_notes(chord):
 			chord_name += chord[n]
 	return chord_name
 
-
+## This method returns the index position of a note within either [constant NOTES_WITH_SHARPS], [br]
+## or [constant NOTES_WITH_FLATS]
 func get_chord_scale_index(chord:Array) -> Array:
 	var chord_scale_indexes: Array
 	var scale = find_scale_from_chord(chord)
@@ -208,7 +209,7 @@ func get_chord_scale_index(chord:Array) -> Array:
 
 	return chord_scale_indexes
 	
-	
+## This method checks if a chord [Array] is a part of either [constant NOTES_WITH_SHARPS], or [constant NOTES_WITH_FLATS]
 func find_scale_from_chord(chord):
 	for note in chord:
 		if "#" in note:
@@ -217,7 +218,8 @@ func find_scale_from_chord(chord):
 			return NOTES_WITH_FLATS
 	return NOTES_WITH_SHARPS
 
-func get_correct_note_name(wrong_name):
+## This function gets the correct name of a note (eg: B# -> C)
+func get_correct_note_name(wrong_name:String) -> String:
 	var scale = find_scale_from_chord([wrong_name])
 	var base_note_index = get_chord_scale_index([wrong_name[0]])[0]
 	var right_name
@@ -239,9 +241,7 @@ func get_correct_note_name(wrong_name):
 	
 	return right_name
 
-
-
-
+## This method swaps the notes within a chord [Array] from Sharps to Flats.
 func swap_flats_and_sharps(chord: Array) -> Array:
 	var new_chord: Array
 	if find_scale_from_chord(chord) == NOTES_WITH_SHARPS:
@@ -252,6 +252,7 @@ func swap_flats_and_sharps(chord: Array) -> Array:
 			new_chord.append(NOTES_WITH_SHARPS[index])
 	return new_chord
 
+## This method swaps a note name from Sharp to Flat..
 func swap_note_flats_and_sharps(note: String) -> String:
 	var new_note: String
 	if find_scale_from_chord([note]) == NOTES_WITH_SHARPS:

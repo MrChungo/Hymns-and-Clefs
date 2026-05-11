@@ -2,13 +2,13 @@ extends Node2D
 class_name NoteClass
 
 
-signal note_hovered
-signal note_hovered_off
+signal note_hovered ## Signal sent when mouse hovers over the note
+signal note_hovered_off ## Signal sent when mouse hovers off the note
 
-var note: String
-var position_in_hand
-var measure:int
-var line_note_is_in
+var note: String ## This is the base note (Aka A, B, C, etc)
+var position_in_hand ## Used to get note back to hand in [BattleChordSystemClass]
+var measure:int ## Assigned to have the note remember what measure it belongs in.
+var line_note_is_in ## If the note is being held within a [StaffLineClass] This won't be [code] null [/code]
 var type: String
 var pitch: String
 
@@ -24,13 +24,17 @@ func _on_mouse_clickeable_mouse_entered() -> void:
 func _on_mouse_clickeable_mouse_exited() -> void:
 	emit_signal("note_hovered_off",self)
 	
-
-func get_note_lenght():
+## This function gets the lenght of the texture of the note. [br]
+## Important to have in mind this is affected by [member scale].
+func get_note_lenght() -> float:
 	var note_texture = $Sprite2D
 	return (note_texture.texture.get_width() * self.scale.x)
 	
 
-func shift_note_type():
+## This method changes the note type to the next type. It follows this loop [br]
+## [u] Natural -> Sharp -> Flat [/u]. In addition it also changes the texture [br]
+## to match this change.
+func shift_note_type() -> void:
 	$Sharp.visible = false
 	$Flat.visible = false
 	if type == "natural":
@@ -42,6 +46,9 @@ func shift_note_type():
 	else:
 		type = "natural"
 
+## This method gets the true note name of a [NoteClass] (for example: A#, B, Gb).
+## Important to note that the note and type could be wrong (for example: B#) [br]
+## but the method [method ChordManagerClass.get_correct_note_name] Is called to fix this.
 func get_note_name_with_type() -> String:
 	var wrong_name
 	if type == "sharp":

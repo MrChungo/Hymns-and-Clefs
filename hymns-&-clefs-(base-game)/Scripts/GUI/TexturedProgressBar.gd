@@ -1,4 +1,5 @@
 extends TextureProgressBar
+class_name TextureProgressBarClass
 
 var label_current
 var label_max
@@ -14,7 +15,8 @@ func _ready() -> void:
 	target.healthChanged.connect(updateValues)
 	
 
-func create_label():
+## This method crates the (current / max) text on the [TextureProgressBarClass].
+func create_label() -> void:
 	var scale_factor = Globals.card_scale_factor * 4
 	var font_sz = self.texture_over.get_size().y * scale_factor
 	
@@ -43,9 +45,9 @@ func create_label():
 	
 	# IMPORTANT: Set pivot to the right center so it stays on the right
 	label_max.pivot_offset = Vector2(size.x * 0.8, -size.y / 4)
-	
 
-func updateValues():
+## This method updates the values of the labels on the [TextureProgressBarClass].
+func updateValues() -> void:
 	if being_displayed == valueBeingDisplayed.HEALTH:
 		value = target.hp
 		max_value = target.max_hp
@@ -60,14 +62,16 @@ func updateValues():
 	
 	update_label()
 
-
-func update_positioning(new_position):
+## This method makes the labels center, actually centered by moving them [br]
+## by their [member pivot_offset]
+func update_positioning(new_position) -> void:
 	pivot_offset = size/2
 	position.x = new_position.x - pivot_offset.x
 	position.y = new_position.y - pivot_offset.y
 
 
-func update_label():
+## This method updates the valiues on the labels of the [TextureProgressBarClass]
+func update_label() -> void:
 	# Show as "50 / 100" or percentage "50%"
 	var current_value = value
 	var maximum_value = max_value

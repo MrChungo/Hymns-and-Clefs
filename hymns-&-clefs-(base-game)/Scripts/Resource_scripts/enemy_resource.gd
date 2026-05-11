@@ -1,5 +1,5 @@
 extends Resource
-class_name enemy_resource
+class_name enemy_resource ## Used to create enemy presets
 
 # enemy sprite animation
 @export var enemy_animation:SpriteFrames

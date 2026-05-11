@@ -1,15 +1,14 @@
 extends Node
+class_name SoundManagerClass ## This class manages sound playing in the game.
 
 const FLUTE_NOTES_PATH = preload("uid://civcgmid4g4fj") #"res://Scenes/MusicPlayer/flute_single_notes.tscn"
 const CELLO_NOTES_PATH = preload("uid://k0rbllmkhdd1") #"res://Scenes/MusicPlayer/cello_single_notes.tscn"
 var chosen_instrument: String
 
-var instrument_sounds
-
-# Called when the node enters the scene tree for the first time.
+var instrument_sounds: Node
 
 
-
+## This method loads sounds depending on what clef is selected on [SaveManagerClass.save_file_data.cleff_type]
 func load_from_savefile():
 	for child in get_children():
 		child.queue_free()
@@ -21,15 +20,17 @@ func load_from_savefile():
 	else:
 		load_instrument("flute")
 
-func load_instrument(string):
-	chosen_instrument = string
-	if string == "flute":
+## This method loads the sound of an instrument based on [param stinstrument_namering]
+func load_instrument(instrument_name:String):
+	chosen_instrument = instrument_name
+	if chosen_instrument == "flute":
 		instrument_sounds = FLUTE_NOTES_PATH.instantiate()
 		$".".add_child(instrument_sounds)
-	elif string == "cello":
+	elif chosen_instrument == "cello":
 		instrument_sounds = CELLO_NOTES_PATH.instantiate()
 		$".".add_child(instrument_sounds)
 
+# This method plays the sound of a note.
 func play_note(note, pitch, wait = false):
 		
 	var node_name = note + pitch + " " + chosen_instrument
@@ -44,7 +45,7 @@ func play_note(note, pitch, wait = false):
 		await note_node.finished 
 		
 
-
+## This method plays the sound of a chord.
 func play_chord(notes: Array, pitches: Array):
 	for n in range(len(notes)):
 		if n != len(notes) -1:

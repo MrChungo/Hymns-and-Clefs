@@ -1,4 +1,6 @@
 extends Node2D
+## code here is based on the series Godot 4 CARD GAME from Barry's Dev Hell, on youtube [br]
+## find it on [url] https://youtube.com/playlist?list=PLNWIwxsLZ-LMYzxHlVb7v5Xo5KaUV7Tq1&si=W6UocyFLIWn6tzMn [/url]
 class_name card_class
 
 @export var stats : card_resource

@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("2_r661m")
+chord_difficulty = 1
 world_difficulty = 1
 current_player_hp = 20
 max_player_hp = 20

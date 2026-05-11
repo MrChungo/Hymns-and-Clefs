@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/A#3 Cello.mp3-64d7a353f6cf6040a3f8287dba378be
 [params]
 
 loop=false
-loop_offset=0
-bpm=0
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4

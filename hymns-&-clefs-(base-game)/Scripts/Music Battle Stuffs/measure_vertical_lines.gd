@@ -1,11 +1,14 @@
 extends Node2D
+class_name StaffVerticalLineClass
+
+var line_segments: int ## A "segment" is a middle texture of the "line" node.
 
 
-var line_segments: int
-
-
-# Called when the node enters the scene tree for the first time.
-func transform_line_to_lenght(segments):
+## Lenghtens line's texture and Area2D to be a certain amounf of segments long [br]
+## (a segment is a "middle texture" of the line). [br]
+## Imporrtant to have in mind that it resizes the line to be segment + 2 long [br]
+## as it also needs to add the texture segments for the end of the line.
+func transform_line_to_lenght(segments) -> void:
 	line_segments = segments
 	
 	var mid = $mid_line_texture
@@ -21,7 +24,8 @@ func transform_line_to_lenght(segments):
 	$end_line_texture_bottom.position.y = height / 2 + texture_offset
 	$end_line_texture_top.position.y = -height / 2 - texture_offset
 
-func get_line_lenght():
+## Returns Height of line in pixels. It counts the scale factor of the line too.
+func get_line_height() -> float:
 	var mid = $mid_line_texture
 	var end = $end_line_texture_top
-	return (mid.texture.get_height() * mid.scale.y) + (end.texture.get_height()*2)
+	return (mid.texture.get_height() * mid.scale.y) + (end.texture.get_height()*2.0)
