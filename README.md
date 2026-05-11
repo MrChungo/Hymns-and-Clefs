@@ -27,4 +27,4 @@ Email: elchungo0518@gmail.com
 
 #Resources
 All resources that inspired parts of the code can be found within the code itself but also can be found
-in the document annexed [url] https://docs.google.com/document/d/10VVOBHd0FQ7cY99Jv4byKOSy8ZcpYyBjjbHX0G48f3k/edit?usp=sharing [/url]
+in the document annexed https://docs.google.com/document/d/10VVOBHd0FQ7cY99Jv4byKOSy8ZcpYyBjjbHX0G48f3k/edit?usp=sharing 
